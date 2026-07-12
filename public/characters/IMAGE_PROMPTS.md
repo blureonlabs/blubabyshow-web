@@ -32,13 +32,15 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 
 **Reference to upload:** `blu_blubabyshow_v3.png`
 
-> Using the uploaded reference image, keep baby Blu's face, proportions and outfit
-> exactly the same. **Subject:** Blu, a chubby, adorable 1.5-year-old baby boy with big
-> round sparkling blue eyes, a small tuft of soft brown hair, rosy round cheeks, and a
-> wide open-mouthed giggle, wearing his light-blue short-sleeve onesie. Across the chest
-> of the onesie, print the word **"blubabyshow"** in clean, rounded, lowercase white
-> letters, neatly centred, correctly spelled and clearly legible, gently following the
-> curve of his tummy. Bare hands and feet. **Action:** standing on both feet, arms open
+> Using the uploaded reference image, keep baby Blu's face and proportions exactly the
+> same, but change his outfit to a **full onesie** (a full-body footed baby onesie /
+> sleepsuit with long sleeves and long legs that cover his feet). **Subject:** Blu, a
+> chubby, adorable 1.5-year-old baby boy with big round sparkling blue eyes, a small tuft
+> of soft brown hair, rosy round cheeks, and a wide open-mouthed giggle, wearing a soft
+> light-blue **full footed onesie**. Across the chest of the onesie, print the word
+> **"blubabyshow"** in clean, rounded, lowercase white letters, neatly centred, correctly
+> spelled and clearly legible, gently following the curve of his tummy. Only his chubby
+> hands and face are uncovered. **Action:** standing on both feet, arms open
 > and reaching slightly up as if asking to be picked up, mid-laugh, full of joy.
 > **Environment:** none — floating on a fully transparent background. **Composition &
 > camera:** full body, centred, head-to-toe in frame with generous padding, eye-level,
@@ -170,11 +172,13 @@ point the Shop `<img>` at it (one-line change; tell me to do it).
 
 **Reference to upload:** `blu_blubabyshow_v3.png`
 
-> Using the uploaded reference image, keep baby Blu's face, proportions and outfit exactly
-> the same. **Subject:** Blu, the chubby 1.5-year-old baby boy with big round sparkling
-> blue eyes, small brown hair tuft and rosy cheeks, wearing his light-blue short-sleeve
-> onesie with the word **"blubabyshow"** printed in clean lowercase white letters across
-> the chest (correctly spelled, legible). He is holding a chunky, colourful children's
+> Using the uploaded reference image, keep baby Blu's face and proportions exactly the
+> same, but change his outfit to a **full onesie** (full-body footed baby sleepsuit, long
+> sleeves and legs). **Subject:** Blu, the chubby 1.5-year-old baby boy with big round
+> sparkling blue eyes, small brown hair tuft and rosy cheeks, wearing a soft light-blue
+> **full footed onesie** with the word **"blubabyshow"** printed in clean lowercase white
+> letters across the chest (correctly spelled, legible). He is holding a chunky, colourful
+> children's
 > **colouring book** and a fat crayon. **Action:** proud, delighted show-and-tell pose —
 > holding the colouring book up toward the viewer with both hands, big happy grin, as if
 > saying "look what I made!". **Environment:** none — floating on a fully transparent
@@ -200,7 +204,7 @@ keep every face on-model from its sheet.
 
 > Using the five uploaded reference images, keep each character's face, proportions and
 > outfit identical to their sheet. **Subject:** the whole Blu Baby Show family together —
-> baby **Blu** (light-blue onesie with "blubabyshow" on the chest), **Mum** (coral top,
+> baby **Blu** (light-blue **full footed onesie** with "blubabyshow" on the chest), **Mum** (coral top,
 > blue jeans, warm smile), **Dad** (grey t-shirt, blue jeans, light stubble, easy grin),
 > the chubby **Dalmatian puppy**, and the **newborn baby sister** swaddled in her pink
 > heart blanket cradled in Mum's arms. **Action:** a warm, playful family moment outdoors —
