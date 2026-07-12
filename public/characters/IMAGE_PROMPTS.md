@@ -158,10 +158,53 @@ that would sit proudly on a phone home screen next to Bluey and Cocomelon.
 > muddy gradients, text or lettering, extra characters, harsh shadows, thin lines that
 > vanish at 32px. Square 1:1, 512×512.
 
-**Also worth exporting** (optional, not wired up yet): a wider **social-share / header
-lockup** — the same Blu-face badge on the left with a chunky rounded **"Blu Baby Show"**
-wordmark beside it, on a transparent background, ~1200×630 for `og:image`. Tell me if you
-want this and I'll add a slot + the code hookup.
+### More logo directions to try (A–F)
+
+Generate a few, compare, pick a winner — then save the chosen one as `watermark.png`.
+**Shared for all:** reference `blu_blubabyshow_v3.png` (head only); keep Blu's face on-model;
+fully transparent outside the shape; bold + minimal so it survives **32×32px**; square 1:1,
+512×512 (F is wide). Each starts with *"using the uploaded reference for Blu's face…"*.
+
+**A · Glossy app icon** *(the current one — baseline)*
+> …design a premium mascot app icon: a big friendly close-up of Blu's face filling a
+> **rounded-square badge** with a soft sky-blue gradient (`#8ecbfb`→`#57b0f0`), subtle glossy
+> inner highlight, and two tiny clouds + a small sun peeking in a corner. Front-facing,
+> joyful, oversized face for small-size punch, even margin. Modern kids-brand app-icon style,
+> chunky rounded shapes, high contrast. **Avoid:** body, text, background outside the badge,
+> tiny details, muddy gradients, harsh shadows.
+
+**B · Die-cut sticker badge**
+> …design a **circular die-cut sticker** of Blu's face — glossy stylised 3D Blu head, big
+> blue eyes, hair curl, rosy cheeks, warm smile, on a soft sky-blue circle with a **thick
+> clean white sticker border** and a soft drop shadow, everything outside the white border
+> transparent. Playful, tactile, sticker-pack feel. **Avoid:** body, text, square frame,
+> fussy detail, harsh shadows.
+
+**C · Peeking Blu** *(very kids-brand, playful)*
+> …a rounded-square sky-blue badge where **Blu peeks up over the bottom edge** — only the top
+> half of his face (eyes, hair curl, hands gripping the rim) visible, big curious eyes, as if
+> peeking out to say hi. Cute, cheeky, memorable. Even margin, bold shapes. **Avoid:** full
+> face centred, text, background outside the badge, tiny detail.
+
+**D · Minimal flat emblem** *(best pure favicon — crispest at 16–32px)*
+> …a **super-minimal flat emblem** of Blu's head, reduced to simple geometric shapes and just
+> 3–4 flat colours (sky-blue face, brown hair curl, white eyes, dark pupils) — no gradients,
+> no 3D, clean vector logo, thick forms, maximum legibility at tiny sizes. Centred, generous
+> padding. **Avoid:** 3D shading, gradients, thin lines, text, realistic detail.
+
+**E · Monogram mark**
+> …a modern **letter-mark**: a chunky rounded lowercase **"b"** in Blu-blue where the round
+> bowl of the "b" doubles as Blu's face (small blue eyes + hair-curl + smile inside the
+> counter). Clever, clean, scalable brand mark. Centred, bold, high contrast. **Avoid:**
+> full character body, extra letters, thin strokes, busy detail.
+
+**F · Wordmark lockup** *(wide — for `og:image` / header, not the 32px favicon)*
+> …a **horizontal logo lockup**: the Blu-face badge (variant A) on the left, and to its right
+> a chunky, rounded, playful **"Blu Baby Show"** wordmark in deep navy-blue (`#2b2c41`) with a
+> cheerful sky-blue accent. Balanced, clean, transparent background. **Style:** friendly
+> kids-brand logo. **Avoid:** clutter, misspelling, harsh shadows. **Aspect ratio 1200×630.**
+
+I can wire the winner in as `watermark.png` (favicon + share image) the moment you drop it in.
 
 ---
 
