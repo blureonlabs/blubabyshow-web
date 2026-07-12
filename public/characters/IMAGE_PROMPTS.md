@@ -35,16 +35,24 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 > Using the uploaded reference image, keep baby Blu's face, proportions and outfit
 > exactly the same. **Subject:** Blu, a chubby, adorable 1.5-year-old baby boy with big
 > round sparkling blue eyes, a small tuft of soft brown hair, rosy round cheeks, and a
-> wide open-mouthed giggle, wearing his light-blue short-sleeve onesie, with bare hands
-> and feet. **Action:** standing on both feet, arms open and reaching slightly up as if
-> asking to be picked up, mid-laugh, full of joy. **Environment:** none — floating on a
-> fully transparent background. **Composition & camera:** full body, centred, head-to-toe
-> in frame with generous padding, eye-level, gentle 3/4 angle facing the camera, 50mm
-> lens look. **Lighting & mood:** soft top-left key light with a warm bounce and a subtle
-> rim light, cheerful and tender. **Style:** high-fidelity 3D Pixar / Illumination-style
+> wide open-mouthed giggle, wearing his light-blue short-sleeve onesie. Across the chest
+> of the onesie, print the word **"blubabyshow"** in clean, rounded, lowercase white
+> letters, neatly centred, correctly spelled and clearly legible, gently following the
+> curve of his tummy. Bare hands and feet. **Action:** standing on both feet, arms open
+> and reaching slightly up as if asking to be picked up, mid-laugh, full of joy.
+> **Environment:** none — floating on a fully transparent background. **Composition &
+> camera:** full body, centred, head-to-toe in frame with generous padding, eye-level,
+> gentle 3/4 angle facing the camera, 50mm lens look, chest clearly visible so the wordmark
+> reads. **Lighting & mood:** soft top-left key light with a warm bounce and a subtle rim
+> light, cheerful and tender. **Style:** high-fidelity 3D Pixar / Illumination-style
 > character render, soft rounded forms, subsurface-scattering skin, big expressive eyes,
-> smooth clean surfaces. **Avoid:** background, ground, cast shadow on floor, props, text,
-> watermark, extra limbs, cropped feet, harsh shadows.
+> smooth clean surfaces. **Avoid:** background, ground, cast shadow on floor, props,
+> misspelled or garbled chest text, any text other than "blubabyshow" on the chest,
+> watermark logos, extra limbs, cropped feet, harsh shadows.
+>
+> *Tip: if the chest text comes out garbled, generate Blu plain first, then use an NB2
+> conversational edit — "add the word 'blubabyshow' in clean lowercase white letters across
+> the chest of the onesie, keep everything else the same."*
 
 ---
 
@@ -124,23 +132,34 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 
 ## `watermark.png` — logo mark / favicon  (browser tab + social share)
 
-A tiny emblem built from **Blu's face** that must stay legible at **32×32px** — so keep it
-bold, simple, few details, strong contrast.
+A premium **app-icon-quality** mark built from **Blu's face** that must stay crisp and
+readable at **32×32px**. Rounded-square badge (reads better and feels more "brand" than a
+thin ring at small sizes), bold shapes, few details, strong contrast — the kind of icon
+that would sit proudly on a phone home screen next to Bluey and Cocomelon.
 
 **Reference to upload:** `blu_blubabyshow_v3.png` (use the head only)
 
-> Using the uploaded reference image for Blu's face, design a clean, minimal circular logo
-> emblem. **Subject:** baby Blu's face only — round friendly face, big blue eyes, small
-> brown hair tuft, rosy cheeks, warm closed smile — centred inside a soft sky-blue
-> (#57b0f0) rounded circle badge with a thin white ring around it. **Action:** front-facing,
-> looking straight at the viewer, happy. **Environment:** the coloured circle badge fills
-> the frame; everything outside the circle is transparent. **Composition & camera:**
-> perfectly centred, front-on, symmetrical, generous margin inside the circle, flat
-> icon-style framing. **Lighting & mood:** even flat lighting, cheerful and iconic.
-> **Style:** simplified, slightly flattened 3D / clean vector-friendly mascot logo — bold
-> shapes, minimal detail, high contrast, reads clearly at very small sizes. **Avoid:**
-> body, background outside the circle, fine detail, gradients that muddy at small size,
-> text, extra characters, busy shading. Square 1:1, 512×512.
+> Using the uploaded reference image for Blu's face, design a polished, premium mascot
+> **app icon**. **Subject:** a big, bold, friendly close-up of baby Blu's face — large
+> round sparkling blue eyes with a bright catch-light, his signature little curl of brown
+> hair, rosy cheeks and a warm happy smile — filling most of a **rounded-square badge**
+> with a soft sky-blue gradient (top `#8ecbfb` → bottom `#57b0f0`) and a subtle inner
+> highlight for gentle glossy depth. Add two tiny soft-white clouds and a small warm-yellow
+> sun peeking in a bottom corner as a subtle sky motif. **Action:** front-facing, looking
+> straight at the viewer, joyful. **Environment:** the rounded-square badge fills the frame;
+> everything outside the badge is fully transparent. **Composition & camera:** perfectly
+> centred, front-on, symmetrical, oversized face for punchy small-size legibility, generous
+> even margin inside the badge, flat icon framing. **Lighting & mood:** clean, even, softly
+> glossy, iconic and premium. **Style:** modern kids-brand app-icon / sticker-logo — chunky
+> rounded shapes, simplified stylised 3D, minimal fine detail, high contrast, crisp edges,
+> vibrant. **Avoid:** body or shoulders, background outside the badge, tiny fussy details,
+> muddy gradients, text or lettering, extra characters, harsh shadows, thin lines that
+> vanish at 32px. Square 1:1, 512×512.
+
+**Also worth exporting** (optional, not wired up yet): a wider **social-share / header
+lockup** — the same Blu-face badge on the left with a chunky rounded **"Blu Baby Show"**
+wordmark beside it, on a transparent background, ~1200×630 for `og:image`. Tell me if you
+want this and I'll add a slot + the code hookup.
 
 ---
 
