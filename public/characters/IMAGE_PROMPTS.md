@@ -163,13 +163,61 @@ want this and I'll add a slot + the code hookup.
 
 ---
 
-## Optional extras (not required by current code)
+## `blu_book.png` — Blu with the colouring book  (Shop section)
 
-- **`blu_book.png`** — Blu holding a colouring book + chunky crayon, proud show-and-tell
-  pose, for the Shop section (currently reuses `blu.png`). Same reference + Blu spec,
-  swap the **Action** line for the book pose.
-- **Family group shot** — all five together on grass, for a future hero banner: upload all
-  five reference sheets in one session (NB2 holds up to 5 characters) and prompt the group.
+Not wired up yet — the Shop section currently reuses `blu.png`. Drop this file in and I'll
+point the Shop `<img>` at it (one-line change; tell me to do it).
+
+**Reference to upload:** `blu_blubabyshow_v3.png`
+
+> Using the uploaded reference image, keep baby Blu's face, proportions and outfit exactly
+> the same. **Subject:** Blu, the chubby 1.5-year-old baby boy with big round sparkling
+> blue eyes, small brown hair tuft and rosy cheeks, wearing his light-blue short-sleeve
+> onesie with the word **"blubabyshow"** printed in clean lowercase white letters across
+> the chest (correctly spelled, legible). He is holding a chunky, colourful children's
+> **colouring book** and a fat crayon. **Action:** proud, delighted show-and-tell pose —
+> holding the colouring book up toward the viewer with both hands, big happy grin, as if
+> saying "look what I made!". **Environment:** none — floating on a fully transparent
+> background. **Composition & camera:** full body, centred, head-to-toe with generous
+> padding, eye-level, gentle 3/4 angle, 50mm look, the book cover clearly facing camera.
+> **Lighting & mood:** soft top-left key light with warm bounce and subtle rim light,
+> cheerful and proud. **Style:** high-fidelity 3D Pixar / Illumination-style character
+> render, soft rounded forms, subsurface-scattering skin, big expressive eyes, smooth clean
+> surfaces. **Avoid:** background, ground shadow, misspelled or garbled text (only
+> "blubabyshow" on the chest, no readable text on the book cover), watermark logos, extra
+> limbs, cropped feet, harsh shadows.
+
+---
+
+## `family_hero.png` — the whole family together  (future hero banner)
+
+A **wide scene**, not a transparent cutout — the five characters together in Blu's sunny
+world, for a future full-bleed hero banner. Not wired up yet.
+
+**References to upload (all in one session):** `blu_blubabyshow_v3.png`, `mom_v1_01.png`,
+`dad_v1_01.png`, `puppy_v1_01.png`, `sister_v1_01.png` — NB2 holds up to 5 characters, so
+keep every face on-model from its sheet.
+
+> Using the five uploaded reference images, keep each character's face, proportions and
+> outfit identical to their sheet. **Subject:** the whole Blu Baby Show family together —
+> baby **Blu** (light-blue onesie with "blubabyshow" on the chest), **Mum** (coral top,
+> blue jeans, warm smile), **Dad** (grey t-shirt, blue jeans, light stubble, easy grin),
+> the chubby **Dalmatian puppy**, and the **newborn baby sister** swaddled in her pink
+> heart blanket cradled in Mum's arms. **Action:** a warm, playful family moment outdoors —
+> Dad crouching with an arm around Blu, Blu mid-giggle reaching toward the puppy who bounds
+> in tongue-out, Mum beside them cradling the swaddled baby, everyone happy and connected.
+> **Environment:** a sunny grassy meadow with a few soft rolling green hills, bright
+> cerulean-blue sky, two or three fluffy white clouds and a warm cheerful sun — the
+> "Bluey's sunny world" look. **Composition & camera:** wide 16:9 landscape, group framed
+> centre with headroom and open sky above for a headline overlay, eye-level, slight
+> wide-angle, everyone full-body and clearly separated. **Lighting & mood:** warm golden
+> daylight, soft shadows, joyful and heart-warming. **Style:** high-fidelity 3D Pixar /
+> Illumination-style render, soft rounded forms, subsurface-scattering skin, big expressive
+> eyes, vibrant and clean. **Avoid:** text, watermark, extra people, cluttered background,
+> harsh shadows, distorted or duplicated faces, extra limbs. **Aspect ratio 16:9, 2K.**
+>
+> *Tip: if any face drifts, fix it with an NB2 edit — "keep the scene, make [character]'s
+> face match the uploaded reference for that character."*
 
 ---
 
