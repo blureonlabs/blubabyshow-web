@@ -1,38 +1,42 @@
 /* ============================================================
-   Blu Baby Show — design system  ·  "Blu's Sunny World"
-   Bright, joyful, Cocomelon-catchy. Sky + meadow + sunshine.
-   NO red anywhere (that's Blululu's colour, not Blu Baby Show).
-   Hero = warm coral/tangerine. Scene = sky blue + grass green + sun.
+   Blu Baby Show — design system  ·  "Blu's Sky World"
+   Bluey.tv-inspired: bright cerulean sky, fluffy clouds, warm
+   sand, deep-navy ink. Chunky rounded type. Joyful, hand-made.
+   Primary = Bluey blue. Warm pop = Bingo orange + heeler tan.
    ============================================================ */
 
 :root {
-  /* Neutrals */
-  --cream:   #fffaf0;   /* sunny warm white base */
-  --cream-2: #fff2dc;   /* soft section fill */
+  /* Neutrals — sky-tinted whites + warm sand */
+  --cream:   #eaf6ff;   /* pale sky-white — page base */
+  --cream-2: #d6ecff;   /* soft sky section fill */
+  --sand:    #f6efdb;   /* warm sand card/section */
+  --sand-2:  #ecdfbe;   /* deeper heeler sand */
   --paper:   #ffffff;
-  --ink:     #2e2a44;   /* deep grape-navy — playful dark, not harsh black */
-  --ink-soft:#6b6580;
+  --ink:     #2b2c41;   /* Bluey deep navy — text */
+  --ink-soft:#5c5d7a;
 
-  /* Brights */
-  --sky:     #4fb8e6;   --sky-d:   #2f9fd4;
-  --sun:     #ffc233;   --sun-d:   #f2a91f;
-  --grass:   #5ec96b;   --grass-d: #46b154;
-  --coral:   #ff8a5e;   --coral-d: #f26b3d;   /* PRIMARY / CTA — warm, not red */
-  --pink:    #ff86b3;   --pink-d:  #f4649b;
-  --grape:   #a883e6;   --grape-d: #8c62d6;
+  /* Brights — the Bluey cast */
+  --blu:     #57b0f0;   --blu-d:   #2f83c9;   /* PRIMARY — Bluey blue */
+  --blu-deep:#30598a;                          /* deep marking navy-blue */
+  --sky:     #8ecbfb;   --sky-d:   #57b0f0;    /* light sky */
+  --sun:     #f6c344;   --sun-d:   #e2a51e;    /* heeler tan / sunshine */
+  --orange:  #f2823c;   --orange-d:#db631d;    /* Bingo warmth */
+  --grass:   #74c05f;   --grass-d: #55a641;
+  --pink:    #f58cb6;   --pink-d:  #e5679a;    /* Muffin / Socks pink */
+  --grape:   #9b7fdc;   --grape-d: #7d5fc4;
 
   /* Type */
   --font-head: "Fredoka", ui-rounded, system-ui, sans-serif;
-  --font-body: "Poppins", system-ui, -apple-system, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, sans-serif;
   --font-serif: "Newsreader", Georgia, serif;
 
   /* Rhythm */
   --maxw: 1180px;
-  --radius: 30px;
-  --radius-sm: 18px;
-  --shadow: 0 26px 60px -22px rgba(46, 42, 68, 0.32);
-  --shadow-soft: 0 14px 36px -16px rgba(46, 42, 68, 0.2);
-  --shadow-sticker: 0 12px 24px -8px rgba(46, 42, 68, 0.26);
+  --radius: 32px;
+  --radius-sm: 20px;
+  --shadow: 0 26px 60px -22px rgba(43, 44, 65, 0.34);
+  --shadow-soft: 0 14px 36px -16px rgba(43, 44, 65, 0.22);
+  --shadow-sticker: 0 12px 24px -8px rgba(43, 44, 65, 0.28);
 }
 
 * { box-sizing: border-box; }
@@ -52,9 +56,10 @@ body {
 h1, h2, h3, h4 {
   font-family: var(--font-head);
   font-weight: 700;
-  line-height: 1.0;
+  line-height: 1.02;
   margin: 0 0 0.4em;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  color: var(--blu-deep);
 }
 h1 { font-size: clamp(2.8rem, 7.5vw, 5.4rem); }
 h2 { font-size: clamp(2.1rem, 4.6vw, 3.3rem); }
@@ -71,13 +76,13 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.16em;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--coral-d);
+  color: var(--blu-d);
   margin-bottom: 0.9rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 }
-.eyebrow::before { content: "★"; color: var(--sun-d); font-size: 0.95rem; }
+.eyebrow::before { content: "✦"; color: var(--sun-d); font-size: 0.95rem; }
 .eyebrow--light { color: #fff; }
 .eyebrow--light::before { content: none; }
 
@@ -91,13 +96,14 @@ img { max-width: 100%; display: block; }
 }
 .btn:hover { transform: translateY(-3px) rotate(-1.5deg); }
 .btn:active { transform: translateY(-1px); }
-.btn--primary { background: var(--coral); box-shadow: 0 10px 0 0 var(--coral-d), 0 22px 30px -14px rgba(242,107,61,0.6); }
-.btn--sky     { background: var(--sky);   box-shadow: 0 10px 0 0 var(--sky-d),   0 22px 30px -14px rgba(47,159,212,0.55); }
-.btn--sun     { background: var(--sun);   color: #5a3d00; box-shadow: 0 10px 0 0 var(--sun-d), 0 22px 30px -14px rgba(242,169,31,0.55); }
-.btn--grass   { background: var(--grass); box-shadow: 0 10px 0 0 var(--grass-d), 0 22px 30px -14px rgba(70,177,84,0.5); }
-.btn--ghost   { background: rgba(255,255,255,0.85); color: var(--ink); box-shadow: 0 6px 0 0 rgba(46,42,68,0.12); }
-.btn:hover.btn--ghost { box-shadow: 0 8px 0 0 rgba(46,42,68,0.16); }
-.btn--light   { background: #fff; color: var(--ink); box-shadow: var(--shadow-soft); }
+.btn--primary { background: var(--blu);    box-shadow: 0 10px 0 0 var(--blu-d),    0 22px 30px -14px rgba(47,131,201,0.6); }
+.btn--sky     { background: var(--sky);    box-shadow: 0 10px 0 0 var(--sky-d),    0 22px 30px -14px rgba(87,176,240,0.55); }
+.btn--sun     { background: var(--sun);    color: #5a3d00; box-shadow: 0 10px 0 0 var(--sun-d), 0 22px 30px -14px rgba(226,165,30,0.55); }
+.btn--orange  { background: var(--orange); box-shadow: 0 10px 0 0 var(--orange-d), 0 22px 30px -14px rgba(219,99,29,0.55); }
+.btn--grass   { background: var(--grass);  box-shadow: 0 10px 0 0 var(--grass-d),  0 22px 30px -14px rgba(85,166,65,0.5); }
+.btn--ghost   { background: rgba(255,255,255,0.85); color: var(--ink); box-shadow: 0 6px 0 0 rgba(43,44,65,0.12); }
+.btn:hover.btn--ghost { box-shadow: 0 8px 0 0 rgba(43,44,65,0.16); }
+.btn--light   { background: #fff; color: var(--blu-deep); box-shadow: var(--shadow-soft); }
 
 /* ---- Sections ---- */
 .section { position: relative; padding: clamp(3.5rem, 8vw, 6rem) 0; }
@@ -106,13 +112,13 @@ img { max-width: 100%; display: block; }
 
 .muted { color: var(--ink-soft); }
 .center { text-align: center; }
-.sticker { filter: drop-shadow(0 16px 12px rgba(46,42,68,0.25)); }
+.sticker { filter: drop-shadow(0 16px 12px rgba(43,44,65,0.25)); }
 
 .badge {
   display: inline-flex; align-items: center; gap: 0.4rem;
   font-family: var(--font-head); font-weight: 600; font-size: 0.92rem;
   padding: 0.5rem 1.05rem; border-radius: 999px;
-  background: #fff; color: var(--ink);
+  background: #fff; color: var(--blu-deep);
   box-shadow: var(--shadow-sticker);
 }
 
