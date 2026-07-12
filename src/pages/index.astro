@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Doodles from '../components/Doodles.astro';
+import Icon from '../components/Icon.astro';
 
 /* ------------------------------------------------------------------
    PHASE 0 — "Blu's Sunny World" homepage.
@@ -12,18 +13,18 @@ import Doodles from '../components/Doodles.astro';
 ------------------------------------------------------------------ */
 
 const pillars = [
-  { title: 'Big Feelings', blurb: 'Cinematic little moments about the feelings of raising a tiny human.', c: 'var(--coral)', emoji: '🥺' },
-  { title: 'Learn with Blu', blurb: 'Numbers, animals, feelings — early learning, Pixar-quality.', c: 'var(--grass)', emoji: '🔤' },
-  { title: 'Blu vs the World', blurb: 'Tiny-chaos comedy. Bubble wrap. Mirrors. Mum’s lipstick.', c: 'var(--sun)', emoji: '😆' },
-  { title: 'Family Life', blurb: 'Warm slice-of-life — scooter rides, monsoons, rooftop sunsets.', c: 'var(--grape)', emoji: '🏡' },
+  { title: 'Big Feelings', blurb: 'Cinematic little moments about the feelings of raising a tiny human.', c: 'var(--coral)', icon: 'heart' },
+  { title: 'Learn with Blu', blurb: 'Numbers, animals, feelings — early learning, Pixar-quality.', c: 'var(--grass)', icon: 'book' },
+  { title: 'Blu vs the World', blurb: 'Tiny-chaos comedy. Bubble wrap. Mirrors. Mum’s lipstick.', c: 'var(--sun)', icon: 'smile' },
+  { title: 'Family Life', blurb: 'Warm slice-of-life — scooter rides, monsoons, rooftop sunsets.', c: 'var(--grape)', icon: 'home' },
 ];
 
 const hub = [
-  { label: 'Watch the newest episode', sub: 'New every week', href: 'https://instagram.com/blubabyshow', c: 'var(--coral)', ic: '▶' },
-  { label: 'Join Blu’s Sunday Club', sub: 'Free emotion cards inside', href: '#newsletter', c: 'var(--sun)', ic: '✉' },
-  { label: 'Blu’s Bedtime music', sub: 'Lullabies on Spotify', href: '#music', c: 'var(--grape)', ic: '♪' },
-  { label: 'The Blu Colouring Book', sub: 'Pre-order · ₹499', href: '#shop', c: 'var(--grass)', ic: '✎' },
-  { label: 'Watch on the big screen', sub: 'Subscribe on YouTube', href: 'https://youtube.com/@blubabyshow', c: 'var(--sky)', ic: '📺' },
+  { label: 'Watch the newest episode', sub: 'New every week', href: 'https://instagram.com/blubabyshow', c: 'var(--coral)', icon: 'play' },
+  { label: 'Join Blu’s Sunday Club', sub: 'Free emotion cards inside', href: '#newsletter', c: 'var(--sun)', icon: 'mail' },
+  { label: 'Blu’s Bedtime music', sub: 'Lullabies on Spotify', href: '#music', c: 'var(--grape)', icon: 'music' },
+  { label: 'The Blu Colouring Book', sub: 'Pre-order · ₹499', href: '#shop', c: 'var(--grass)', icon: 'pencil' },
+  { label: 'Watch on the big screen', sub: 'Subscribe on YouTube', href: 'https://youtube.com/@blubabyshow', c: 'var(--sky)', icon: 'tv' },
 ];
 
 const family = [
@@ -46,7 +47,7 @@ const family = [
 
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <span class="badge reveal d1">🍯 Pixar-quality · new episodes weekly</span>
+        <span class="badge reveal d1"><Icon name="sparkle" size={16} class="badge__ic" /> Pixar-quality · new episodes weekly</span>
         <h1 class="reveal d2">The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
         <p class="hero__sub reveal d3">
           Warm, giggly stories that teach feelings before they teach facts.
@@ -69,8 +70,8 @@ const family = [
         <span class="hero__ring" aria-hidden="true"></span>
         <img class="hero__blu pop" src="/characters/blu.png" alt="Blu, the star of Blu Baby Show" width="540" height="540" fetchpriority="high" />
         <img class="hero__peek hero__peek--puppy sticker" src="/characters/puppy.png" alt="" width="180" height="180" aria-hidden="true" />
-        <span class="hero__chip chip-1">giggles ✨</span>
-        <span class="hero__chip chip-2">feelings 💛</span>
+        <span class="hero__chip chip-1"><Icon name="sparkle" size={15} /> giggles</span>
+        <span class="hero__chip chip-2"><Icon name="heart" size={15} /> feelings</span>
       </div>
     </div>
 
@@ -103,7 +104,7 @@ const family = [
       <div class="hub">
         {hub.map((l, i) => (
           <a class={`hub__card tilt${i % 2}`} href={l.href} style={`--c:${l.c}`}>
-            <span class="hub__ic">{l.ic}</span>
+            <span class="hub__ic"><Icon name={l.icon} size={22} /></span>
             <span class="hub__t">
               <span class="hub__label">{l.label}</span>
               <span class="hub__sub">{l.sub}</span>
@@ -120,11 +121,11 @@ const family = [
     <Doodles variant="sparse" />
     <div class="wrap news__card">
       <div class="news__copy">
-        <p class="eyebrow" style="color:#fff">✉ Blu’s Sunday Club</p>
+        <p class="eyebrow eyebrow--light"><Icon name="mail" size={16} /> Blu’s Sunday Club</p>
         <h2>One warm story + one new Blu video.<br />Every Sunday. Free.</h2>
         <p class="news__lead">
           Join thousands of parents across India, Brazil &amp; beyond. Subscribe and we’ll
-          send you the <strong>free Blu Emotion Cards</strong> printable to start. 📇
+          send you the <strong>free Blu Emotion Cards</strong> printable to start.
         </p>
         <!-- TODO: point action at Beehiiv embed URL once the account is live -->
         <form class="news__form" action="#" method="post" onsubmit="return false">
@@ -151,7 +152,7 @@ const family = [
       <div class="pillars">
         {pillars.map((p, i) => (
           <a class={`pill tilt${i % 2}`} href="https://instagram.com/blubabyshow" style={`--c:${p.c}`}>
-            <span class="pill__emoji">{p.emoji}</span>
+            <span class="pill__emoji"><Icon name={p.icon} size={26} /></span>
             <h3>{p.title}</h3>
             <p class="muted">{p.blurb}</p>
             <span class="pill__go">See more →</span>
@@ -320,6 +321,7 @@ const family = [
   }
   .hero__chip {
     position: absolute; z-index: 4;
+    display: inline-flex; align-items: center; gap: 0.35rem;
     font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
     background: #fff; padding: 0.45rem 0.9rem; border-radius: 999px;
     box-shadow: var(--shadow-sticker);
@@ -407,7 +409,8 @@ const family = [
   .pill:hover { transform: translateY(-6px) rotate(0); box-shadow: var(--shadow); }
   .pill__emoji {
     width: 56px; height: 56px; border-radius: 16px; background: color-mix(in srgb, var(--c) 20%, #fff);
-    display: grid; place-items: center; font-size: 1.7rem; margin-bottom: 0.7rem;
+    display: grid; place-items: center; margin-bottom: 0.7rem;
+    color: color-mix(in srgb, var(--c), var(--ink) 35%);
   }
   .pill h3 { font-size: 1.15rem; }
   .pill p { font-size: 0.9rem; }

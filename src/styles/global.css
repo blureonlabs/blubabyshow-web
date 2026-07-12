@@ -78,6 +78,8 @@ img { max-width: 100%; display: block; }
   gap: 0.5rem;
 }
 .eyebrow::before { content: "★"; color: var(--sun-d); font-size: 0.95rem; }
+.eyebrow--light { color: #fff; }
+.eyebrow--light::before { content: none; }
 
 /* ---- Buttons: chunky, candy, bouncy ---- */
 .btn {
