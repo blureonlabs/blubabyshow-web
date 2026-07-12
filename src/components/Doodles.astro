@@ -1,0 +1,41 @@
+---
+// Drifting decorative doodles — sparkles, hearts, music notes, dots.
+// Purely atmospheric; aria-hidden.
+interface Props { variant?: 'hero' | 'light' | 'sparse'; }
+const { variant = 'light' } = Astro.props;
+---
+
+<div class={`doodles doodles--${variant}`} aria-hidden="true">
+  <svg class="d d-star s1" viewBox="0 0 24 24"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <svg class="d d-star s2" viewBox="0 0 24 24"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <svg class="d d-star s3" viewBox="0 0 24 24"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <svg class="d d-heart h1" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg>
+  <svg class="d d-heart h2" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg>
+  <svg class="d d-note n1" viewBox="0 0 24 24"><path d="M9 18V6l10-2v11" fill="none" stroke-width="2.4" stroke-linecap="round"/><circle cx="6.5" cy="18" r="2.6"/><circle cx="16.5" cy="15" r="2.6"/></svg>
+  <svg class="d d-note n2" viewBox="0 0 24 24"><path d="M9 18V6l10-2v11" fill="none" stroke-width="2.4" stroke-linecap="round"/><circle cx="6.5" cy="18" r="2.6"/><circle cx="16.5" cy="15" r="2.6"/></svg>
+  <span class="d d-dot o1"></span>
+  <span class="d d-dot o2"></span>
+  <span class="d d-dot o3"></span>
+</div>
+
+<style>
+  .doodles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+  .d { position: absolute; }
+  .d-star  { width: 26px; fill: var(--sun); animation: twinkle 3s ease-in-out infinite; }
+  .d-heart { width: 22px; fill: var(--pink); animation: floatSm 5s ease-in-out infinite; }
+  .d-note  { width: 26px; fill: var(--grape); stroke: var(--grape); animation: bob 6s ease-in-out infinite; }
+  .d-dot   { width: 14px; height: 14px; border-radius: 50%; animation: float 6s ease-in-out infinite; }
+
+  .s1 { top: 12%; left: 7%;  animation-delay: 0s; }
+  .s2 { top: 20%; right: 10%; width: 34px; animation-delay: 1.1s; }
+  .s3 { bottom: 20%; left: 15%; width: 20px; animation-delay: 0.6s; }
+  .h1 { top: 34%; left: 44%; animation-delay: 0.4s; }
+  .h2 { bottom: 26%; right: 18%; width: 28px; animation-delay: 1.4s; }
+  .n1 { top: 16%; left: 26%; animation-delay: 0.5s; }
+  .n2 { bottom: 30%; right: 30%; width: 22px; animation-delay: 1.0s; }
+  .o1 { top: 22%; left: 34%; background: var(--grass); animation-delay: 0.2s; }
+  .o2 { top: 58%; right: 7%;  background: var(--coral); width: 11px; height: 11px; animation-delay: 0.9s; }
+  .o3 { bottom: 14%; left: 40%; background: var(--sky); animation-delay: 1.6s; }
+
+  .doodles--sparse .d-heart, .doodles--sparse .d-dot, .doodles--sparse .d-note { display: none; }
+</style>
