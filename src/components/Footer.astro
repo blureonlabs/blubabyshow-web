@@ -1,0 +1,109 @@
+---
+const year = 2026;
+---
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__brand">
+      <div class="foot__word">
+        <span class="foot__dot" aria-hidden="true"></span> Blu Baby Show
+      </div>
+      <p class="foot__tag">Every episode teaches feelings before it teaches facts.</p>
+      <div class="foot__social">
+        <a href="https://instagram.com/blubabyshow" aria-label="Instagram">Instagram</a>
+        <a href="https://youtube.com/@blubabyshow" aria-label="YouTube">YouTube</a>
+        <a href="#story" aria-label="Podcast">Podcast</a>
+      </div>
+    </div>
+
+    <nav class="foot__col" aria-label="Explore">
+      <span class="foot__h">Explore</span>
+      <a href="#watch">Watch</a>
+      <a href="#learn">Learn</a>
+      <a href="#shop">Shop</a>
+      <a href="#story">Story</a>
+    </nav>
+
+    <nav class="foot__col" aria-label="Company">
+      <span class="foot__h">Company</span>
+      <a href="#about">About Blu</a>
+      <a href="/press">Press</a>
+      <a href="/for-brands">For Brands</a>
+      <a href="mailto:hello@blubabyshow.com">Contact</a>
+    </nav>
+  </div>
+
+  <div class="wrap foot__base">
+    <span>Made with love in Bangalore · © {year} BlureonLabs</span>
+    <span class="foot__legal">
+      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+    </span>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: #26221c;
+    color: #e8ddc9;
+    padding: 3.5rem 0 2rem;
+    margin-top: 2rem;
+  }
+  .foot__inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .foot__word {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .foot__dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--crimson);
+  }
+  .foot__tag {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: #b8ab93;
+    max-width: 30ch;
+    margin: 0.8rem 0 1.2rem;
+  }
+  .foot__social { display: flex; gap: 1.1rem; font-weight: 500; }
+  .foot__social a { color: #e8ddc9; }
+  .foot__social a:hover { color: #fff; }
+
+  .foot__col { display: flex; flex-direction: column; gap: 0.6rem; }
+  .foot__h {
+    font-family: var(--font-head);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    color: #8f836d;
+    margin-bottom: 0.3rem;
+  }
+  .foot__col a { color: #cbbfa8; }
+  .foot__col a:hover { color: #fff; }
+
+  .foot__base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.85rem;
+    color: #8f836d;
+  }
+  .foot__legal a { color: #8f836d; }
+  .foot__legal a:hover { color: #cbbfa8; }
+
+  @media (max-width: 760px) {
+    .foot__inner { grid-template-columns: 1fr 1fr; }
+    .foot__brand { grid-column: 1 / -1; }
+    .foot__base { flex-direction: column; gap: 0.6rem; text-align: center; }
+  }
+</style>

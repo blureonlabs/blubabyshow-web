@@ -1,0 +1,17 @@
+{
+  "name": "blubabyshow-web",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "blubabyshow.com — the public site for Blu Baby Show. Conversion-first homepage (link-in-bio replacement), expanding to the full brand site.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18"
+  }
+}

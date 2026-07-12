@@ -1,0 +1,81 @@
+---
+// Launch nav — 5 decisive doors. Press + For Brands live in the footer.
+// On the Phase-0 single page these are anchor links; they become real
+// routes in Phase 1.
+const links = [
+  { label: 'Watch', href: '#watch' },
+  { label: 'Learn', href: '#learn' },
+  { label: 'Shop', href: '#shop' },
+  { label: 'Story', href: '#story' },
+  { label: 'Newsletter', href: '#newsletter' },
+];
+---
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="/">
+      <span class="nav__dot" aria-hidden="true"></span>
+      Blu&nbsp;Baby&nbsp;Show
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <a class="btn btn--primary nav__cta" href="#newsletter">Get the newsletter</a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 247, 238, 0.82);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid rgba(26, 24, 21, 0.07);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 1.5rem;
+  }
+  .nav__brand {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.15rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    white-space: nowrap;
+  }
+  .nav__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--crimson);
+    box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.16);
+  }
+  .nav__links {
+    display: flex;
+    gap: 1.6rem;
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .nav__links a {
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+  }
+  .nav__links a:hover { color: var(--crimson); }
+  .nav__cta { padding: 0.55rem 1.1rem; font-size: 0.95rem; }
+
+  @media (max-width: 860px) {
+    .nav__links { display: none; }
+  }
+  @media (max-width: 520px) {
+    .nav__cta { display: none; }
+  }
+</style>
