@@ -15,7 +15,7 @@ const links = [
 <header class="nav">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/">
-      <span class="nav__mark" aria-hidden="true"></span>
+      <img class="nav__mark" src="/characters/watermark.png" alt="" width="38" height="38" aria-hidden="true" />
       <span class="nav__word">Blu&nbsp;Baby&nbsp;Show</span>
     </a>
 
@@ -73,26 +73,12 @@ const links = [
     white-space: nowrap;
   }
   .nav__mark {
-    position: relative;
     flex: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 28%, #a7d7fc, var(--blu) 52%, var(--blu-deep));
-    box-shadow:
-      0 0 0 4px rgba(87, 176, 240, 0.18),
-      inset 0 -3px 5px rgba(0, 0, 0, 0.14),
-      inset 0 3px 6px rgba(255, 255, 255, 0.55);
-  }
-  .nav__mark::after {
-    content: "";
-    position: absolute;
-    top: 8px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.92);
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(43, 44, 65, 0.22));
   }
 
   /* ---- Menu (desktop) ---- */

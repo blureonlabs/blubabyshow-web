@@ -50,12 +50,13 @@ const family = [
         <span class="badge reveal d1"><Icon name="sparkle" size={16} class="badge__ic" /> Pixar-quality · new episodes weekly</span>
         <h1 class="reveal d2">The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
         <p class="hero__sub reveal d3">
-          Warm, giggly stories that teach feelings before they teach facts.
-          Watched over <strong>63 million</strong> times by families around the world.
+          Warm, giggly little stories that help your little one name big feelings —
+          and make the long days a little softer. Loved <strong>63 million</strong> times
+          by families just like yours.
         </p>
         <div class="hero__cta reveal d4">
-          <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">▶ Watch Blu</a>
-          <a class="btn btn--sun" href="#newsletter">Join the club — it’s free</a>
+          <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Watch Blu on Instagram</a>
+          <a class="btn btn--sun" href="#newsletter">Get the free newsletter</a>
         </div>
         <div class="hero__stats reveal d5">
           <span><b>63M+</b> views</span>
@@ -124,8 +125,9 @@ const family = [
         <p class="eyebrow eyebrow--light"><Icon name="mail" size={16} /> Blu’s Sunday Club</p>
         <h2>One warm story + one new Blu video.<br />Every Sunday. Free.</h2>
         <p class="news__lead">
-          Join thousands of parents across India, Brazil &amp; beyond. Subscribe and we’ll
-          send you the <strong>free Blu Emotion Cards</strong> printable to start.
+          You’re doing better than you think. Every Sunday we’ll send one gentle story and
+          one new Blu video — plus the <strong>free Blu Emotion Cards</strong> to help your
+          little one say what they feel.
         </p>
         <!-- TODO: point action at Beehiiv embed URL once the account is live -->
         <form class="news__form" action="#" method="post" onsubmit="return false">
@@ -254,7 +256,7 @@ const family = [
     <div class="wrap">
       <img class="closing__blu" src="/characters/blu.png" alt="" width="150" height="150" aria-hidden="true" />
       <h2>Come hang out with Blu every week.</h2>
-      <p class="muted closing__sub">Free. Warm. Three new little episodes, every single week.</p>
+      <p class="muted closing__sub">Free, warm, and made with love — new little episodes every single week.</p>
       <div class="closing__cta">
         <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Follow on Instagram</a>
         <a class="btn btn--sun" href="#newsletter">Join Blu’s Sunday Club</a>
@@ -510,9 +512,10 @@ const family = [
     .hero__copy { text-align: center; }
     .hero__sub { margin-left: auto; margin-right: auto; }
     .hero__cta, .hero__stats { justify-content: center; }
-    .hero__stage { order: -1; min-height: 260px; }
-    .hero__blu { width: 42%; max-width: 210px; }
-    .hero__peek--puppy { width: 100px; bottom: 4%; right: 2%; }
+    /* text-first hero on mobile: headline leads, Blu is a compact accent below */
+    .hero__stage { min-height: 230px; margin-top: 0.4rem; }
+    .hero__blu { width: 46%; max-width: 200px; }
+    .hero__peek--puppy { width: 100px; bottom: 6%; right: 4%; }
     .news__art { display: none; }
     .news__card { text-align: center; }
     .news__form { justify-content: center; }
@@ -527,9 +530,9 @@ const family = [
   }
   @media (max-width: 560px) {
     .hero { padding-top: 1rem; }
-    .hero__stage { min-height: 210px; }
-    .hero__blu { width: 38%; max-width: 150px; }
-    .hero__peek--puppy { width: 76px; bottom: 8%; right: 0; }
+    .hero__stage { min-height: 200px; }
+    .hero__blu { width: 48%; max-width: 168px; }
+    .hero__peek--puppy { width: 80px; bottom: 8%; right: 2%; }
     .pillars { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     .hero__cta { flex-direction: column; }
     .hero__cta .btn, .closing__cta .btn, .news__form .btn { width: 100%; }
