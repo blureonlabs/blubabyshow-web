@@ -68,7 +68,7 @@ const family = [
 
       <div class="hero__stage">
         <span class="hero__ring" aria-hidden="true"></span>
-        <img class="hero__blu pop" src="/characters/blu.png" alt="Blu, the star of Blu Baby Show" width="470" height="640" fetchpriority="high" />
+        <img class="hero__blu" src="/characters/blu.png" alt="Blu, the star of Blu Baby Show" width="470" height="640" fetchpriority="high" />
         <img class="hero__peek hero__peek--puppy sticker" src="/characters/puppy.png" alt="" width="180" height="180" aria-hidden="true" />
         <span class="hero__chip chip-1"><Icon name="sparkle" size={15} /> giggles</span>
         <span class="hero__chip chip-2"><Icon name="heart" size={15} /> feelings</span>
@@ -252,7 +252,7 @@ const family = [
   <section class="section closing section--center">
     <Doodles variant="hero" />
     <div class="wrap">
-      <img class="closing__blu pop" src="/characters/blu.png" alt="" width="150" height="150" aria-hidden="true" />
+      <img class="closing__blu" src="/characters/blu.png" alt="" width="150" height="150" aria-hidden="true" />
       <h2>Come hang out with Blu every week.</h2>
       <p class="muted closing__sub">Free. Warm. Three new little episodes, every single week.</p>
       <div class="closing__cta">
@@ -314,7 +314,7 @@ const family = [
     background: radial-gradient(circle at 50% 52%, #ffffff 0%, rgba(255,255,255,0.55) 42%, rgba(255,255,255,0) 70%);
     opacity: 0.85;
   }
-  .hero__blu { position: relative; z-index: 2; animation: float 5.5s ease-in-out infinite; }
+  .hero__blu { position: relative; z-index: 2; animation: popIn 0.7s cubic-bezier(.34,1.56,.64,1) both, float 5.5s ease-in-out infinite 0.8s; }
   .hero__peek--puppy {
     position: absolute; z-index: 3; bottom: 6%; right: 4%;
     width: 170px; animation: bob 4.5s ease-in-out infinite;
@@ -499,7 +499,7 @@ const family = [
 
   /* ---------- CLOSING ---------- */
   .closing { position: relative; background: linear-gradient(180deg, #d6ecff 0%, var(--sky) 100%); overflow: hidden; }
-  .closing__blu { position: relative; z-index: 2; margin: 0 auto 1rem; animation: bob 5s ease-in-out infinite; }
+  .closing__blu { position: relative; z-index: 2; margin: 0 auto 1rem; animation: popIn 0.7s cubic-bezier(.34,1.56,.64,1) both, bob 5s ease-in-out infinite 0.8s; }
   .closing__sub { font-size: 1.1rem; max-width: 44ch; margin: 0 auto 1.8rem; }
   .closing__cta { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
 
