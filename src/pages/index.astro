@@ -37,28 +37,22 @@ const family = [
 ---
 
 <Base>
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO — welcome card over a full family scene (bluey.tv style) ============ -->
   <section class="hero">
-    <span class="hero__sun" aria-hidden="true"></span>
-    <span class="hero__cloud c-a" aria-hidden="true"></span>
-    <span class="hero__cloud c-b" aria-hidden="true"></span>
-    <span class="hero__cloud c-c" aria-hidden="true"></span>
-    <Doodles variant="hero" />
-
-    <div class="wrap hero__grid">
-      <div class="hero__copy">
-        <span class="badge reveal d1"><Icon name="sparkle" size={16} class="badge__ic" /> Pixar-quality · new episodes weekly</span>
-        <h1 class="reveal d2">The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
-        <p class="hero__sub reveal d3">
+    <div class="wrap">
+      <div class="hero__card reveal d1">
+        <p class="eyebrow">Welcome to the home of Blu</p>
+        <h1>The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
+        <p class="hero__sub">
           Warm, giggly little stories that help your little one name big feelings —
           and make the long days a little softer. Loved <strong>63 million</strong> times
           by families just like yours.
         </p>
-        <div class="hero__cta reveal d4">
+        <div class="hero__cta">
           <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Watch Blu on Instagram</a>
           <a class="btn btn--sun" href="#newsletter">Get the free newsletter</a>
         </div>
-        <div class="hero__stats reveal d5">
+        <div class="hero__stats">
           <span><b>63M+</b> views</span>
           <span class="dotsep">·</span>
           <span><b>58K+</b> families</span>
@@ -66,21 +60,14 @@ const family = [
           <span><b>4</b> new a week</span>
         </div>
       </div>
-
-      <div class="hero__stage">
-        <span class="hero__ring" aria-hidden="true"></span>
-        <img class="hero__blu" src="/characters/blu.png" alt="Blu, the star of Blu Baby Show" width="470" height="640" fetchpriority="high" />
-        <img class="hero__peek hero__peek--puppy sticker" src="/characters/puppy.png" alt="" width="180" height="180" aria-hidden="true" />
-        <span class="hero__chip chip-1"><Icon name="sparkle" size={15} /> giggles</span>
-        <span class="hero__chip chip-2"><Icon name="heart" size={15} /> feelings</span>
-      </div>
     </div>
 
-    <!-- grassy hill divider into the page -->
-    <svg class="hero__hill" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 60 C 240 110 480 20 720 50 C 960 80 1200 110 1440 55 L1440 120 L0 120 Z" fill="var(--grass)"/>
-      <path d="M0 78 C 240 120 480 44 720 70 C 960 96 1200 120 1440 74 L1440 120 L0 120 Z" fill="var(--grass-d)" opacity="0.65"/>
-    </svg>
+    <div class="hero__scene">
+      <img src="/characters/family_hero.jpg"
+           alt="Blu with Mum, Dad, the puppy and baby sister on a sunny day"
+           width="1400" height="1400" fetchpriority="high" />
+    </div>
+  </section>
   </section>
 
   <!-- ============ STATS MARQUEE ============ -->
@@ -266,72 +253,43 @@ const family = [
 </Base>
 
 <style>
-  /* ---------- HERO ---------- */
+  /* ---------- HERO — welcome card over family scene ---------- */
   .hero {
     position: relative;
-    padding: clamp(2rem, 5vw, 3.5rem) 0 5.5rem;
-    background:
-      radial-gradient(120% 90% at 82% 6%, #fff6d6 0%, rgba(255,246,214,0) 42%),
-      linear-gradient(180deg, var(--sky) 0%, #b7e0fd 46%, #d6ecff 100%);
+    padding-top: clamp(1.5rem, 4vw, 2.75rem);
+    background: linear-gradient(180deg, #8ecbfb 0%, #6fbdf2 55%, #53ace4 100%);
     overflow: hidden;
   }
-  .hero__sun {
-    position: absolute; top: -70px; right: -60px; width: 320px; height: 320px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--sun) 0%, #ffd98a 55%, rgba(255,217,138,0) 72%);
-    animation: spinSlow 60s linear infinite; opacity: 0.9;
-  }
-  .hero__cloud {
-    position: absolute; border-radius: 999px; background: #fff;
-    box-shadow: 40px 8px 0 -6px #fff, -38px 10px 0 -8px #fff;
-    opacity: 0.9;
-  }
-  .hero__cloud.c-a { top: 14%; width: 90px; height: 34px; left: -10%; animation: drift 38s linear infinite; }
-  .hero__cloud.c-b { top: 30%; width: 70px; height: 26px; left: -10%; animation: drift 52s linear infinite 6s; }
-  .hero__cloud.c-c { top: 8%;  width: 60px; height: 22px; left: -10%; animation: drift 46s linear infinite 14s; }
-
-  .hero__grid {
+  .hero__card {
     position: relative; z-index: 2;
-    display: grid; grid-template-columns: 1.05fr 0.95fr;
-    align-items: center; gap: 2rem;
+    max-width: 620px; margin: 0 auto;
+    background: #fff; border-radius: var(--radius);
+    padding: clamp(1.7rem, 4vw, 2.9rem) clamp(1.5rem, 4vw, 3rem);
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 4px solid #fff;
   }
+  .hero__card .eyebrow { justify-content: center; }
+  .hero__card h1 { font-size: clamp(2.05rem, 5.6vw, 3.35rem); line-height: 1.04; margin-bottom: 0.5rem; }
   .hero__pop {
-    color: var(--orange);
-    -webkit-text-stroke: 0;
-    position: relative; display: inline-block;
+    color: var(--orange); position: relative; display: inline-block;
   }
   .hero__pop::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 12px;
     background: var(--sun); border-radius: 8px; z-index: -1; transform: rotate(-1deg);
   }
-  .hero__sub { font-size: 1.2rem; max-width: 36ch; color: var(--ink-soft); margin-top: 0.4rem; }
-  .hero__cta { display: flex; gap: 0.9rem; flex-wrap: wrap; margin: 1.9rem 0 1.5rem; }
-  .hero__stats { display: flex; align-items: center; gap: 0.8rem; color: var(--ink-soft); font-size: 0.98rem; }
-  .hero__stats b { font-family: var(--font-head); color: var(--ink); }
-  .dotsep { color: var(--sun-d); }
+  .hero__sub { font-size: 1.12rem; max-width: 46ch; margin: 0.5rem auto 0; color: var(--ink-soft); }
+  .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1.6rem 0 1.3rem; }
+  .hero__stats { display: flex; align-items: center; justify-content: center; gap: 0.8rem; color: var(--ink-soft); font-size: 0.96rem; }
+  .hero__stats b { font-family: var(--font-head); color: var(--blu-deep); }
+  .dotsep { color: var(--sky-d); }
 
-  .hero__stage { position: relative; display: grid; place-items: center; min-height: 460px; }
-  .hero__ring {
-    position: absolute; width: 98%; aspect-ratio: 1; border-radius: 50%;
-    background: radial-gradient(circle at 50% 52%, #ffffff 0%, rgba(255,255,255,0.55) 42%, rgba(255,255,255,0) 70%);
-    opacity: 0.85;
+  .hero__scene { position: relative; z-index: 1; margin-top: -1.6rem; }
+  .hero__scene img {
+    width: 100%; display: block;
+    height: clamp(280px, 40vw, 480px);
+    object-fit: cover; object-position: center 58%;
   }
-  .hero__blu { position: relative; z-index: 2; animation: popIn 0.7s cubic-bezier(.34,1.56,.64,1) both, float 5.5s ease-in-out infinite 0.8s; }
-  .hero__peek--puppy {
-    position: absolute; z-index: 3; bottom: 6%; right: 4%;
-    width: 170px; animation: bob 4.5s ease-in-out infinite;
-  }
-  .hero__chip {
-    position: absolute; z-index: 4;
-    display: inline-flex; align-items: center; gap: 0.35rem;
-    font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
-    background: #fff; padding: 0.45rem 0.9rem; border-radius: 999px;
-    box-shadow: var(--shadow-sticker);
-  }
-  .chip-1 { top: 14%; left: -2%; color: var(--grape-d); animation: floatSm 4s ease-in-out infinite; }
-  .chip-2 { bottom: 20%; left: 2%; color: var(--orange-d); animation: floatSm 5s ease-in-out infinite 0.6s; }
-
-  .hero__hill { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 90px; z-index: 1; }
 
   /* ---------- MARQUEE ---------- */
   .marquee {
@@ -507,15 +465,7 @@ const family = [
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 940px) {
-    .hero__grid, .news__card, .learn__grid, .music__grid, .shop__grid { grid-template-columns: 1fr; }
-    .hero__grid { gap: 1rem; }
-    .hero__copy { text-align: center; }
-    .hero__sub { margin-left: auto; margin-right: auto; }
-    .hero__cta, .hero__stats { justify-content: center; }
-    /* text-first hero on mobile: headline leads, Blu is a compact accent below */
-    .hero__stage { min-height: 230px; margin-top: 0.4rem; }
-    .hero__blu { width: 46%; max-width: 200px; }
-    .hero__peek--puppy { width: 100px; bottom: 6%; right: 4%; }
+    .news__card, .learn__grid, .music__grid, .shop__grid { grid-template-columns: 1fr; }
     .news__art { display: none; }
     .news__card { text-align: center; }
     .news__form { justify-content: center; }
@@ -529,10 +479,8 @@ const family = [
     .music__grid .player { order: -1; }
   }
   @media (max-width: 560px) {
-    .hero { padding-top: 1rem; }
-    .hero__stage { min-height: 200px; }
-    .hero__blu { width: 48%; max-width: 168px; }
-    .hero__peek--puppy { width: 80px; bottom: 8%; right: 2%; }
+    .hero { padding-top: 0.9rem; }
+    .hero__scene img { height: clamp(240px, 62vw, 320px); }
     .pillars { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     .hero__cta { flex-direction: column; }
     .hero__cta .btn, .closing__cta .btn, .news__form .btn { width: 100%; }

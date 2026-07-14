@@ -1,8 +1,7 @@
 ---
-// Launch nav — 5 decisive doors. Press + For Brands live in the footer.
-// On the Phase-0 single page these are anchor links; they become real
-// routes in Phase 1. Mobile: pure-CSS checkbox toggle + inline JS to
-// close the panel after a link tap.
+// Launch nav — 5 decisive doors. bluey.tv-style: logo left; on mobile a
+// navy mail circle + hamburger circle on the right. Pure-CSS checkbox toggle
+// + inline JS to close the panel after a link tap.
 const links = [
   { label: 'Watch', href: '#watch' },
   { label: 'Learn', href: '#learn' },
@@ -20,9 +19,6 @@ const links = [
     </a>
 
     <input type="checkbox" id="navtoggle" class="nav__toggle" hidden />
-    <label for="navtoggle" class="nav__burger" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </label>
 
     <nav class="nav__menu" aria-label="Primary">
       <div class="nav__links">
@@ -30,6 +26,17 @@ const links = [
       </div>
       <a class="btn btn--primary nav__cta" href="#newsletter">Get the newsletter</a>
     </nav>
+
+    <div class="nav__actions">
+      <a class="nav__circle" href="#newsletter" aria-label="Get the newsletter">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </a>
+      <label class="nav__circle nav__burger" for="navtoggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </label>
+    </div>
   </div>
 </header>
 
@@ -66,12 +73,15 @@ const links = [
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
+    min-width: 0;
     font-family: var(--font-head);
     font-weight: 700;
     font-size: 1.32rem;
     color: var(--blu-deep);
     white-space: nowrap;
   }
+  .nav__word { overflow: hidden; text-overflow: ellipsis; }
+  .nav__actions { flex: none; }
   .nav__mark {
     flex: none;
     width: 40px;
@@ -99,33 +109,36 @@ const links = [
   .nav__links a:hover { background: var(--cream-2); color: var(--blu-d); }
   .nav__cta { padding: 0.6rem 1.25rem; font-size: 0.98rem; }
 
-  /* ---- Burger (hidden on desktop) ---- */
-  .nav__burger { display: none; }
+  /* ---- Circular action buttons (mobile only) ---- */
+  .nav__actions { display: none; align-items: center; gap: 0.6rem; }
+  .nav__circle {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--blu-deep);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 6px 14px -6px rgba(43, 44, 65, 0.4);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.15s ease;
+  }
+  .nav__circle:hover { transform: translateY(-2px); }
+  .nav__burger { flex-direction: column; gap: 5px; }
+  .nav__burger span {
+    display: block;
+    width: 20px;
+    height: 2.5px;
+    border-radius: 3px;
+    background: #fff;
+    transition: transform 0.22s ease, opacity 0.18s ease;
+  }
 
   /* ---- Mobile ---- */
   @media (max-width: 860px) {
-    .nav__burger {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      background: var(--cream-2);
-      cursor: pointer;
-      flex: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .nav__burger span {
-      display: block;
-      width: 22px;
-      height: 3px;
-      margin: 0 auto;
-      border-radius: 3px;
-      background: var(--blu-deep);
-      transition: transform 0.22s ease, opacity 0.18s ease;
-    }
+    .nav__actions { display: flex; }
 
     .nav__menu {
       position: absolute;
@@ -154,14 +167,16 @@ const links = [
     .nav__cta { width: 100%; margin-top: 0.4rem; }
 
     /* burger → X */
-    .nav__toggle:checked ~ .nav__burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .nav__toggle:checked ~ .nav__burger span:nth-child(2) { opacity: 0; }
-    .nav__toggle:checked ~ .nav__burger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .nav__toggle:checked ~ .nav__actions .nav__burger span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav__toggle:checked ~ .nav__actions .nav__burger span:nth-child(2) { opacity: 0; }
+    .nav__toggle:checked ~ .nav__actions .nav__burger span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
   }
 
-  @media (max-width: 420px) {
-    .nav__inner { height: 66px; }
-    .nav__word { font-size: 1.15rem; }
-    .nav__mark { width: 32px; height: 32px; }
+  @media (max-width: 500px) {
+    .nav__inner { height: 64px; gap: 0.5rem; }
+    .nav__word { font-size: 1.05rem; }
+    .nav__mark { width: 34px; height: 34px; }
+    .nav__circle { width: 40px; height: 40px; }
+    .nav__actions { gap: 0.45rem; }
   }
 </style>
