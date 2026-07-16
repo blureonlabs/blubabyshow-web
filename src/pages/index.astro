@@ -28,11 +28,11 @@ const hub = [
 ];
 
 const family = [
-  { img: '/characters/blu.png',    name: 'Blu',    tag: 'the star', c: 'var(--blu)' },
-  { img: '/characters/mom.png',    name: 'Mum',    tag: 'tired & tender', c: 'var(--pink)' },
-  { img: '/characters/dad.png',    name: 'Dad',    tag: 'shows up', c: 'var(--sky)' },
-  { img: '/characters/puppy.png',  name: 'Puppy',  tag: 'the sidekick', c: 'var(--sun)' },
-  { img: '/characters/sister.png', name: 'Sister', tag: 'the ringleader', c: 'var(--grape)' },
+  { img: '/characters/blu.png',    name: 'Blu',    tag: 'the little mischief', c: 'var(--blu)' },
+  { img: '/characters/mom.png',    name: 'Mum',    tag: 'keeps it all together', c: 'var(--pink)' },
+  { img: '/characters/dad.png',    name: 'Dad',    tag: 'always shows up', c: 'var(--sky)' },
+  { img: '/characters/puppy.png',  name: 'Puppy',  tag: 'clumsy &amp; kind', c: 'var(--sun)' },
+  { img: '/characters/sister.png', name: 'Sister', tag: 'the quiet one', c: 'var(--grape)' },
 ];
 ---
 
@@ -378,21 +378,27 @@ const family = [
 
   /* ---------- MEET THE FAMILY ---------- */
   .fam { background: linear-gradient(180deg, var(--blu) 0%, var(--blu-deep) 100%); }
-  .fam__row { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+  .fam__row { display: flex; justify-content: center; gap: 1.3rem; flex-wrap: wrap; }
   .fam__card {
-    background: #fff; border-radius: var(--radius); padding: 1.2rem 1rem 1.4rem;
-    width: 160px; text-align: center; box-shadow: var(--shadow-soft);
-    transition: transform 0.18s ease;
+    background: #fff; border-radius: var(--radius); padding: 1.5rem 1.1rem 1.6rem;
+    width: 178px; text-align: center; box-shadow: var(--shadow-soft);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-  .fam__card:hover { transform: translateY(-6px) rotate(-2deg); }
-  .fam__card strong { display: block; font-family: var(--font-head); font-size: 1.15rem; margin-top: 0.6rem; }
-  .fam__card span { font-size: 0.82rem; color: var(--ink-soft); }
+  .fam__card:hover { transform: translateY(-6px) rotate(-2deg); box-shadow: var(--shadow); }
+  .fam__card strong { display: block; font-family: var(--font-head); font-size: 1.25rem; margin-top: 0.8rem; color: var(--blu-deep); }
+  .fam__card span {
+    display: inline-block; margin-top: 0.4rem;
+    font-family: var(--font-head); font-size: 0.78rem; font-weight: 600;
+    color: color-mix(in srgb, var(--c), var(--ink) 32%);
+    background: color-mix(in srgb, var(--c) 16%, #fff);
+    padding: 0.22rem 0.75rem; border-radius: 999px;
+  }
   .fam__ph {
-    width: 120px; height: 120px; margin: 0 auto; border-radius: 50%;
+    width: 134px; height: 134px; margin: 0 auto; border-radius: 50%;
     background: color-mix(in srgb, var(--c) 22%, #fff);
     display: grid; place-items: center; overflow: hidden;
   }
-  .fam__ph img { width: 108px; height: 108px; object-fit: contain; }
+  .fam__ph img { width: 122px; height: 122px; object-fit: contain; }
 
   /* ---------- LEARN ---------- */
   .learn { background: var(--base); }
