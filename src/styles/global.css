@@ -11,6 +11,7 @@
   --cream-2: #d6ecff;   /* soft sky section fill */
   --sand:    #f6efdb;   /* warm sand card/section */
   --sand-2:  #ecdfbe;   /* deeper heeler sand */
+  --base:    #fbf7ef;   /* unified warm off-white — the calm section base */
   --paper:   #ffffff;
   --ink:     #2b2c41;   /* Bluey deep navy — text */
   --ink-soft:#5c5d7a;
@@ -46,7 +47,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--ink);
-  background: var(--cream);
+  background: var(--base);
   line-height: 1.6;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
@@ -106,9 +107,10 @@ img { max-width: 100%; display: block; }
 .btn--light   { background: #fff; color: var(--blu-deep); box-shadow: var(--shadow-soft); }
 
 /* ---- Sections ---- */
-.section { position: relative; padding: clamp(3.5rem, 8vw, 6rem) 0; }
+.section { position: relative; padding: clamp(4rem, 8.5vw, 7rem) 0; }
 .section--center { text-align: center; }
-.section__head { max-width: 640px; margin: 0 auto 2.8rem; }
+.section__head { max-width: 620px; margin: 0 auto 3.2rem; }
+.section__head p { max-width: 52ch; margin-left: auto; margin-right: auto; }
 
 .muted { color: var(--ink-soft); }
 .center { text-align: center; }
