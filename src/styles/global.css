@@ -32,6 +32,7 @@
   --font-serif: "Newsreader", Georgia, serif;
 
   /* Rhythm */
+  --nav-h: 82px;   /* floating-nav height, so the hero can sit up under it */
   --maxw: 1180px;
   --radius: 32px;
   --radius-sm: 20px;
@@ -42,6 +43,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (max-width: 500px) { :root { --nav-h: 72px; } }
 
 body {
   margin: 0;

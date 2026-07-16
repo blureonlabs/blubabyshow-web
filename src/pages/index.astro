@@ -255,7 +255,8 @@ const family = [
   /* ---------- HERO — welcome card over family scene ---------- */
   .hero {
     position: relative;
-    padding-top: clamp(1.5rem, 4vw, 2.75rem);
+    margin-top: calc(-1 * var(--nav-h));
+    padding-top: calc(var(--nav-h) + clamp(0.6rem, 2vw, 1.4rem));
     background: linear-gradient(180deg, #8ecbfb 0%, #6fbdf2 55%, #53ace4 100%);
     overflow: hidden;
   }
@@ -484,7 +485,7 @@ const family = [
     .music__grid .player { order: -1; }
   }
   @media (max-width: 560px) {
-    .hero { padding-top: 0.9rem; }
+    .hero { padding-top: calc(var(--nav-h) + 0.4rem); }
     .hero__scene img { height: clamp(240px, 62vw, 320px); }
     .pillars { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     .hero__cta { flex-direction: column; }
