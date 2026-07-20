@@ -1,31 +1,30 @@
 /* ============================================================
-   Blu Baby Show — design system  ·  "Warm Editorial"
-   Grown-up warm: cream base, warm-charcoal ink, crimson as the
-   single hero accent, honey + coral + leaf as supporting warms,
-   soft lavender as the one cool. Publishing-house, not toy-store.
-   Buyer = tired 25-44 mom — the copy has to land on cream.
+   Blu Baby Show — design system  ·  "Blu's Sky World"
+   Bluey.tv-inspired: bright cerulean sky, fluffy clouds, warm
+   sand, deep-navy ink. Chunky rounded type. Joyful, hand-made.
+   Primary = Bluey blue. Warm pop = Bingo orange + heeler tan.
    ============================================================ */
 
 :root {
-  /* Neutrals — warm cream, not sky-white */
-  --cream:   #faf7ee;   /* warm cream — page base */
-  --cream-2: #f2ead6;   /* warm section fill */
+  /* Neutrals — sky-tinted whites + warm sand */
+  --cream:   #eaf6ff;   /* pale sky-white — page base */
+  --cream-2: #d6ecff;   /* soft sky section fill */
   --sand:    #f6efdb;   /* warm sand card/section */
-  --sand-2:  #ecdfbe;   /* deeper sand */
-  --base:    #faf7ee;   /* the calm cream base */
+  --sand-2:  #ecdfbe;   /* deeper heeler sand */
+  --base:    #fbf7ef;   /* unified warm off-white — the calm section base */
   --paper:   #ffffff;
-  --ink:     #2a2320;   /* warm charcoal — text */
-  --ink-soft:#6b5f57;   /* warm grey */
+  --ink:     #2b2c41;   /* Bluey deep navy — text */
+  --ink-soft:#5c5d7a;
 
-  /* Brights — crimson-led warm cast (var names kept so no HTML churn) */
-  --blu:     #e11d48;   --blu-d:   #b91538;   /* PRIMARY — crimson */
-  --blu-deep:#7a1228;                          /* deep crimson for headings */
-  --sky:     #f5a3a0;   --sky-d:   #e8807b;    /* soft coral (was sky-blue) */
-  --sun:     #f5c26b;   --sun-d:   #e0a544;    /* honey */
-  --orange:  #f2823c;   --orange-d:#db631d;    /* coral/orange warmth */
-  --grass:   #7fc36b;   --grass-d: #5aa348;    /* soft leaf */
-  --pink:    #f58cb6;   --pink-d:  #e5679a;    /* Mum pink */
-  --grape:   #c0a0e0;   --grape-d: #a37fd0;    /* soft lavender */
+  /* Brights — the Bluey cast */
+  --blu:     #57b0f0;   --blu-d:   #2f83c9;   /* PRIMARY — Bluey blue */
+  --blu-deep:#30598a;                          /* deep marking navy-blue */
+  --sky:     #8ecbfb;   --sky-d:   #57b0f0;    /* light sky */
+  --sun:     #f6c344;   --sun-d:   #e2a51e;    /* heeler tan / sunshine */
+  --orange:  #f2823c;   --orange-d:#db631d;    /* Bingo warmth */
+  --grass:   #74c05f;   --grass-d: #55a641;
+  --pink:    #f58cb6;   --pink-d:  #e5679a;    /* Muffin / Socks pink */
+  --grape:   #9b7fdc;   --grape-d: #7d5fc4;
 
   /* Type */
   --font-head: "Fredoka", ui-rounded, system-ui, sans-serif;

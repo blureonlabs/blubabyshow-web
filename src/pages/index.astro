@@ -4,9 +4,8 @@ import Doodles from '../components/Doodles.astro';
 import Icon from '../components/Icon.astro';
 
 /* ------------------------------------------------------------------
-   PHASE 0 — homepage · "Warm Editorial" direction.
-   Cream base, crimson accent, warm-charcoal ink. Character-first,
-   grown-up-warm (buyer = tired 25-44 mom), not toy-store-bright.
+   PHASE 0 — "Blu's Sunny World" homepage.
+   Bluey-warm × Cocomelon-catchy. Character-first, bright, joyful.
    Doubles as the link-in-bio destination: convert the 165K/mo IG
    profile-visit click into an owned email or a revenue action.
    Swap the placeholder character PNGs (same filenames) as better
@@ -258,7 +257,7 @@ const family = [
     position: relative;
     margin-top: calc(-1 * var(--nav-h));
     padding-top: calc(var(--nav-h) + clamp(0.6rem, 2vw, 1.4rem));
-    background: linear-gradient(180deg, #faf7ee 0%, #f2ead6 55%, #ecdfbe 100%);
+    background: linear-gradient(180deg, #8ecbfb 0%, #6fbdf2 55%, #53ace4 100%);
     overflow: hidden;
   }
   .hero__card {
@@ -268,7 +267,7 @@ const family = [
     padding: clamp(1.7rem, 4vw, 2.9rem) clamp(1.5rem, 4vw, 3rem);
     text-align: center;
     box-shadow: var(--shadow);
-    border: 1px solid #efe6d2;
+    border: 4px solid #fff;
   }
   .hero__card .eyebrow { justify-content: center; }
   .hero__card h1 { font-size: clamp(2.05rem, 5.6vw, 3.35rem); line-height: 1.04; margin-bottom: 0.5rem; }
@@ -279,7 +278,7 @@ const family = [
     content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 12px;
     background: var(--sun); border-radius: 8px; z-index: -1; transform: rotate(-1deg);
   }
-  .hero__sub { font-family: var(--font-serif); font-style: italic; font-size: 1.16rem; max-width: 46ch; margin: 0.5rem auto 0; color: var(--ink-soft); }
+  .hero__sub { font-size: 1.12rem; max-width: 46ch; margin: 0.5rem auto 0; color: var(--ink-soft); }
   .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1.6rem 0 1.3rem; }
   .hero__stats { display: flex; align-items: center; justify-content: center; gap: 0.8rem; color: var(--ink-soft); font-size: 0.96rem; }
   .hero__stats b { font-family: var(--font-head); color: var(--blu-deep); }
@@ -344,12 +343,12 @@ const family = [
   .news__card {
     position: relative; z-index: 2;
     display: grid; grid-template-columns: 1.5fr 0.8fr; align-items: center; gap: 2rem;
-    background: linear-gradient(135deg, var(--blu) 0%, var(--blu-d) 100%);
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-d) 100%);
     color: #fff; border-radius: var(--radius); padding: clamp(2rem, 4vw, 3.2rem);
     box-shadow: var(--shadow); overflow: hidden;
   }
   .news h2 { color: #fff; }
-  .news__lead { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: rgba(255,255,255,0.92); max-width: 46ch; }
+  .news__lead { color: rgba(255,255,255,0.9); max-width: 46ch; }
   .news__form { display: flex; gap: 0.6rem; margin: 1.4rem 0 0.7rem; flex-wrap: wrap; }
   .news__input {
     flex: 1; min-width: 220px; padding: 0.9rem 1.2rem; border-radius: 999px;
@@ -473,7 +472,7 @@ const family = [
   .shop__price span { font-size: 0.95rem; font-weight: 500; color: var(--ink-soft); }
 
   /* ---------- CLOSING ---------- */
-  .closing { position: relative; background: linear-gradient(180deg, #f6efdb 0%, #f2c9b0 100%); overflow: hidden; }
+  .closing { position: relative; background: linear-gradient(180deg, #d6ecff 0%, var(--sky) 100%); overflow: hidden; }
   .closing__blu { position: relative; z-index: 2; margin: 0 auto 1rem; animation: popIn 0.7s cubic-bezier(.34,1.56,.64,1) both, bob 5s ease-in-out infinite 0.8s; }
   .closing__sub { font-size: 1.1rem; max-width: 44ch; margin: 0 auto 1.8rem; }
   .closing__cta { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
