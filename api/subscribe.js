@@ -76,18 +76,6 @@ async function sendWelcome(email) {
 }
 
 export default async function handler(req, res) {
-  // Health check: GET /api/subscribe reports which env vars the function can SEE
-  // (booleans only — never leaks values). Visit in a browser to debug config.
-  if (req.method === 'GET') {
-    return res.status(200).json({
-      ok: true,
-      config: {
-        SUPABASE_URL: !!process.env.SUPABASE_URL,
-        SUPABASE_SERVICE_ROLE_KEY: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
-        RESEND_API_KEY: !!process.env.RESEND_API_KEY,
-      },
-    });
-  }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method not allowed' });
 
   const url = process.env.SUPABASE_URL;
