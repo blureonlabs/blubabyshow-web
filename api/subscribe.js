@@ -10,7 +10,8 @@
 // subscribers from hello@blubabyshow.com. If RESEND_API_KEY is unset, the
 // welcome is skipped silently (signup still succeeds).
 
-const FROM = 'Blu Baby Show <hello@blubabyshow.com>'; // blubabyshow.com verified in Resend
+const FROM = 'Blu Baby Show <hello@notifications.blubabyshow.com>'; // verified subdomain in Resend
+const REPLY_TO = 'hello@blubabyshow.com'; // replies route to the main inbox
 
 // Per-IP rate limit via Upstash Redis REST (OPTIONAL). Unset env = limiting off.
 // FAIL-OPEN: if Redis is unreachable we allow the signup — never block real users.
@@ -63,6 +64,7 @@ async function sendWelcome(email) {
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: FROM,
+        reply_to: REPLY_TO,
         to: email,
         subject: "You're in! Welcome to Blu's Sunday Club 💛",
         html: welcomeHtml(),
