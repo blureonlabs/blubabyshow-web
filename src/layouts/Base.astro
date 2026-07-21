@@ -55,17 +55,31 @@ const POSTHOG_HOST = import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.postho
       </script>
     )}
 
-    <!-- Structured data: brand -->
+    <!-- Structured data: brand + site (helps Google + AI answer engines) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'Blu Baby Show',
-      url: 'https://blubabyshow.com',
-      logo: 'https://blubabyshow.com/characters/watermark.png',
-      description: description,
-      sameAs: [
-        'https://instagram.com/theblubabyshow',
-        'https://youtube.com/@blubabyshow',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          '@id': 'https://blubabyshow.com/#org',
+          name: 'Blu Baby Show',
+          url: 'https://blubabyshow.com',
+          logo: 'https://blubabyshow.com/characters/watermark.png',
+          description: 'The world\'s first AI-native, Pixar-quality kids brand — gentle animated stories that teach toddlers feelings before facts.',
+          sameAs: [
+            'https://instagram.com/theblubabyshow',
+            'https://youtube.com/@blubabyshow',
+          ],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://blubabyshow.com/#website',
+          url: 'https://blubabyshow.com',
+          name: 'Blu Baby Show',
+          description: description,
+          publisher: { '@id': 'https://blubabyshow.com/#org' },
+          inLanguage: 'en',
+        },
       ],
     })} />
   </head>
