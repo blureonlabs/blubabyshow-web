@@ -12,6 +12,33 @@
 
 const FROM = 'Blu Baby Show <hello@blubabyshow.com>'; // blubabyshow.com verified in Resend
 
+// Per-IP rate limit via Upstash Redis REST (OPTIONAL). Unset env = limiting off.
+// FAIL-OPEN: if Redis is unreachable we allow the signup — never block real users.
+// Activate by setting UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN in Vercel.
+const RL_MAX = 5;         // max signups per IP...
+const RL_WINDOW = 3600;   // ...per hour (seconds)
+
+async function rateLimited(ip) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token || !ip) return false;      // disabled, or no IP to key on
+  try {
+    const key = `rl:sub:${ip}`;
+    const r = await fetch(`${url}/pipeline`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      // INCR the counter; set the window only on first hit (EXPIRE ... NX)
+      body: JSON.stringify([['INCR', key], ['EXPIRE', key, RL_WINDOW, 'NX']]),
+    });
+    const out = await r.json();                  // [{result: count}, {result: 0|1}]
+    const count = Array.isArray(out) ? out[0]?.result : undefined;
+    return typeof count === 'number' && count > RL_MAX;
+  } catch (e) {
+    console.error('rate-limit check failed (fail-open)', e);
+    return false;
+  }
+}
+
 function welcomeHtml() {
   return `
   <div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:520px;margin:0 auto;color:#2b2c41;line-height:1.6">
@@ -78,6 +105,12 @@ export default async function handler(req, res) {
   // Validate: RFC max length (254) + shape. Caps pathological payloads before the DB/email hop.
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ ok: false, error: 'Please enter a valid email.' });
+  }
+
+  // Rate limit by client IP (Vercel sets x-forwarded-for). No-op unless Upstash is configured.
+  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  if (await rateLimited(ip)) {
+    return res.status(429).json({ ok: false, error: 'Too many signups just now — please try again in a bit.' });
   }
 
   try {
