@@ -75,7 +75,8 @@ export default async function handler(req, res) {
 
   if (hp) return res.status(200).json({ ok: true });   // honeypot: bots fill it — drop silently
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  // Validate: RFC max length (254) + shape. Caps pathological payloads before the DB/email hop.
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ ok: false, error: 'Please enter a valid email.' });
   }
 
