@@ -280,6 +280,8 @@ const family = [
           form.style.display = 'none';
           msg.textContent = "You're in! 💛 Welcome to Blu's Sunday Club.";
           msg.className = 'news__msg news__msg--ok';
+          // Conversion event (PostHog) — only fires on a real success. No-op if PH is off.
+          window.posthog?.capture?.('newsletter_signup', { source: 'website' });
         } else {
           msg.textContent = data.error || 'Something went wrong — please try again.';
           msg.className = 'news__msg news__msg--err';
