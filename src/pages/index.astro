@@ -115,11 +115,12 @@ const family = [
           one new Blu video — plus the <strong>free Blu Emotion Cards</strong> to help your
           little one say what they feel.
         </p>
-        <!-- TODO: point action at Beehiiv embed URL once the account is live -->
-        <form class="news__form" action="#" method="post" onsubmit="return false">
+        <form class="news__form" id="newsForm" novalidate>
           <input class="news__input" type="email" name="email" placeholder="your@email.com" aria-label="Email address" required />
+          <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <button class="btn btn--sun" type="submit">Send me Sunday moments</button>
         </form>
+        <p class="news__msg" id="newsMsg" role="status" aria-live="polite"></p>
         <p class="news__fine">No spam, ever · one email a week · unsubscribe anytime</p>
       </div>
       <div class="news__art" aria-hidden="true">
@@ -250,6 +251,48 @@ const family = [
     </div>
   </section>
 </Base>
+
+<script>
+  const form = document.getElementById('newsForm');
+  const msg = document.getElementById('newsMsg');
+  if (form && msg) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input[type=email]');
+      const btn = form.querySelector('button');
+      const email = (input?.value || '').trim();
+      const hp = form.querySelector('input[name=hp]')?.value || '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msg.textContent = 'Please enter a valid email 💛';
+        msg.className = 'news__msg news__msg--err';
+        return;
+      }
+      const label = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Sending…';
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'website', hp }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.style.display = 'none';
+          msg.textContent = "You're in! 💛 Welcome to Blu's Sunday Club.";
+          msg.className = 'news__msg news__msg--ok';
+        } else {
+          msg.textContent = data.error || 'Something went wrong — please try again.';
+          msg.className = 'news__msg news__msg--err';
+          btn.disabled = false; btn.textContent = label;
+        }
+      } catch {
+        msg.textContent = 'Network hiccup — please try again.';
+        msg.className = 'news__msg news__msg--err';
+        btn.disabled = false; btn.textContent = label;
+      }
+    });
+  }
+</script>
 
 <style>
   /* ---------- HERO — welcome card over family scene ---------- */
@@ -517,6 +560,12 @@ const family = [
   .fam__card span { font-size: 0.8rem; }
   /* H3 — disabled "coming soon" pills (music) read as non-tappable */
   .btn--soon { opacity: 0.55; cursor: default; pointer-events: none; }
+  /* honeypot — off-screen (not display:none, so bots still fill it) */
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  /* newsletter status message (on the orange card) */
+  .news__msg { margin: 0.6rem 0 0; min-height: 1.2em; font-family: var(--font-head); font-weight: 600; font-size: 1.02rem; }
+  .news__msg--ok { color: #fff; }
+  .news__msg--err { color: #fff2e6; }
 
   @media (max-width: 560px) {
     /* M1/M4 — kill forced heading wraps on small screens */
