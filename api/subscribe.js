@@ -6,11 +6,11 @@
 // Env (Vercel Project Settings -> Environment Variables):
 //   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY
 //
-// ⚠️ Welcome emails only reach real subscribers once blubabyshow.com is VERIFIED
-//    in Resend. Until then Resend (test mode) only delivers to the account owner's
-//    own address; the signup still succeeds, the email just won't arrive.
+// blubabyshow.com is verified in Resend, so welcome emails deliver to all
+// subscribers from hello@blubabyshow.com. If RESEND_API_KEY is unset, the
+// welcome is skipped silently (signup still succeeds).
 
-const FROM = 'Blu Baby Show <onboarding@resend.dev>'; // -> hello@blubabyshow.com after domain verify
+const FROM = 'Blu Baby Show <hello@blubabyshow.com>'; // blubabyshow.com verified in Resend
 
 function welcomeHtml() {
   return `
