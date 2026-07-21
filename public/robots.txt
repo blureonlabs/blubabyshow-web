@@ -26,4 +26,4 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://blubabyshow.com/sitemap-index.xml
+Sitemap: https://www.blubabyshow.com/sitemap-index.xml
