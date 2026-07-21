@@ -35,7 +35,7 @@ const POSTHOG_HOST = import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.postho
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/characters/blu.png" />
+    <meta property="og:image" content={new URL('/characters/family_hero.webp', Astro.site).href} />
     <meta property="og:site_name" content="Blu Baby Show" />
     <meta name="twitter:card" content="summary_large_image" />
 

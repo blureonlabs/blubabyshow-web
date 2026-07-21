@@ -17,7 +17,7 @@ const links = [
       <span class="nav__word">Blu&nbsp;Baby&nbsp;Show</span>
     </a>
 
-    <input type="checkbox" id="navtoggle" class="nav__toggle" hidden />
+    <input type="checkbox" id="navtoggle" class="nav__toggle" aria-label="Toggle menu" />
 
     <nav class="nav__menu" aria-label="Primary">
       <div class="nav__links">
@@ -140,6 +140,9 @@ const links = [
     transition: transform 0.15s ease;
   }
   .nav__circle:hover { transform: translateY(-2px); }
+  /* toggle: visually hidden but KEYBOARD-focusable (not display:none) */
+  .nav__toggle { position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0; }
+  .nav__toggle:focus-visible ~ .nav__actions .nav__burger { outline: 3px solid var(--blu-d); outline-offset: 3px; }
   .nav__burger { display: none; flex-direction: column; gap: 5px; }
   .nav__burger span {
     display: block;
@@ -169,13 +172,16 @@ const links = [
       box-shadow: 0 24px 44px -18px rgba(43, 44, 65, 0.4);
       transform: translateY(-14px);
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-      transition: transform 0.22s ease, opacity 0.22s ease;
+      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0s 0.22s;
     }
     .nav__toggle:checked ~ .nav__menu {
       transform: translateY(0);
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
+      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0s 0s;
     }
     .nav__links { flex-direction: column; align-items: stretch; gap: 0.1rem; }
     .nav__links a { font-size: 1.05rem; padding: 0.7rem 0.9rem; }
@@ -190,7 +196,7 @@ const links = [
     .nav__inner { height: 62px; gap: 0.5rem; padding: 0 0.5rem 0 0.9rem; }
     .nav__word { font-size: 1.05rem; }
     .nav__mark { width: 36px; height: 36px; }
-    .nav__circle { width: 40px; height: 40px; }
+    .nav__circle { width: 44px; height: 44px; }
     .nav__actions { gap: 0.45rem; }
   }
 </style>

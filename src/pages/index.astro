@@ -28,11 +28,11 @@ const hub = [
 ];
 
 const family = [
-  { img: '/characters/blu.png',    name: 'Blu',    tag: 'the little mischief', c: 'var(--blu)' },
-  { img: '/characters/mom.png',    name: 'Mum',    tag: 'keeps it all together', c: 'var(--pink)' },
-  { img: '/characters/dad.png',    name: 'Dad',    tag: 'always shows up', c: 'var(--sky)' },
-  { img: '/characters/puppy.png',  name: 'Puppy',  tag: 'clumsy & kind', c: 'var(--sun)' },
-  { img: '/characters/sister.png', name: 'Sister', tag: 'the quiet one', c: 'var(--grape)' },
+  { img: '/characters/blu.webp',    name: 'Blu',    tag: 'the little mischief', c: 'var(--blu)' },
+  { img: '/characters/mom.webp',    name: 'Mum',    tag: 'keeps it all together', c: 'var(--pink)' },
+  { img: '/characters/dad.webp',    name: 'Dad',    tag: 'always shows up', c: 'var(--sky)' },
+  { img: '/characters/puppy.webp',  name: 'Puppy',  tag: 'clumsy & kind', c: 'var(--sun)' },
+  { img: '/characters/sister.webp', name: 'Sister', tag: 'the quiet one', c: 'var(--grape)' },
 ];
 ---
 
@@ -63,7 +63,7 @@ const family = [
     </div>
 
     <div class="hero__scene">
-      <img src="/characters/family_hero.png"
+      <img src="/characters/family_hero.webp"
            alt="Blu with Mum, Dad, the puppy and baby sister"
            width="1024" height="1024" fetchpriority="high" />
     </div>
@@ -123,7 +123,7 @@ const family = [
         <p class="news__fine">No spam, ever · one email a week · unsubscribe anytime</p>
       </div>
       <div class="news__art" aria-hidden="true">
-        <img class="sticker" src="/characters/mom.png" alt="" width="240" height="240" />
+        <img loading="lazy" decoding="async" class="sticker" src="/characters/mom.webp" alt="" width="240" height="240" />
         <span class="news__stamp">FREE<br />printable</span>
       </div>
     </div>
@@ -160,7 +160,7 @@ const family = [
       <div class="fam__row">
         {family.map((m) => (
           <div class="fam__card" style={`--c:${m.c}`}>
-            <div class="fam__ph"><img src={m.img} alt={m.name} width="150" height="150" /></div>
+            <div class="fam__ph"><img loading="lazy" decoding="async" src={m.img} alt={m.name} width="150" height="150" /></div>
             <strong>{m.name}</strong>
             <span>{m.tag}</span>
           </div>
@@ -174,7 +174,7 @@ const family = [
     <div class="wrap learn__grid">
       <div class="learn__art">
         <span class="learn__blob" aria-hidden="true"></span>
-        <img class="sticker" src="/characters/puppy.png" alt="Blu’s puppy learning with blocks" width="340" height="340" />
+        <img loading="lazy" decoding="async" class="sticker" src="/characters/puppy.webp" alt="Blu’s puppy learning with blocks" width="340" height="340" />
       </div>
       <div class="learn__copy">
         <p class="eyebrow">Learn with Blu</p>
@@ -199,9 +199,9 @@ const family = [
           Press play at 2 a.m. so you don’t have to sing it yourself.
         </p>
         <div class="music__links">
-          <a class="btn btn--ghost" href="#">Spotify</a>
-          <a class="btn btn--ghost" href="#">Apple Music</a>
-          <a class="btn btn--ghost" href="#">YouTube Music</a>
+          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">Spotify</span>
+          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">Apple Music</span>
+          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">YouTube Music</span>
         </div>
       </div>
       <!-- TODO: replace with real Spotify embed once distributed via DistroKid -->
@@ -220,7 +220,7 @@ const family = [
     <div class="wrap shop__grid">
       <div class="shop__cover">
         <span class="shop__ribbon">Pre-order</span>
-        <img class="sticker" src="/characters/blu_book.png" alt="Blu holding the Blu Colouring Book" width="300" height="300" />
+        <img loading="lazy" decoding="async" class="sticker" src="/characters/blu_book.webp" alt="Blu holding the Blu Colouring Book" width="300" height="300" />
       </div>
       <div class="shop__copy">
         <p class="eyebrow">The Blu Shop</p>
@@ -231,7 +231,7 @@ const family = [
         </p>
         <p class="shop__price">₹499 <span>· ships this season</span></p>
         <!-- TODO: wire to Razorpay Payment Button (India) + Gumroad (global) -->
-        <a class="btn btn--primary" href="#">Pre-order the book</a>
+        <a class="btn btn--primary" href="#newsletter">Get notified when it ships</a>
       </div>
     </div>
   </section>
@@ -240,7 +240,7 @@ const family = [
   <section class="section closing section--center">
     <Doodles variant="hero" />
     <div class="wrap">
-      <img class="closing__blu" src="/characters/blu.png" alt="" width="150" height="150" aria-hidden="true" />
+      <img loading="lazy" decoding="async" class="closing__blu" src="/characters/blu.webp" alt="" width="150" height="150" aria-hidden="true" />
       <h2>Come hang out with Blu every week.</h2>
       <p class="muted closing__sub">Free, warm, and made with love — new little episodes every single week.</p>
       <div class="closing__cta">
@@ -286,9 +286,8 @@ const family = [
 
   .hero__scene { position: relative; z-index: 1; margin-top: -1.4rem; }
   .hero__scene img {
-    width: auto; max-width: min(760px, 94%); display: block; margin: 0 auto;
-    height: clamp(280px, 34vw, 440px);
-    object-fit: contain; object-position: center bottom;
+    width: min(760px, 94%); height: auto; display: block; margin: 0 auto;
+    object-fit: contain;
     filter: drop-shadow(0 24px 34px rgba(58, 33, 28, 0.18));
   }
 
@@ -494,7 +493,8 @@ const family = [
   }
   @media (max-width: 560px) {
     .hero { padding-top: calc(var(--nav-h) + 0.4rem); }
-    .hero__scene img { height: clamp(240px, 62vw, 320px); }
+    .hero__scene { margin-top: -0.6rem; }
+    .hero__scene img { width: min(400px, 104%); }
     .pillars { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     .hero__cta { flex-direction: column; }
     .hero__cta .btn, .closing__cta .btn, .news__form .btn { width: 100%; }
@@ -504,5 +504,29 @@ const family = [
     .fam__row { gap: 0.7rem; }
     .fam__card { width: calc(50% - 0.5rem); min-width: 130px; }
     .marquee__row { font-size: 0.95rem; }
+  }
+
+  /* ---------- MOBILE + A11Y FIXES (Fable audit 2026-07) ---------- */
+  /* M3 — dark text on light hub cards (extend the sun-card pattern) for contrast */
+  .hub__card[style*="--sky"] .hub__label,  .hub__card[style*="--sky"] .hub__arrow,
+  .hub__card[style*="--grass"] .hub__label, .hub__card[style*="--grass"] .hub__arrow { color: #22314a; }
+  .hub__card[style*="--sky"] .hub__sub,   .hub__card[style*="--grass"] .hub__sub { color: rgba(20,30,50,0.72); }
+  .hub__card[style*="--sky"] .hub__ic,    .hub__card[style*="--grass"] .hub__ic { color: var(--c); }
+  /* M5 — fine-print floors */
+  .news__fine { font-size: 0.85rem; color: rgba(255,255,255,0.85); }
+  .fam__card span { font-size: 0.8rem; }
+  /* H3 — disabled "coming soon" pills (music) read as non-tappable */
+  .btn--soon { opacity: 0.55; cursor: default; pointer-events: none; }
+
+  @media (max-width: 560px) {
+    /* M1/M4 — kill forced heading wraps on small screens */
+    .hero__card h1 { font-size: clamp(1.8rem, 8.6vw, 2.05rem); }
+    .news h2 { font-size: 1.6rem; }
+    .news__card br, .hero__card h1 br { display: none; }
+    .hero__card h1 { text-wrap: balance; }
+    /* C2 — family photo circle must not overflow its card */
+    .fam__card { padding: 1.2rem 0.8rem 1.3rem; }
+    .fam__ph { width: min(134px, 100%); height: auto; aspect-ratio: 1; }
+    .fam__ph img { width: 88%; height: 88%; }
   }
 </style>
