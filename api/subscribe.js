@@ -44,12 +44,12 @@ function welcomeHtml() {
   return `
   <div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:520px;margin:0 auto;color:#2b2c41;line-height:1.6">
     <h1 style="font-size:24px;color:#30598a;margin:0 0 8px">You're in 💛</h1>
-    <p style="margin:0 0 14px">Welcome to <strong>Blu's Sunday Club</strong>.</p>
-    <p style="margin:0 0 14px">Every Sunday we'll send you one gentle story and one new Blu video —
-      the kind that makes the long days a little softer.</p>
-    <p style="margin:0 0 14px">Your free <strong>Blu Emotion Cards</strong> — gentle things to say when the
-      moment is hard — are on their way soon. 💙</p>
+    <p style="margin:0 0 14px">Thanks for joining <strong>Letters from Blu's family</strong>.</p>
+    <p style="margin:0 0 14px">When we write, it'll be a short, gentle note and the newest Blu episode —
+      the kind of thing that makes the long days a little softer.</p>
     <p style="margin:0 0 14px">You're doing better than you think.</p>
+    <p style="margin:0 0 14px">If these letters ever stop being right for you, just reply and we'll
+      take you off the list.</p>
     <p style="margin:20px 0 0;color:#5c5d7a">— The Blu Baby Show family<br/>
       <a href="https://instagram.com/theblubabyshow" style="color:#2f83c9">@theblubabyshow</a></p>
   </div>`;
@@ -66,7 +66,7 @@ async function sendWelcome(email) {
         from: FROM,
         reply_to: REPLY_TO,
         to: email,
-        subject: "You're in! Welcome to Blu's Sunday Club 💛",
+        subject: "You're in! Welcome to Blu's letters 💛",
         html: welcomeHtml(),
       }),
     });
