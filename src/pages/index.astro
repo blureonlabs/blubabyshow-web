@@ -41,7 +41,7 @@ const family = [
     <div class="wrap">
       <div class="hero__card reveal d1">
         <p class="eyebrow">Welcome to the home of Blu</p>
-        <h1>The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
+        <h1>The happiest <br /><span class="hero__pop">little show</span> <br />for real families.</h1>
         <p class="hero__sub">
           Warm, giggly little stories that help your little one name big feelings —
           and make the long days a little softer. Watched <strong>85M+</strong> times
@@ -495,6 +495,11 @@ const family = [
     .learn__copy .btn, .shop__copy .btn { margin-left: auto; margin-right: auto; }
     .learn__art, .shop__cover { max-width: 300px; margin-inline: auto; }
   }
+  /* hero stats: one per line once the row no longer fits, so no "·" is left dangling */
+  @media (max-width: 680px) {
+    .hero__stats { flex-direction: column; gap: 0.25rem; }
+    .hero__stats .dotsep { display: none; }
+  }
   @media (max-width: 560px) {
     .hero { padding-top: calc(var(--nav-h) + 0.4rem); }
     .hero__scene { margin-top: -0.6rem; }
@@ -502,7 +507,6 @@ const family = [
     .pillars { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     .hero__cta { flex-direction: column; }
     .hero__cta .btn, .closing__cta .btn, .news__form .btn { width: 100%; }
-    .hero__stats { flex-wrap: wrap; row-gap: 0.3rem; }
     .news__input { min-width: 0; }
     .closing__cta { flex-direction: column; }
     .fam__row { gap: 0.7rem; }
