@@ -1,8 +1,8 @@
 /* ============================================================
    Blu Baby Show — design system  ·  "Blu's Sky World"
-   Bluey.tv-inspired: bright cerulean sky, fluffy clouds, warm
-   sand, deep-navy ink. Chunky rounded type. Joyful, hand-made.
-   Primary = Bluey blue. Warm pop = Bingo orange + heeler tan.
+   Bright cerulean sky, fluffy clouds, warm sand, deep-navy
+   ink. Chunky rounded type. Joyful, hand-made.
+   Primary = Blu blue. Warm pop = sunset orange + sunshine tan.
    ============================================================ */
 
 :root {
@@ -10,20 +10,20 @@
   --cream:   #eaf6ff;   /* pale sky-white — page base */
   --cream-2: #d6ecff;   /* soft sky section fill */
   --sand:    #f6efdb;   /* warm sand card/section */
-  --sand-2:  #ecdfbe;   /* deeper heeler sand */
+  --sand-2:  #ecdfbe;   /* deeper warm sand */
   --base:    #fbf7ef;   /* unified warm off-white — the calm section base */
   --paper:   #ffffff;
-  --ink:     #2b2c41;   /* Bluey deep navy — text */
+  --ink:     #2b2c41;   /* deep navy — text */
   --ink-soft:#5c5d7a;
 
-  /* Brights — the Bluey cast */
-  --blu:     #57b0f0;   --blu-d:   #2f83c9;   /* PRIMARY — Bluey blue */
+  /* Brights — the Blu palette */
+  --blu:     #57b0f0;   --blu-d:   #2f83c9;   /* PRIMARY — Blu blue */
   --blu-deep:#30598a;                          /* deep marking navy-blue */
   --sky:     #8ecbfb;   --sky-d:   #57b0f0;    /* light sky */
-  --sun:     #f6c344;   --sun-d:   #e2a51e;    /* heeler tan / sunshine */
-  --orange:  #f2823c;   --orange-d:#db631d;    /* Bingo warmth */
+  --sun:     #f6c344;   --sun-d:   #e2a51e;    /* sunshine tan */
+  --orange:  #f2823c;   --orange-d:#db631d;    /* sunset warmth */
   --grass:   #74c05f;   --grass-d: #55a641;
-  --pink:    #f58cb6;   --pink-d:  #e5679a;    /* Muffin / Socks pink */
+  --pink:    #f58cb6;   --pink-d:  #e5679a;    /* candy pink */
   --grape:   #9b7fdc;   --grape-d: #7d5fc4;
 
   /* Type */

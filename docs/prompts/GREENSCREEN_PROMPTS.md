@@ -11,7 +11,7 @@ each on a flat green screen, send me the file path, and I'll key it out in Pytho
 - **Composition:** full body, centred, **generous margin so the character never touches an
   edge**; eye-level, slight 3/4 angle, 50mm look.
 - **Lighting:** soft, even, flat studio light, **no harsh shadow, no dark edge rim**.
-- **Style:** high-fidelity 3D Pixar / Illumination render, soft rounded forms,
+- **Style:** high-fidelity stylised 3D cartoon render, soft rounded forms,
   subsurface-scattering skin, big expressive eyes, smooth clean surfaces.
 - **Avoid (every prompt):** any green on the character, cast shadow, gradient/textured
   background, character touching the frame edge, text, watermark, extra limbs, harsh

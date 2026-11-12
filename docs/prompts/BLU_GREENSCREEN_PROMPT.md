@@ -10,7 +10,7 @@ instead gives a clean, uniform background that keys out perfectly — sharp edge
 3. Remove the green afterwards — either:
    - the local Python step (`rembg`, U²-Net) — works even better on a clean green field, **or**
    - a simple chroma-key on green `#00B140`.
-   Then drop the result in here as `blu.png`.
+   Then drop the result into `public/characters/` as `blu.png`.
 
 ## Key rules that make the cut-out clean
 - Background is one **flat, uniform chroma-green** (`#00B140`), edge to edge — no gradient,
@@ -41,8 +41,8 @@ instead gives a clean, uniform background that keys out perfectly — sharp edge
 > centred, head-to-toe with generous even margin so Blu never touches the edges, eye-level,
 > gentle 3/4 angle facing camera, 50mm lens look, chest clearly visible so the wordmark reads.
 > **Lighting & mood:** soft, even, flat studio lighting with a gentle key from the top-left,
-> no harsh shadows and no dark edge rim, cheerful and tender. **Style:** high-fidelity 3D
-> Pixar / Illumination-style character render, soft rounded forms, subsurface-scattering skin,
+> no harsh shadows and no dark edge rim, cheerful and tender. **Style:** high-fidelity stylised
+> 3D cartoon character render, soft rounded forms, subsurface-scattering skin,
 > big expressive eyes, smooth clean surfaces. **Avoid:** any green on the character, cast
 > shadow on the floor, gradient or textured background, character touching the frame edge,
 > misspelled or garbled chest text, any text other than "blubabyshow", extra limbs, cropped
