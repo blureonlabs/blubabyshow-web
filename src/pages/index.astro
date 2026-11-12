@@ -261,11 +261,15 @@ const family = [
           msg.textContent = data.error || 'Something went wrong — please try again.';
           msg.className = 'news__msg news__msg--err';
           btn.disabled = false; btn.textContent = label;
+          // Failure event (PostHog) so a broken signup backend shows up in analytics. No-op if PH is off.
+          window.posthog?.capture?.('newsletter_signup_failed', { status: res.status });
         }
       } catch {
         msg.textContent = 'Network hiccup — please try again.';
         msg.className = 'news__msg news__msg--err';
         btn.disabled = false; btn.textContent = label;
+        // status 0 = network error (no HTTP response)
+        window.posthog?.capture?.('newsletter_signup_failed', { status: 0 });
       }
     });
   }
