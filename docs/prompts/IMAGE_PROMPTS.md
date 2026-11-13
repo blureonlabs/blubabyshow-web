@@ -3,7 +3,7 @@
 Prompts for the character cutouts the homepage loads from `/public/characters/`.
 Written for **Nano Banana 2** (Gemini 3.1 Flash Image) — natural-language,
 art-director-brief style. Generate each, save with the **exact same filename**
-into this folder, and the site picks it up (no code change).
+into `public/characters/`, and the site picks it up (no code change).
 
 ## How to run these
 
@@ -21,10 +21,10 @@ into this folder, and the site picks it up (no code change).
 **Prompt anatomy used below** (NB2 responds best to this order, as prose):
 Subject → Action/state → Environment → Composition & camera → Lighting & mood → Style → Exclusions.
 
-**Style line reused in every prompt:** *"high-fidelity 3D Pixar / Illumination-style
+**Style line reused in every prompt:** *"high-fidelity stylised 3D cartoon
 character render, soft rounded forms, subsurface-scattering skin, big expressive eyes,
-smooth clean surfaces."* (The UI is Bluey-flat; the characters stay Pixar-3D and pop
-against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
+smooth clean surfaces."* (The UI is bright and flat; the characters stay soft 3D and pop
+against it. Want fully-flat 2D art instead? See the variant at the bottom.)
 
 ---
 
@@ -46,7 +46,7 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 > camera:** full body, centred, head-to-toe in frame with generous padding, eye-level,
 > gentle 3/4 angle facing the camera, 50mm lens look, chest clearly visible so the wordmark
 > reads. **Lighting & mood:** soft top-left key light with a warm bounce and a subtle rim
-> light, cheerful and tender. **Style:** high-fidelity 3D Pixar / Illumination-style
+> light, cheerful and tender. **Style:** high-fidelity stylised 3D cartoon
 > character render, soft rounded forms, subsurface-scattering skin, big expressive eyes,
 > smooth clean surfaces. **Avoid:** background, ground, cast shadow on floor, props,
 > misspelled or garbled chest text, any text other than "blubabyshow" on the chest,
@@ -70,7 +70,7 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 > transparent background. **Composition & camera:** full body, centred, eye-level,
 > slight 3/4 angle, 50mm look, torso and face clearly readable (she also appears in a
 > circular crop). **Lighting & mood:** soft directional key light, warm and reassuring.
-> **Style:** high-fidelity 3D Pixar / Illumination-style character render, soft rounded
+> **Style:** high-fidelity stylised 3D cartoon character render, soft rounded
 > forms, subsurface-scattering skin, big expressive eyes, smooth clean surfaces.
 > **Avoid:** background, ground shadow, props, text, watermark, extra fingers, harsh shadows.
 
@@ -87,7 +87,7 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 > pocket, warm "tired-but-shows-up" energy. **Environment:** none — transparent
 > background. **Composition & camera:** full body, centred, head-to-toe, eye-level,
 > slight 3/4 angle, 50mm look. **Lighting & mood:** soft top-left key light with gentle
-> rim light, friendly and grounded. **Style:** high-fidelity 3D Pixar / Illumination-style
+> rim light, friendly and grounded. **Style:** high-fidelity stylised 3D cartoon
 > character render, soft rounded forms, subsurface-scattering skin, big expressive eyes,
 > smooth clean surfaces. **Avoid:** background, ground shadow, props, text, watermark,
 > extra limbs, cropped feet, harsh shadows.
@@ -105,7 +105,7 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 > mid-wag, playful and huggable. **Environment:** none — transparent background.
 > **Composition & camera:** full body, centred, eye-level, slight 3/4 angle, 50mm look.
 > **Lighting & mood:** soft top-left key light with gentle rim light, joyful and bouncy.
-> **Style:** high-fidelity 3D Pixar / Illumination-style character render, soft rounded
+> **Style:** high-fidelity stylised 3D cartoon character render, soft rounded
 > forms, subsurface-scattering fur-soft surfaces, big expressive eyes, smooth clean
 > surfaces. **Avoid:** background, ground shadow, leash, text, watermark, extra legs,
 > harsh shadows.
@@ -126,7 +126,7 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 > expression, one tiny hand peeking out. **Environment:** none — transparent background.
 > **Composition & camera:** full body (swaddled bundle), centred, eye-level, soft 3/4
 > angle, 50mm look. **Lighting & mood:** soft warm key light, tender and cosy.
-> **Style:** high-fidelity 3D Pixar / Illumination-style character render, soft rounded
+> **Style:** high-fidelity stylised 3D cartoon character render, soft rounded
 > forms, subsurface-scattering skin, big expressive eyes, smooth clean surfaces.
 > **Avoid:** background, ground shadow, crib, props, text, watermark, harsh shadows.
 
@@ -137,7 +137,7 @@ against it. Want fully-flat Bluey art instead? See the variant at the bottom.)
 A premium **app-icon-quality** mark built from **Blu's face** that must stay crisp and
 readable at **32×32px**. Rounded-square badge (reads better and feels more "brand" than a
 thin ring at small sizes), bold shapes, few details, strong contrast — the kind of icon
-that would sit proudly on a phone home screen next to Bluey and Cocomelon.
+that would sit proudly on a phone home screen next to the best-loved kids' apps.
 
 **Reference to upload:** `blu_blubabyshow_v3.png` (use the head only)
 
@@ -228,7 +228,7 @@ point the Shop `<img>` at it (one-line change; tell me to do it).
 > background. **Composition & camera:** full body, centred, head-to-toe with generous
 > padding, eye-level, gentle 3/4 angle, 50mm look, the book cover clearly facing camera.
 > **Lighting & mood:** soft top-left key light with warm bounce and subtle rim light,
-> cheerful and proud. **Style:** high-fidelity 3D Pixar / Illumination-style character
+> cheerful and proud. **Style:** high-fidelity stylised 3D cartoon character
 > render, soft rounded forms, subsurface-scattering skin, big expressive eyes, smooth clean
 > surfaces. **Avoid:** background, ground shadow, misspelled or garbled text (only
 > "blubabyshow" on the chest, no readable text on the book cover), watermark logos, extra
@@ -255,11 +255,11 @@ keep every face on-model from its sheet.
 > in tongue-out, Mum beside them cradling the swaddled baby, everyone happy and connected.
 > **Environment:** a sunny grassy meadow with a few soft rolling green hills, bright
 > cerulean-blue sky, two or three fluffy white clouds and a warm cheerful sun — the
-> "Bluey's sunny world" look. **Composition & camera:** wide 16:9 landscape, group framed
+> "Blu's sunny world" look. **Composition & camera:** wide 16:9 landscape, group framed
 > centre with headroom and open sky above for a headline overlay, eye-level, slight
 > wide-angle, everyone full-body and clearly separated. **Lighting & mood:** warm golden
-> daylight, soft shadows, joyful and heart-warming. **Style:** high-fidelity 3D Pixar /
-> Illumination-style render, soft rounded forms, subsurface-scattering skin, big expressive
+> daylight, soft shadows, joyful and heart-warming. **Style:** high-fidelity stylised
+> 3D cartoon render, soft rounded forms, subsurface-scattering skin, big expressive
 > eyes, vibrant and clean. **Avoid:** text, watermark, extra people, cluttered background,
 > harsh shadows, distorted or duplicated faces, extra limbs. **Aspect ratio 16:9, 2K.**
 >
@@ -268,12 +268,12 @@ keep every face on-model from its sheet.
 
 ---
 
-## Flat-2D variant (only if you want a *fully* Bluey look, no 3D)
+## Flat-2D variant (only if you want a *fully* flat look, no 3D)
 
 Replace the **Style** line in any prompt above with:
 
 > **Style:** flat 2D vector cartoon, bold clean outlines, simple cel shading, minimal
-> gradients, Bluey / Peppa-style children's animation, flat solid colours.
+> gradients, simple preschool-cartoon style, flat solid colours.
 
 Keep everything else — reference upload, subject, action, transparent background,
 exclusions, filename, export specs — the same.

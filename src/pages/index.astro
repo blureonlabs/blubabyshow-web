@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 
 /* ------------------------------------------------------------------
    PHASE 0 — "Blu's Sunny World" homepage.
-   Bluey-warm × Cocomelon-catchy. Character-first, bright, joyful.
+   Warm and catchy. Character-first, bright, joyful.
    Doubles as the link-in-bio destination: convert the 165K/mo IG
    profile-visit click into an owned email or a revenue action.
    Swap the placeholder character PNGs (same filenames) as better
@@ -14,17 +14,16 @@ import Icon from '../components/Icon.astro';
 
 const pillars = [
   { title: 'Big Feelings', blurb: 'Cinematic little moments about the feelings of raising a tiny human.', c: 'var(--orange)', icon: 'heart' },
-  { title: 'Learn with Blu', blurb: 'Numbers, animals, feelings — early learning, Pixar-quality.', c: 'var(--grass)', icon: 'book' },
+  { title: 'Learn with Blu', blurb: 'Colours, numbers, animals and feelings, as picture carousels to explore together.', c: 'var(--grass)', icon: 'book' },
   { title: 'Blu vs the World', blurb: 'Tiny-chaos comedy. Bubble wrap. Mirrors. Mum’s lipstick.', c: 'var(--sun)', icon: 'smile' },
   { title: 'Family Life', blurb: 'Warm slice-of-life — scooter rides, monsoons, rooftop sunsets.', c: 'var(--grape)', icon: 'home' },
 ];
 
 const hub = [
   { label: 'Watch the newest episode', sub: 'New every week', href: 'https://instagram.com/theblubabyshow', c: 'var(--blu)', icon: 'play' },
-  { label: 'Join Blu’s Sunday Club', sub: 'Free emotion cards inside', href: '#newsletter', c: 'var(--sun)', icon: 'mail' },
-  { label: 'Blu’s Bedtime music', sub: 'Lullabies on Spotify', href: '#music', c: 'var(--grape)', icon: 'music' },
-  { label: 'The Blu Colouring Book', sub: 'Pre-order · ₹499', href: '#shop', c: 'var(--grass)', icon: 'pencil' },
+  { label: 'Get Blu’s free letters', sub: 'For parents · free printables when ready', href: '#newsletter', c: 'var(--sun)', icon: 'mail' },
   { label: 'Watch on the big screen', sub: 'Subscribe on YouTube', href: 'https://youtube.com/@blubabyshow', c: 'var(--sky)', icon: 'tv' },
+  { label: 'For brands', sub: 'Work with the studio behind Blu', href: '/studio/', c: 'var(--grass)', icon: 'sparkle' },
 ];
 
 const family = [
@@ -37,27 +36,27 @@ const family = [
 ---
 
 <Base>
-  <!-- ============ HERO — welcome card over a full family scene (bluey.tv style) ============ -->
+  <!-- ============ HERO — welcome card over a full family scene ============ -->
   <section class="hero">
     <div class="wrap">
       <div class="hero__card reveal d1">
         <p class="eyebrow">Welcome to the home of Blu</p>
-        <h1>The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
+        <h1>The happiest <br /><span class="hero__pop">little show</span> <br />for real families.</h1>
         <p class="hero__sub">
           Warm, giggly little stories that help your little one name big feelings —
-          and make the long days a little softer. Loved <strong>63 million</strong> times
-          by families just like yours.
+          and make the long days a little softer. Watched <strong>85M+</strong> times
+          on Instagram.
         </p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Watch Blu on Instagram</a>
           <a class="btn btn--sun" href="#newsletter">Get the free newsletter</a>
         </div>
         <div class="hero__stats">
-          <span><b>63M+</b> views</span>
+          <span><b>85M+</b> views on Instagram</span>
           <span class="dotsep">·</span>
-          <span><b>58K+</b> families</span>
+          <span><b>64K</b> followers</span>
           <span class="dotsep">·</span>
-          <span><b>4</b> new a week</span>
+          <span>New episodes <b>every week</b></span>
         </div>
       </div>
     </div>
@@ -74,8 +73,8 @@ const family = [
     <div class="marquee__track">
       {Array.from({ length: 2 }).map(() => (
         <span class="marquee__row">
-          <b>63M+ views</b> ★ <b>58K+ families</b> ★ <b>3 countries in the top 5</b> ★
-          <b>4 new episodes a week</b> ★ <b>feelings before facts</b> ★
+          <b>85M+ views</b> ★ <b>64K followers</b> ★ <b>followed in 45+ countries</b> ★
+          <b>new episodes every week</b> ★ <b>feelings before facts</b> ★
         </span>
       ))}
     </div>
@@ -108,24 +107,23 @@ const family = [
     <Doodles variant="sparse" />
     <div class="wrap news__card">
       <div class="news__copy">
-        <p class="eyebrow eyebrow--light"><Icon name="mail" size={16} /> Blu’s Sunday Club</p>
-        <h2>One warm story + one new Blu video.<br />Every Sunday. Free.</h2>
+        <p class="eyebrow eyebrow--light"><Icon name="mail" size={16} /> Letters from Blu’s family</p>
+        <h2>Gentle notes for tired parents. Free.</h2>
         <p class="news__lead">
-          You’re doing better than you think. Every Sunday we’ll send one gentle story and
-          one new Blu video — plus the <strong>free Blu Emotion Cards</strong> to help your
-          little one say what they feel.
+          The newest Blu episode, a short note for the long days, and free printables when
+          they’re ready. For grown-ups (18+). Unsubscribe anytime.
         </p>
         <form class="news__form" id="newsForm" novalidate>
           <input class="news__input" type="email" name="email" placeholder="your@email.com" aria-label="Email address" required />
           <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <button class="btn btn--sun" type="submit">Send me Sunday moments</button>
+          <button class="btn btn--sun" type="submit">Send me Blu’s letters</button>
         </form>
         <p class="news__msg" id="newsMsg" role="status" aria-live="polite"></p>
-        <p class="news__fine">No spam, ever · one email a week · unsubscribe anytime</p>
+        <p class="news__fine">We only use your email to send these letters and never sell it. <a href="/privacy">Privacy Policy</a></p>
       </div>
       <div class="news__art" aria-hidden="true">
         <img loading="lazy" decoding="async" class="sticker" src="/characters/mom.webp" alt="" width="240" height="240" />
-        <span class="news__stamp">FREE<br />printable</span>
+        <span class="news__stamp">FREE<br />letters</span>
       </div>
     </div>
   </section>
@@ -136,7 +134,7 @@ const family = [
       <div class="section__head">
         <p class="eyebrow">What we make</p>
         <h2>Four kinds of Blu</h2>
-        <p class="muted">Every week: one from each. Feelings, learning, laughs and family.</p>
+        <p class="muted">New episodes every week: feelings, learning, laughs and family.</p>
       </div>
       <div class="pillars">
         {pillars.map((p, i) => (
@@ -179,60 +177,31 @@ const family = [
       </div>
       <div class="learn__copy">
         <p class="eyebrow">Learn with Blu</p>
-        <h2>Real early-learning, from a Pixar-quality baby.</h2>
+        <h2>Little lessons to explore together.</h2>
         <p class="muted">
-          Numbers, animals, feelings, colours, first words — browsable, free to read.
-          Every carousel ends with a free printable dropped straight to your inbox.
+          Colours, numbers, animals and feelings: gentle picture carousels for grown-ups to
+          share with little ones. Printable packs are coming soon. Join the list and we’ll
+          send the first one free.
         </p>
-        <a class="btn btn--grass" href="#newsletter">Get the free printables →</a>
+        <a class="btn btn--grass" href="#newsletter">Join the list →</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ MUSIC ============ -->
-  <section class="section music" id="music">
-    <div class="wrap music__grid">
-      <div class="music__copy">
-        <p class="eyebrow">Blu’s Bedtime</p>
-        <h2>Lullabies for winding down.</h2>
-        <p class="muted">
-          Twinkle Twinkle, Baba Black Sheep &amp; more — Blu’s own bedtime album.
-          Press play at 2 a.m. so you don’t have to sing it yourself.
-        </p>
-        <div class="music__links">
-          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">Spotify</span>
-          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">Apple Music</span>
-          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">YouTube Music</span>
-        </div>
-      </div>
-      <!-- TODO: replace with real Spotify embed once distributed via DistroKid -->
-      <div class="player">
-        <div class="player__disc"><span></span></div>
-        <div class="player__wave">
-          {Array.from({ length: 9 }).map(() => <span></span>)}
-        </div>
-        <p>Blu’s Bedtime: Vol. 1 · coming this season</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SHOP ============ -->
-  <section class="section shop" id="shop">
+  <!-- ============ PRINTABLES (waitlist) ============ -->
+  <section class="section shop" id="printables">
     <div class="wrap shop__grid">
       <div class="shop__cover">
-        <span class="shop__ribbon">Pre-order</span>
-        <img loading="lazy" decoding="async" class="sticker" src="/characters/blu_book.webp" alt="Blu holding the Blu Colouring Book" width="300" height="300" />
+        <img loading="lazy" decoding="async" class="sticker" src="/characters/blu_book.webp" alt="Blu holding up a colouring book" width="300" height="300" />
       </div>
       <div class="shop__copy">
-        <p class="eyebrow">The Blu Shop</p>
-        <h2>The Blu Colouring Book</h2>
+        <p class="eyebrow">Coming soon</p>
+        <h2>Blu’s printable activity packs</h2>
         <p class="muted">
-          32 pages of Blu’s world to colour in — feelings, family and tiny adventures.
-          Ships across India and worldwide.
+          Feelings cards, colouring pages and first-word games starring Blu and his family.
+          Join the waitlist and we’ll send the first pack free when it’s ready.
         </p>
-        <p class="shop__price">₹499 <span>· ships this season</span></p>
-        <!-- TODO: wire to Razorpay Payment Button (India) + Gumroad (global) -->
-        <a class="btn btn--primary" href="#newsletter">Get notified when it ships</a>
+        <a class="btn btn--primary" href="#newsletter">Join the waitlist</a>
       </div>
     </div>
   </section>
@@ -252,7 +221,7 @@ const family = [
       <p class="muted closing__sub">Free, warm, and made with love — new little episodes every single week.</p>
       <div class="closing__cta">
         <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Follow on Instagram</a>
-        <a class="btn btn--sun" href="#newsletter">Join Blu’s Sunday Club</a>
+        <a class="btn btn--sun" href="#newsletter">Get Blu’s free letters</a>
       </div>
     </div>
   </section>
@@ -284,7 +253,7 @@ const family = [
         const data = await res.json().catch(() => ({}));
         if (res.ok && data.ok) {
           form.style.display = 'none';
-          msg.textContent = "You're in! 💛 Welcome to Blu's Sunday Club.";
+          msg.textContent = "You're in! 💛 Thanks for joining Blu's letters.";
           msg.className = 'news__msg news__msg--ok';
           // Conversion event (PostHog) — only fires on a real success. No-op if PH is off.
           window.posthog?.capture?.('newsletter_signup', { source: 'website' });
@@ -292,11 +261,15 @@ const family = [
           msg.textContent = data.error || 'Something went wrong — please try again.';
           msg.className = 'news__msg news__msg--err';
           btn.disabled = false; btn.textContent = label;
+          // Failure event (PostHog) so a broken signup backend shows up in analytics. No-op if PH is off.
+          window.posthog?.capture?.('newsletter_signup_failed', { status: res.status });
         }
       } catch {
         msg.textContent = 'Network hiccup — please try again.';
         msg.className = 'news__msg news__msg--err';
         btn.disabled = false; btn.textContent = label;
+        // status 0 = network error (no HTTP response)
+        window.posthog?.capture?.('newsletter_signup_failed', { status: 0 });
       }
     });
   }
@@ -407,6 +380,7 @@ const family = [
   }
   .news__input:focus { outline: 3px solid var(--sun); }
   .news__fine { font-size: 0.8rem; color: rgba(255,255,255,0.75); margin: 0; }
+  .news__fine a { text-decoration: underline; }
   .news__art { position: relative; display: grid; place-items: center; }
   .news__art img { width: 240px; height: 240px; border-radius: 50%; background: rgba(255,255,255,0.16); object-fit: cover; object-position: 50% 14%; }
   .news__stamp {
@@ -470,41 +444,7 @@ const family = [
   }
   .learn__art img { position: relative; z-index: 1; animation: floatSm 5s ease-in-out infinite; }
 
-  /* ---------- MUSIC ---------- */
-  .music { background: linear-gradient(180deg, #2b2545 0%, #1f1b36 100%); color: #f4efff; }
-  .music .muted { color: #c4bce0; }
-  .music__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 2.5rem; }
-  .music h2 { color: #fff; }
-  .music__links { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.2rem; }
-  .music__links .btn--ghost { background: rgba(255,255,255,0.1); color: #fff; box-shadow: none; }
-  .player {
-    background: rgba(255,255,255,0.06); border-radius: var(--radius); padding: 2.2rem;
-    display: grid; place-items: center; gap: 1.3rem; text-align: center;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .player__disc {
-    width: 130px; height: 130px; border-radius: 50%;
-    background: conic-gradient(from 0deg, #3a3358, #241f3d, #3a3358);
-    border: 7px solid #14101f; display: grid; place-items: center;
-    animation: spinSlow 8s linear infinite;
-  }
-  .player__disc span { width: 26px; height: 26px; border-radius: 50%; background: var(--sun); }
-  .player__wave { display: flex; align-items: flex-end; gap: 5px; height: 36px; }
-  .player__wave span { width: 5px; background: var(--sun); border-radius: 3px; animation: eq 1.1s ease-in-out infinite; }
-  .player__wave span:nth-child(2n) { background: var(--orange); }
-  .player__wave span:nth-child(1){height:40%;animation-delay:0s}
-  .player__wave span:nth-child(2){height:80%;animation-delay:.1s}
-  .player__wave span:nth-child(3){height:55%;animation-delay:.2s}
-  .player__wave span:nth-child(4){height:100%;animation-delay:.3s}
-  .player__wave span:nth-child(5){height:60%;animation-delay:.15s}
-  .player__wave span:nth-child(6){height:88%;animation-delay:.25s}
-  .player__wave span:nth-child(7){height:45%;animation-delay:.05s}
-  .player__wave span:nth-child(8){height:72%;animation-delay:.35s}
-  .player__wave span:nth-child(9){height:52%;animation-delay:.2s}
-  @keyframes eq { 0%,100%{transform:scaleY(.5)} 50%{transform:scaleY(1)} }
-  .player p { margin: 0; font-size: 0.9rem; color: #b3aad2; }
-
-  /* ---------- SHOP ---------- */
+  /* ---------- PRINTABLES (waitlist) ---------- */
   .shop { background: var(--base); }
   .shop__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 2.5rem; }
   .shop__cover {
@@ -513,13 +453,6 @@ const family = [
     max-width: 360px; margin: 0 auto; box-shadow: var(--shadow);
   }
   .shop__cover img { animation: floatSm 5s ease-in-out infinite; }
-  .shop__ribbon {
-    position: absolute; top: 18px; left: -8px; background: var(--grape); color: #fff;
-    font-family: var(--font-head); font-weight: 600; font-size: 0.82rem;
-    padding: 0.4rem 1rem; border-radius: 6px; box-shadow: var(--shadow-sticker);
-  }
-  .shop__price { font-family: var(--font-head); font-weight: 700; font-size: 2rem; color: var(--orange-d); margin: 0.4rem 0 1.2rem; }
-  .shop__price span { font-size: 0.95rem; font-weight: 500; color: var(--ink-soft); }
 
   /* ---------- CLOSING ---------- */
   .closing { position: relative; background: linear-gradient(180deg, #d6ecff 0%, var(--sky) 100%); overflow: hidden; }
@@ -551,18 +484,21 @@ const family = [
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 940px) {
-    .news__card, .learn__grid, .music__grid, .shop__grid { grid-template-columns: 1fr; }
+    .news__card, .learn__grid, .shop__grid { grid-template-columns: 1fr; }
     .news__art { display: none; }
     .news__card { text-align: center; }
     .news__form { justify-content: center; }
     .news__lead { margin-left: auto; margin-right: auto; }
     .pillars { grid-template-columns: repeat(2, 1fr); }
     .hub { grid-template-columns: 1fr; max-width: 520px; }
-    .learn__copy, .music__copy, .shop__copy { text-align: center; }
-    .learn__copy .btn, .music__links, .shop__copy .btn { margin-left: auto; margin-right: auto; }
-    .music__links { justify-content: center; }
+    .learn__copy, .shop__copy { text-align: center; }
+    .learn__copy .btn, .shop__copy .btn { margin-left: auto; margin-right: auto; }
     .learn__art, .shop__cover { max-width: 300px; margin-inline: auto; }
-    .music__grid .player { order: -1; }
+  }
+  /* hero stats: one per line once the row no longer fits, so no "·" is left dangling */
+  @media (max-width: 680px) {
+    .hero__stats { flex-direction: column; gap: 0.25rem; }
+    .hero__stats .dotsep { display: none; }
   }
   @media (max-width: 560px) {
     .hero { padding-top: calc(var(--nav-h) + 0.4rem); }
@@ -571,7 +507,6 @@ const family = [
     .pillars { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     .hero__cta { flex-direction: column; }
     .hero__cta .btn, .closing__cta .btn, .news__form .btn { width: 100%; }
-    .hero__stats { flex-wrap: wrap; row-gap: 0.3rem; }
     .news__input { min-width: 0; }
     .closing__cta { flex-direction: column; }
     .fam__row { gap: 0.7rem; }
@@ -588,8 +523,6 @@ const family = [
   /* M5 — fine-print floors */
   .news__fine { font-size: 0.85rem; color: rgba(255,255,255,0.85); }
   .fam__card span { font-size: 0.8rem; }
-  /* H3 — disabled "coming soon" pills (music) read as non-tappable */
-  .btn--soon { opacity: 0.55; cursor: default; pointer-events: none; }
   /* honeypot — off-screen (not display:none, so bots still fill it) */
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
   /* newsletter status message (on the orange card) */
