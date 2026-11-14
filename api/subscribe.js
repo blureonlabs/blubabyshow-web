@@ -7,11 +7,11 @@
 //   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY
 //
 // blubabyshow.com is verified in Resend, so welcome emails deliver to all
-// subscribers from hello@blubabyshow.com. If RESEND_API_KEY is unset, the
+// subscribers (reply-to blubabyshow@gmail.com). If RESEND_API_KEY is unset, the
 // welcome is skipped silently (signup still succeeds).
 
 const FROM = 'Blu Baby Show <hello@notifications.blubabyshow.com>'; // verified subdomain in Resend
-const REPLY_TO = 'hello@blubabyshow.com'; // replies route to the main inbox
+const REPLY_TO = 'blubabyshow@gmail.com'; // replies route to the main inbox
 
 // Per-IP rate limit via Upstash Redis REST (OPTIONAL). Unset env = limiting off.
 // FAIL-OPEN: if Redis is unreachable we allow the signup — never block real users.
