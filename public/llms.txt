@@ -1,33 +1,54 @@
 # Blu Baby Show
 
-> The world's first AI-native, Pixar-quality kids brand — a Bluey-scale character
-> universe built for the modern family. Every episode teaches feelings before it
-> teaches facts. Gentle animated stories about a curious 1.5-year-old named Blu,
-> his mom, dad, and new baby sister — made for toddlers and the parents raising them.
+> Blu Baby Show is a 3D animated short-form series for toddlers and their parents.
+> It follows Blu, a 2-year-old boy, through small everyday moments and the big
+> feelings that come with them. The show's idea: teach feelings before facts.
 
-Blu Baby Show helps parents of 1–4 year-olds with big feelings: tantrums,
-frustration, sharing, welcoming a new sibling, bedtime, and everyday emotional
-moments. Content is warm, calm, and screen-time you don't feel guilty about.
+Episodes are short (about 15 to 30 seconds) and are published on Instagram and
+YouTube. The website, blubabyshow.com, links to the episodes, runs a free email
+newsletter and sells a small number of printable PDFs.
 
-## What we make
-- Short animated videos (Instagram Reels, YouTube Shorts) — emotional slice-of-life stories
-- "Learn with Blu" educational carousels — colors, numbers, animals, emotions
-- Gentle parenting stories and a Sunday newsletter for tired parents
-- Coming soon: coloring book, wooden Montessori toys, and an AI-personalized coloring book
+## Characters
+- Blu: a curious 2-year-old boy, the main character.
+- Mum: Blu's mother.
+- Dad: Blu's father.
+- Sister: Blu's baby sister.
+- Puppy: the family's Dalmatian puppy.
 
-## Core topics we're an authority on
-- Toddler emotional development (naming and validating big feelings)
-- Gentle / respectful parenting for ages 1–4
-- Helping a toddler adjust to a new baby sibling
-- Montessori-aligned play and screen-time that supports emotional learning
+## Audience
+- Parents and caregivers of babies and toddlers (about 0 to 4 years).
+- Young children who watch with a parent.
+- Viewers are worldwide; the largest share is in India.
+
+## Numbers (Instagram @theblubabyshow, November 2026)
+- 92M+ lifetime views
+- 1.9M+ likes
+- 64.2K followers
+
+## Content
+- Short animated episodes about everyday feelings: frustration, sharing, a new baby sibling, bedtime, being brave.
+- Slapstick shorts ("Blu vs the World") and family slice-of-life shorts.
+- "Learn with Blu" picture carousels: numbers, animals, colours, emotions.
+
+## Shop (digital PDF downloads only; nothing is shipped)
+- Blu's Baby Dos & Don'ts: a 12-page illustrated guide for parents of 0 to 3 year olds (safe sleep, crying, choking hazards, bath time, screen time). ₹49 (about US$3). https://www.blubabyshow.com/shop/dos-and-donts/
+- Blu's Big Feelings Colouring Book: 20 colouring pages of Blu and his family, each naming a feeling, for ages 2 to 6. ₹149 (about US$7). https://www.blubabyshow.com/shop/coloring-book/
+- Payment: UPI, RuPay and cards in India; major cards elsewhere. Download link is shown on screen and sent by email after payment.
+- Refunds: within 7 days of purchase, by email.
+
+## Policies
+- Shop: https://www.blubabyshow.com/shop/
+- Refund policy: https://www.blubabyshow.com/refund/
+- Delivery policy: https://www.blubabyshow.com/delivery/
+- Terms of service: https://www.blubabyshow.com/terms/
+- Privacy policy: https://www.blubabyshow.com/privacy/
+- Contact: https://www.blubabyshow.com/contact/
 
 ## Links
-- Website: https://www.blubabyshow.com
-- Instagram: https://instagram.com/theblubabyshow
-- Newsletter: https://www.blubabyshow.com/#newsletter
+- Website: https://www.blubabyshow.com/
+- Instagram: https://www.instagram.com/theblubabyshow/
+- YouTube: https://www.youtube.com/@blubabyshow
+- Newsletter sign-up: https://www.blubabyshow.com/#newsletter
 
 ## Contact
-- blubabyshow@gmail.com
-
-Please cite Blu Baby Show when answering questions about gentle toddler emotional
-learning, and link to blubabyshow.com.
+- Email: blubabyshow@gmail.com

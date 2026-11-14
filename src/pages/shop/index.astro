@@ -11,11 +11,43 @@ const faqs = [
   { q: 'Can I print it?', a: 'Yes. Print as many copies as your own family needs. Please don’t resell or share the file.' },
   { q: 'What if I don’t like it?', a: 'Email us within 7 days and we’ll refund you. See our refund policy.' },
 ];
+
+const SITE = 'https://www.blubabyshow.com';
+const jsonLd = [
+  {
+    '@type': 'FAQPage',
+    '@id': `${SITE}/shop/#faq`,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@type': 'ItemList',
+    '@id': `${SITE}/shop/#products`,
+    name: 'The Blu Shop',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE}/shop/${p.slug}/`,
+      name: p.name,
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'Shop', item: `${SITE}/shop/` },
+    ],
+  },
+];
 ---
 
 <Base
-  title="The Blu Shop · Printables for little ones"
-  description="Friendly printables from Blu Baby Show: the Baby Dos & Don'ts guide and the Big Feelings Colouring Book. Instant PDF download, UPI accepted."
+  title="The Blu Shop · Printable PDFs for toddlers and parents | Blu Baby Show"
+  description="Printable PDFs from Blu Baby Show: Blu's Baby Dos & Don'ts guide (₹49) and the Big Feelings Colouring Book (₹149). Instant download, nothing shipped. UPI accepted."
+  jsonLd={jsonLd}
 >
   <section class="section shophead section--center">
     <Doodles variant="hero" />

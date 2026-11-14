@@ -30,7 +30,7 @@ export const products: Product[] = [
     short: 'The little rules that keep 0–3 year olds safe, calm and sleeping, in one friendly picture guide.',
     inr: 49,
     usd: 3,
-    img: '/characters/mom.webp',
+    img: '/episodes/belly-hug.webp',
     imgAlt: 'Mum from Blu Baby Show',
     accent: 'var(--orange)',
     badge: 'Starter guide',

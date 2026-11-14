@@ -6,14 +6,96 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
+  /** Absolute or root-relative path to a 1200x630 share image. */
+  image?: string;
+  imageAlt?: string;
+  /** og:type — 'website' (default), 'product', 'article'. */
+  type?: string;
+  /** Hide this page from search (e.g. /thanks). */
+  noindex?: boolean;
+  /** Extra JSON-LD nodes for this page (merged into the @graph). */
+  jsonLd?: Record<string, unknown>[];
 }
 
+const SITE = 'https://www.blubabyshow.com';
+const DEFAULT_TITLE = 'Blu Baby Show · 3D animated stories about big feelings for toddlers';
+const DEFAULT_DESC =
+  'Blu Baby Show is a 3D animated show about Blu, a 2-year-old boy, and his family. Short, gentle episodes that teach toddlers feelings before facts. Watched 92M+ times on Instagram.';
+
 const {
-  title = 'Blu Baby Show — Pixar-quality baby comedy for real families',
-  description = 'Warm, Pixar-quality stories that teach feelings before they teach facts. 3 new Blu episodes every week. Watched 63M+ times.',
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESC,
+  image = '/og/default.png',
+  imageAlt = 'Blu Baby Show: Blu with Mum, Dad, baby Sister and Puppy',
+  type = 'website',
+  noindex = false,
+  jsonLd = [],
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// Canonical: always www + trailing slash (Astro builds every page as /path/index.html).
+let path = Astro.url.pathname;
+if (!path.endsWith('/') && !path.split('/').pop()!.includes('.')) path += '/';
+const canonical = new URL(path, SITE).href;
+const ogImage = new URL(image, SITE).href;
+const isHome = path === '/';
+
+const ORG_ID = `${SITE}/#org`;
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': 'Organization',
+    '@id': ORG_ID,
+    name: 'Blu Baby Show',
+    url: `${SITE}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE}/characters/watermark.png` },
+    image: `${SITE}/og/default.png`,
+    description:
+      'Blu Baby Show makes short 3D animated stories about Blu, a 2-year-old boy, and his family, plus printable PDFs for parents of young children.',
+    email: 'blubabyshow@gmail.com',
+    sameAs: ['https://www.instagram.com/theblubabyshow/', 'https://www.youtube.com/@blubabyshow'],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: 'blubabyshow@gmail.com',
+      availableLanguage: ['English'],
+    },
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${SITE}/#website`,
+    url: `${SITE}/`,
+    name: 'Blu Baby Show',
+    publisher: { '@id': ORG_ID },
+    inLanguage: 'en',
+  },
+];
+
+if (isHome) {
+  graph.push({
+    '@type': 'CreativeWorkSeries',
+    '@id': `${SITE}/#show`,
+    name: 'Blu Baby Show',
+    url: `${SITE}/`,
+    description:
+      'A 3D animated short-form series about Blu, a 2-year-old boy, and his everyday big feelings with Mum, Dad, baby Sister and Puppy. Episodes run 15 to 30 seconds and are published on Instagram and YouTube.',
+    genre: ['Animation', 'Family', 'Children'],
+    inLanguage: 'en',
+    image: `${SITE}/og/default.png`,
+    audience: { '@type': 'PeopleAudience', audienceType: 'Parents of toddlers and young children', suggestedMinAge: 1 },
+    character: [
+      { '@type': 'Person', name: 'Blu', description: 'A curious 2-year-old boy, the main character.' },
+      { '@type': 'Person', name: 'Mum', description: "Blu's mother." },
+      { '@type': 'Person', name: 'Dad', description: "Blu's father." },
+      { '@type': 'Person', name: 'Sister', description: "Blu's baby sister." },
+      { '@type': 'Person', name: 'Puppy', description: "The family's Dalmatian puppy." },
+    ],
+    productionCompany: { '@id': ORG_ID },
+    publisher: { '@id': ORG_ID },
+    sameAs: ['https://www.instagram.com/theblubabyshow/', 'https://www.youtube.com/@blubabyshow'],
+  });
+}
+
+graph.push(...jsonLd);
+const ld = { '@context': 'https://schema.org', '@graph': graph };
 
 // Analytics (PostHog): visitor counts, autocaptured clicks, funnels/drop-off.
 // Set PUBLIC_POSTHOG_KEY in Vercel env to enable (no key = analytics off).
@@ -38,17 +120,29 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+    <meta name="theme-color" content="#57b0f0" />
     {GSC_VERIFICATION && <meta name="google-site-verification" content={GSC_VERIFICATION} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph / social -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Blu Baby Show" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/characters/family_hero.webp', Astro.site).href} />
-    <meta property="og:site_name" content="Blu Baby Show" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
-    <!-- Fonts: Fredoka (head, Bluey-rounded) · Nunito (body) · Newsreader (serif) -->
+    <!-- Fonts: Fredoka (headings) · Nunito (body) · Newsreader (serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -72,33 +166,8 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
       </script>
     )}
 
-    <!-- Structured data: brand + site (helps Google + AI answer engines) -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Organization',
-          '@id': 'https://www.blubabyshow.com/#org',
-          name: 'Blu Baby Show',
-          url: 'https://www.blubabyshow.com',
-          logo: 'https://www.blubabyshow.com/characters/watermark.png',
-          description: 'The world\'s first AI-native, Pixar-quality kids brand — gentle animated stories that teach toddlers feelings before facts.',
-          sameAs: [
-            'https://instagram.com/theblubabyshow',
-            'https://youtube.com/@blubabyshow',
-          ],
-        },
-        {
-          '@type': 'WebSite',
-          '@id': 'https://www.blubabyshow.com/#website',
-          url: 'https://www.blubabyshow.com',
-          name: 'Blu Baby Show',
-          description: description,
-          publisher: { '@id': 'https://www.blubabyshow.com/#org' },
-          inLanguage: 'en',
-        },
-      ],
-    })} />
+    <!-- Structured data: brand + site (+ show on home, + page-specific nodes) -->
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </head>
   <body>
     <Nav />

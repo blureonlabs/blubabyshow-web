@@ -10,9 +10,57 @@ export function getStaticPaths() {
 
 const p = bySlug(Astro.params.slug!)!;
 const other = products.find((x) => x.slug !== p.slug)!;
+
+const SITE = 'https://www.blubabyshow.com';
+const url = `${SITE}/shop/${p.slug}/`;
+const ogImage = `/og/${p.slug}.png`;
+const jsonLd = [
+  {
+    '@type': 'Product',
+    '@id': `${url}#product`,
+    name: p.name,
+    description: `${p.short} ${p.format}`,
+    image: [`${SITE}${ogImage}`, `${SITE}${p.img}`],
+    url,
+    sku: p.slug,
+    category: 'Digital printable (PDF)',
+    brand: { '@type': 'Brand', name: 'Blu Baby Show' },
+    offers: {
+      '@type': 'Offer',
+      url,
+      price: p.inr.toFixed(2),
+      priceCurrency: 'INR',
+      // Checkout link set = buyable now; otherwise the page collects "notify me" sign-ups.
+      availability: p.checkoutInr ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
+      itemCondition: 'https://schema.org/NewCondition',
+      seller: { '@id': `${SITE}/#org` },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'IN',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 7,
+        returnFees: 'https://schema.org/FreeReturn',
+      },
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'Shop', item: `${SITE}/shop/` },
+      { '@type': 'ListItem', position: 3, name: p.name, item: url },
+    ],
+  },
+];
 ---
 
-<Base title={`${p.name} · The Blu Shop`} description={`${p.short} Instant PDF, ₹${p.inr}. Pay with UPI.`}>
+<Base
+  title={`${p.name.replace(" (PDF)", "")} (PDF printable) · The Blu Shop`}
+  description={`${p.short} Instant PDF download, ₹${p.inr}. Nothing is shipped. Pay with UPI or card.`}
+  image={ogImage}
+  imageAlt={`${p.name}, a printable PDF from Blu Baby Show`}
+  jsonLd={jsonLd}
+>
   <section class="section pd" style={`--c:${p.accent}`}>
     <div class="wrap pd__grid">
       <div class="pd__art">

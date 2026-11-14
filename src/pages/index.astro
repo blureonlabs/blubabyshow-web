@@ -13,10 +13,36 @@ import Icon from '../components/Icon.astro';
 ------------------------------------------------------------------ */
 
 const pillars = [
-  { title: 'Big Feelings', blurb: 'Cinematic little moments about the feelings of raising a tiny human.', c: 'var(--orange)', icon: 'heart' },
-  { title: 'Learn with Blu', blurb: 'Numbers, animals, feelings — early learning, Pixar-quality.', c: 'var(--grass)', icon: 'book' },
-  { title: 'Blu vs the World', blurb: 'Tiny-chaos comedy. Bubble wrap. Mirrors. Mum’s lipstick.', c: 'var(--sun)', icon: 'smile' },
-  { title: 'Family Life', blurb: 'Warm slice-of-life — scooter rides, monsoons, rooftop sunsets.', c: 'var(--grape)', icon: 'home' },
+  { title: 'Big Feelings', blurb: 'Little moments about the feelings of growing up, and of raising a tiny human.', c: 'var(--orange)', img: '/episodes/kisses-sister.webp' },
+  { title: 'Learn with Blu', blurb: 'Numbers, animals, colours and first words, the gentle way.', c: 'var(--grass)', img: '/episodes/picks-his-outfit.webp' },
+  { title: 'Blu vs the World', blurb: 'Tiny-chaos comedy. Flour, toothpaste, and one very patient Dad.', c: 'var(--sun)', img: '/episodes/toothpaste-mohawk.webp' },
+  { title: 'Family Life', blurb: 'Warm slice-of-life with Mum, Dad, Puppy and baby Sister.', c: 'var(--grape)', img: '/episodes/belly-hug.webp' },
+];
+
+/* Real numbers (Instagram Graph API, 14 Nov 2026). Update when they move. */
+const proof = { views: '92M+', followers: '64K+', likes: '1.9M+', comments: '6,900+' };
+
+/* Most-watched episodes: real reels, real view counts. */
+const episodes = [
+  { img: '/episodes/big-brother-hospital.webp', title: 'The day he became a big brother', views: '18.2M', href: 'https://www.instagram.com/reel/DZFNhZQy_xV/' },
+  { img: '/episodes/meets-baby-sister.webp', title: 'Blu meets his baby sister', views: '12.2M', href: 'https://www.instagram.com/reel/DY2YIe_ydwo/' },
+  { img: '/episodes/flour-ghosts.webp', title: 'Dad was baking. Blu had one job.', views: '12.0M', href: 'https://www.instagram.com/reel/DYeepWIMZ5R/' },
+  { img: '/episodes/picks-his-outfit.webp', title: 'Blu picks his own outfit', views: '5.9M', href: 'https://www.instagram.com/reel/DZKLj_9SUPx/' },
+  { img: '/episodes/tummy-grumble.webp', title: 'His tummy grumbled…', views: '4.5M', href: 'https://www.instagram.com/reel/DY1w-mYs2Ko/' },
+  { img: '/episodes/toothpaste-mohawk.webp', title: 'Dad turned around for one second', views: '2.0M', href: 'https://www.instagram.com/reel/DYuwBGZyg0S/' },
+];
+
+/* Real comments from our Instagram reels, copied verbatim (scratch pull 14 Nov 2026). Only the first letter of each real handle is shown. */
+const comments = [
+  { text: 'Mera baby bhi same esa hi karta h 😍❤️', tr: 'My baby does exactly the same!', who: 'a•••••', lang: 'Hindi' },
+  { text: "Sometimes it's our little kid who gives us assurance ..that adults can't give...", who: 's•••••', lang: '' },
+  { text: 'Que família linda! Amei demais', tr: 'What a lovely family! Loved it so much', who: 'l•••••', lang: 'Portuguese' },
+  { text: 'that moment we realize we need them more than they need us. 😢', who: 'a•••••', lang: '' },
+  { text: 'Hermosa que lindo le su besito a su hermanita', tr: 'So sweet, his little kiss for his baby sister', who: 'e•••••', lang: 'Spanish' },
+  { text: 'I need to show this to my toddler', who: 'l•••••', lang: '' },
+  { text: 'Dunia perbayian sungguh imutt', tr: 'The baby world is so adorable', who: 'i•••••', lang: 'Indonesian' },
+  { text: 'One of the best moments in a family❤️❤️', who: 'y•••••', lang: '' },
+  { text: 'Las madres cargan con muchas cosas pero siguen adelante', tr: 'Mothers carry so much, and still keep going', who: 'e•••••', lang: 'Spanish' },
 ];
 
 const hub = [
@@ -28,11 +54,11 @@ const hub = [
 ];
 
 const family = [
-  { img: '/characters/blu.webp',    name: 'Blu',    tag: 'the little mischief', c: 'var(--blu)' },
-  { img: '/characters/mom.webp',    name: 'Mum',    tag: 'keeps it all together', c: 'var(--pink)' },
-  { img: '/characters/dad.webp',    name: 'Dad',    tag: 'always shows up', c: 'var(--sky)' },
-  { img: '/characters/puppy.webp',  name: 'Puppy',  tag: 'clumsy & kind', c: 'var(--sun)' },
-  { img: '/characters/sister.webp', name: 'Sister', tag: 'the quiet one', c: 'var(--grape)' },
+  { img: '/characters/blu_face.webp',    name: 'Blu',    tag: 'the little mischief', c: 'var(--blu)' },
+  { img: '/characters/mom_face.webp',    name: 'Mum',    tag: 'keeps it all together', c: 'var(--pink)' },
+  { img: '/characters/dad_face.webp',    name: 'Dad',    tag: 'always shows up', c: 'var(--sky)' },
+  { img: '/characters/puppy.webp',       name: 'Puppy',  tag: 'clumsy & kind', c: 'var(--sun)', cutout: true },
+  { img: '/characters/sister_face.webp', name: 'Sister', tag: 'the newest baby', c: 'var(--grape)' },
 ];
 ---
 
@@ -45,27 +71,31 @@ const family = [
         <h1>The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
         <p class="hero__sub">
           Warm, giggly little stories that help your little one name big feelings —
-          and make the long days a little softer. Loved <strong>63 million</strong> times
-          by families just like yours.
+          and make the long days a little softer. Watched <strong>{proof.views.replace('M+', ' million+')}</strong> times
+          by families around the world.
         </p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Watch Blu on Instagram</a>
           <a class="btn btn--sun" href="#newsletter">Get the free newsletter</a>
         </div>
         <div class="hero__stats">
-          <span><b>63M+</b> views</span>
+          <span><b>{proof.views}</b> views</span>
           <span class="dotsep">·</span>
-          <span><b>58K+</b> families</span>
+          <span><b>{proof.followers}</b> followers</span>
           <span class="dotsep">·</span>
-          <span><b>4</b> new a week</span>
+          <span><b>{proof.likes}</b> likes</span>
         </div>
       </div>
     </div>
 
-    <div class="hero__scene">
-      <img src="/characters/family_hero.webp"
-           alt="Blu with Mum, Dad, the puppy and baby sister"
-           width="1024" height="1024" fetchpriority="high" />
+    <!-- Real stills from our most-watched reels (not mock-ups) -->
+    <div class="hero__reels" aria-label="Stills from Blu's most-watched episodes">
+      {episodes.slice(0, 5).map((e, i) => (
+        <a class={`reel reel--${i}`} href={e.href} target="_blank" rel="noopener">
+          <img src={e.img} alt={e.title} width="720" height="900" fetchpriority={i === 2 ? 'high' : 'auto'} loading={i === 2 ? 'eager' : 'lazy'} decoding="async" />
+          <span class="reel__views">▶ {e.views}</span>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -74,12 +104,56 @@ const family = [
     <div class="marquee__track">
       {Array.from({ length: 2 }).map(() => (
         <span class="marquee__row">
-          <b>63M+ views</b> ★ <b>58K+ families</b> ★ <b>3 countries in the top 5</b> ★
-          <b>4 new episodes a week</b> ★ <b>feelings before facts</b> ★
+          <b>{proof.views} views</b> ★ <b>{proof.followers} followers</b> ★ <b>{proof.likes} likes</b> ★
+          <b>{proof.comments} comments</b> ★ <b>feelings before facts</b> ★
         </span>
       ))}
     </div>
   </div>
+
+  <!-- ============ SOCIAL PROOF: most-watched + real comments ============ -->
+  <section class="section proof" id="watch">
+    <div class="wrap">
+      <div class="section__head section--center">
+        <p class="eyebrow">Loved by real families</p>
+        <h2>Our most-watched episodes</h2>
+        <p class="muted">Real view counts from Instagram. Tap any one to watch it.</p>
+      </div>
+      <div class="eps">
+        {episodes.map((e) => (
+          <a class="ep" href={e.href} target="_blank" rel="noopener">
+            <span class="ep__ph">
+              <img src={e.img} alt={e.title} width="720" height="900" loading="lazy" decoding="async" />
+              <span class="ep__play" aria-hidden="true">▶</span>
+            </span>
+            <span class="ep__t">{e.title}</span>
+            <span class="ep__v"><b>{e.views}</b> views</span>
+          </a>
+        ))}
+      </div>
+
+      <div class="section__head section--center saying">
+        <h2>What parents are saying</h2>
+        <p class="muted">Real comments from our Instagram, in many languages. We hide names to protect people’s privacy.</p>
+      </div>
+      <div class="cmts">
+        {comments.map((c) => (
+          <figure class="cmt">
+            <div class="cmt__top">
+              <span class="cmt__av" aria-hidden="true">{c.who[0].toUpperCase()}</span>
+              <span class="cmt__who">{c.who}{c.lang && <span class="cmt__lang"> · {c.lang}</span>}</span>
+              <span class="cmt__ig" aria-label="Instagram comment">Instagram</span>
+            </div>
+            <blockquote>{c.text}</blockquote>
+            {c.tr && <figcaption>“{c.tr}”</figcaption>}
+          </figure>
+        ))}
+      </div>
+      <div class="proof__cta">
+        <a class="btn btn--primary" href="https://instagram.com/theblubabyshow" target="_blank" rel="noopener">See all on @theblubabyshow</a>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ LINK HUB ============ -->
   <section class="section hub-sec">
@@ -124,24 +198,24 @@ const family = [
         <p class="news__fine">No spam, ever · one email a week · unsubscribe anytime</p>
       </div>
       <div class="news__art" aria-hidden="true">
-        <img loading="lazy" decoding="async" class="sticker" src="/characters/mom.webp" alt="" width="240" height="240" />
+        <img loading="lazy" decoding="async" src="/episodes/belly-hug.webp" alt="" width="720" height="900" />
         <span class="news__stamp">FREE<br />printable</span>
       </div>
     </div>
   </section>
 
   <!-- ============ PILLARS ============ -->
-  <section class="section section--center" id="watch">
+  <section class="section section--center" id="kinds">
     <div class="wrap">
       <div class="section__head">
         <p class="eyebrow">What we make</p>
         <h2>Four kinds of Blu</h2>
-        <p class="muted">Every week: one from each. Feelings, learning, laughs and family.</p>
+        <p class="muted">Feelings, learning, laughs and family. A new little episode every day.</p>
       </div>
       <div class="pillars">
         {pillars.map((p, i) => (
           <a class={`pill tilt${i % 2}`} href="https://instagram.com/theblubabyshow" style={`--c:${p.c}`}>
-            <span class="pill__emoji"><Icon name={p.icon} size={26} /></span>
+            <span class="pill__img"><img src={p.img} alt="" width="720" height="900" loading="lazy" decoding="async" /></span>
             <h3>{p.title}</h3>
             <p class="muted">{p.blurb}</p>
             <span class="pill__go">See more →</span>
@@ -161,7 +235,7 @@ const family = [
       <div class="fam__row">
         {family.map((m) => (
           <div class="fam__card" style={`--c:${m.c}`}>
-            <div class="fam__ph"><img loading="lazy" decoding="async" src={m.img} alt={m.name} width="150" height="150" /></div>
+            <div class={`fam__ph${m.cutout ? ' fam__ph--cut' : ''}`}><img loading="lazy" decoding="async" src={m.img} alt={m.name} width="400" height="400" /></div>
             <strong>{m.name}</strong>
             <span>{m.tag}</span>
           </div>
@@ -179,7 +253,7 @@ const family = [
       </div>
       <div class="learn__copy">
         <p class="eyebrow">Learn with Blu</p>
-        <h2>Real early-learning, from a Pixar-quality baby.</h2>
+        <h2>Real early-learning, with Blu and his puppy.</h2>
         <p class="muted">
           Numbers, animals, feelings, colours, first words — browsable, free to read.
           Every carousel ends with a free printable dropped straight to your inbox.
@@ -241,14 +315,14 @@ const family = [
     <Doodles variant="hero" />
     <div class="wrap">
       <div class="closing__cast" aria-hidden="true">
-        <span class="cast cast--puppy"><img loading="lazy" decoding="async" src="/characters/puppy.webp" alt="" width="150" height="150" /></span>
-        <span class="cast cast--mom"><img loading="lazy" decoding="async" src="/characters/mom.webp" alt="" width="150" height="150" /></span>
-        <span class="cast cast--blu"><img loading="lazy" decoding="async" src="/characters/blu.webp" alt="" width="150" height="150" /></span>
-        <span class="cast cast--dad"><img loading="lazy" decoding="async" src="/characters/dad.webp" alt="" width="150" height="150" /></span>
-        <span class="cast cast--sister"><img loading="lazy" decoding="async" src="/characters/sister.webp" alt="" width="150" height="150" /></span>
+        <span class="cast cast--mom"><img loading="lazy" decoding="async" src="/characters/mom_face.webp" alt="" width="400" height="400" /></span>
+        <span class="cast cast--dad"><img loading="lazy" decoding="async" src="/characters/dad_face.webp" alt="" width="400" height="400" /></span>
+        <span class="cast cast--blu"><img loading="lazy" decoding="async" src="/characters/blu_face.webp" alt="" width="400" height="400" /></span>
+        <span class="cast cast--sister"><img loading="lazy" decoding="async" src="/characters/sister_face.webp" alt="" width="400" height="400" /></span>
+        <span class="cast cast--puppy"><img loading="lazy" decoding="async" src="/characters/puppy.webp" alt="" width="400" height="400" /></span>
       </div>
-      <h2>Come hang out with Blu every week.</h2>
-      <p class="muted closing__sub">Free, warm, and made with love — new little episodes every single week.</p>
+      <h2>Come hang out with Blu every day.</h2>
+      <p class="muted closing__sub">Free, warm, and made with love. A new little episode every day.</p>
       <div class="closing__cta">
         <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Follow on Instagram</a>
         <a class="btn btn--sun" href="#newsletter">Join Blu’s Sunday Club</a>
@@ -334,12 +408,66 @@ const family = [
   .hero__stats b { font-family: var(--font-head); color: var(--blu-deep); }
   .dotsep { color: var(--sky-d); }
 
-  .hero__scene { position: relative; z-index: 1; margin-top: -1.4rem; }
-  .hero__scene img {
-    width: min(760px, 94%); height: auto; display: block; margin: 0 auto;
-    object-fit: contain;
-    filter: drop-shadow(0 24px 34px rgba(58, 33, 28, 0.18));
+  /* Real reel stills fanned out under the welcome card */
+  .hero__reels {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; align-items: flex-end;
+    gap: clamp(0.4rem, 1.4vw, 1rem);
+    margin: -1.2rem auto 0; padding: 0 1rem clamp(2rem, 4vw, 3rem);
+    max-width: 1100px;
   }
+  .reel {
+    position: relative; display: block; flex: 0 0 auto;
+    width: clamp(120px, 17vw, 200px); aspect-ratio: 4 / 5;
+    border-radius: 22px; overflow: hidden; border: 5px solid #fff;
+    box-shadow: 0 18px 34px rgba(30, 50, 90, 0.28);
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
+  }
+  .reel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .reel--0 { transform: rotate(-7deg) translateY(28px); }
+  .reel--1 { transform: rotate(-3deg) translateY(10px); }
+  .reel--2 { width: clamp(150px, 21vw, 250px); z-index: 2; }
+  .reel--3 { transform: rotate(3deg) translateY(10px); }
+  .reel--4 { transform: rotate(7deg) translateY(28px); }
+  .reel:hover { transform: translateY(-8px) rotate(0); z-index: 3; }
+  .reel__views {
+    position: absolute; left: 8px; bottom: 8px;
+    background: rgba(0,0,0,0.62); color: #fff; backdrop-filter: blur(4px);
+    font-family: var(--font-head); font-weight: 700; font-size: 0.85rem;
+    padding: 0.2rem 0.6rem; border-radius: 999px;
+  }
+
+  /* ---------- PROOF: most-watched + comments ---------- */
+  .proof { background: var(--base); }
+  .eps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+  .ep { display: flex; flex-direction: column; gap: 0.35rem; color: var(--ink); }
+  .ep__ph { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-soft); }
+  .ep__ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .ep:hover .ep__ph img { transform: scale(1.05); }
+  .ep__play {
+    position: absolute; inset: auto auto 10px 10px; width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.92); color: var(--blu-deep); display: grid; place-items: center; font-size: 0.85rem;
+  }
+  .ep__t { font-family: var(--font-head); font-weight: 600; font-size: 0.98rem; line-height: 1.2; color: var(--blu-deep); }
+  .ep__v { font-size: 0.86rem; color: var(--ink-soft); }
+  .ep__v b { color: var(--orange-d); font-family: var(--font-head); }
+  .saying { margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .cmts { columns: 3 260px; column-gap: 1rem; }
+  .cmt {
+    break-inside: avoid; margin: 0 0 1rem; background: #fff; border-radius: 18px;
+    padding: 1rem 1.15rem 1.1rem; box-shadow: var(--shadow-soft); border: 1px solid var(--sand-2, #eee);
+  }
+  .cmt__top { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.55rem; }
+  .cmt__av {
+    width: 32px; height: 32px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7); color: #fff; font-weight: 800; font-size: 0.85rem;
+  }
+  .cmt__who { font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+  .cmt__lang { font-weight: 500; color: var(--ink-soft); }
+  .cmt__ig { margin-left: auto; font-size: 0.72rem; font-weight: 700; color: #c13584; letter-spacing: 0.02em; }
+  .cmt blockquote { margin: 0; font-size: 1.02rem; line-height: 1.45; color: var(--ink); }
+  .cmt figcaption { margin-top: 0.45rem; font-size: 0.88rem; color: var(--ink-soft); font-style: italic; }
+  .proof__cta { text-align: center; margin-top: 1.5rem; }
 
   /* ---------- MARQUEE ---------- */
   .marquee {
@@ -407,7 +535,7 @@ const family = [
   .news__input:focus { outline: 3px solid var(--sun); }
   .news__fine { font-size: 0.8rem; color: rgba(255,255,255,0.75); margin: 0; }
   .news__art { position: relative; display: grid; place-items: center; }
-  .news__art img { width: 240px; height: 240px; border-radius: 50%; background: rgba(255,255,255,0.16); object-fit: cover; object-position: 50% 14%; }
+  .news__art img { width: 240px; aspect-ratio: 4 / 5; height: auto; border-radius: 22px; border: 5px solid #fff; object-fit: cover; transform: rotate(3deg); box-shadow: 0 16px 30px rgba(0,0,0,0.22); }
   .news__stamp {
     position: absolute; right: -4px; bottom: 6px;
     background: var(--sun); color: #5a3d00;
@@ -425,11 +553,9 @@ const family = [
     transition: transform 0.16s cubic-bezier(.34,1.56,.64,1), box-shadow 0.16s ease;
   }
   .pill:hover { transform: translateY(-6px) rotate(0); box-shadow: var(--shadow); }
-  .pill__emoji {
-    width: 56px; height: 56px; border-radius: 16px; background: color-mix(in srgb, var(--c) 20%, #fff);
-    display: grid; place-items: center; margin-bottom: 0.7rem;
-    color: color-mix(in srgb, var(--c), var(--ink) 35%);
-  }
+  .pill { padding-top: 0.8rem; }
+  .pill__img { display: block; aspect-ratio: 1; border-radius: 16px; overflow: hidden; margin-bottom: 0.8rem; }
+  .pill__img img { width: 100%; height: 100%; object-fit: cover; }
   .pill h3 { font-size: 1.15rem; }
   .pill p { font-size: 0.9rem; }
   .pill__go { margin-top: auto; font-family: var(--font-head); font-weight: 600; color: var(--ink); font-size: 0.92rem; }
@@ -456,7 +582,8 @@ const family = [
     background: color-mix(in srgb, var(--c) 22%, #fff);
     display: grid; place-items: center; overflow: hidden;
   }
-  .fam__ph img { width: 122px; height: 122px; object-fit: contain; }
+  .fam__ph img { width: 100%; height: 100%; object-fit: cover; }
+  .fam__ph--cut img { width: 88%; height: 88%; object-fit: contain; }
 
   /* ---------- LEARN ---------- */
   .learn { background: var(--base); }
@@ -531,7 +658,8 @@ const family = [
   }
   .closing__cast .cast { display: block; }
   .closing__cast img {
-    width: 100%; height: auto; display: block;
+    width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; display: block;
+    border-radius: 50%; border: 4px solid #fff; background: #fff;
     filter: drop-shadow(0 12px 12px rgba(43, 44, 65, 0.18));
     animation: floatSm 5s ease-in-out infinite;
   }
@@ -539,7 +667,8 @@ const family = [
   .cast--blu    { width: clamp(88px, 22vw, 132px); transform: translateY(-8px); z-index: 3; }
   .cast--mom    { width: clamp(60px, 15vw, 96px);  transform: translateY(8px) rotate(3deg); z-index: 2; }
   .cast--dad    { width: clamp(60px, 15vw, 96px);  transform: translateY(6px) rotate(-3deg); z-index: 2; }
-  .cast--puppy  { width: clamp(46px, 12vw, 76px);  transform: translateY(16px) rotate(-5deg); }
+  .cast--puppy  { width: clamp(50px, 13vw, 84px);  transform: translateY(16px) rotate(-5deg); }
+  .cast--puppy img { object-fit: contain; padding: 6px; }
   .cast--sister { width: clamp(50px, 13vw, 84px);  transform: translateY(12px) rotate(5deg); }
   .cast--mom img    { animation-delay: 0.4s; }
   .cast--dad img    { animation-delay: 0.6s; }
@@ -556,6 +685,7 @@ const family = [
     .news__form { justify-content: center; }
     .news__lead { margin-left: auto; margin-right: auto; }
     .pillars { grid-template-columns: repeat(2, 1fr); }
+    .eps { grid-template-columns: repeat(3, 1fr); }
     .hub { grid-template-columns: 1fr; max-width: 520px; }
     .learn__copy, .music__copy, .shop__copy { text-align: center; }
     .learn__copy .btn, .music__links, .shop__copy .btn { margin-left: auto; margin-right: auto; }
@@ -565,8 +695,9 @@ const family = [
   }
   @media (max-width: 560px) {
     .hero { padding-top: calc(var(--nav-h) + 0.4rem); }
-    .hero__scene { margin-top: -0.6rem; }
-    .hero__scene img { width: min(400px, 104%); }
+    .reel--0, .reel--4 { display: none; }
+    .reel { width: 30vw; } .reel--2 { width: 36vw; }
+    .eps { grid-template-columns: repeat(2, 1fr); }
     .pillars { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; }
     .hero__cta { flex-direction: column; }
     .hero__cta .btn, .closing__cta .btn, .news__form .btn { width: 100%; }
@@ -605,6 +736,6 @@ const family = [
     /* C2 — family photo circle must not overflow its card */
     .fam__card { padding: 1.2rem 0.8rem 1.3rem; }
     .fam__ph { width: min(134px, 100%); height: auto; aspect-ratio: 1; }
-    .fam__ph img { width: 88%; height: 88%; }
+    .fam__ph img { width: 100%; height: 100%; }
   }
 </style>
