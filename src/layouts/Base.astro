@@ -108,7 +108,7 @@ const GSC_VERIFICATION = import.meta.env.PUBLIC_GSC_VERIFICATION;
 
 // Meta Pixel (browser side). Set PUBLIC_META_PIXEL_ID in Vercel env; no ID = no pixel.
 // Purchase is sent server-side (Conversions API) from the Dodo webhook, not from the browser.
-const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
+const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188';
 ---
 
 <!doctype html>

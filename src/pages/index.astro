@@ -51,7 +51,7 @@ const comments = [
 
 const hub = [
   { label: 'Watch the newest episode', sub: 'New every week', href: 'https://instagram.com/theblubabyshow', c: 'var(--blu)', icon: 'play' },
-  { label: 'Join Blu’s Sunday Club', sub: 'Free emotion cards inside', href: '#newsletter', c: 'var(--sun)', icon: 'mail' },
+  { label: 'Join Blu’s Sunday Club', sub: 'Free feelings cards inside', href: '#newsletter', c: 'var(--sun)', icon: 'mail' },
   { label: 'Blu’s Bedtime music', sub: 'Lullabies on Spotify', href: '#music', c: 'var(--grape)', icon: 'music' },
   { label: 'The Blu Colouring Book', sub: 'PDF soft copy · ₹149', href: '/shop/coloring-book', c: 'var(--grass)', icon: 'pencil' },
   { label: 'Watch on the big screen', sub: 'Subscribe on YouTube', href: 'https://youtube.com/@blubabyshow', c: 'var(--sky)', icon: 'tv' },
@@ -190,7 +190,7 @@ const family = [
         <h2>One warm story + one new Blu video.<br />Every Sunday. Free.</h2>
         <p class="news__lead">
           You’re doing better than you think. Every Sunday we’ll send one gentle story and
-          one new Blu video — plus the <strong>free Blu Emotion Cards</strong> to help your
+          one new Blu video — plus the <strong>free Blu Feelings Cards</strong> to help your
           little one say what they feel.
         </p>
         <form class="news__form" id="newsForm" novalidate>
@@ -376,10 +376,11 @@ const family = [
         const data = await res.json().catch(() => ({}));
         if (res.ok && data.ok) {
           form.style.display = 'none';
-          msg.textContent = "You're in! 💛 Welcome to Blu's Sunday Club.";
+          msg.innerHTML = "You're in! 💛 Welcome to Blu's Sunday Club. <a href='/free/blu-feelings-cards-A4.pdf' download>Download your free Feelings Cards (PDF)</a>";
           msg.className = 'news__msg news__msg--ok';
           // Conversion event (PostHog) — only fires on a real success. No-op if PH is off.
           window.posthog?.capture?.('newsletter_signup', { source: 'website' });
+          if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'newsletter' });
         } else {
           msg.textContent = data.error || 'Something went wrong — please try again.';
           msg.className = 'news__msg news__msg--err';

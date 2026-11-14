@@ -47,8 +47,11 @@ function welcomeHtml() {
     <p style="margin:0 0 14px">Welcome to <strong>Blu's Sunday Club</strong>.</p>
     <p style="margin:0 0 14px">Every Sunday we'll send you one gentle story and one new Blu video —
       the kind that makes the long days a little softer.</p>
-    <p style="margin:0 0 14px">Your free <strong>Blu Emotion Cards</strong> — gentle things to say when the
-      moment is hard — are on their way soon. 💙</p>
+    <p style="margin:0 0 14px">Here are your free <strong>Blu Feelings Cards</strong>: 10 big feelings to name
+      together, with gentle things to say on the back. 💙</p>
+    <p style="margin:0 0 18px">
+      <a href="https://www.blubabyshow.com/free/blu-feelings-cards-A4.pdf" style="display:inline-block;background:#30598a;color:#fff;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:600">Download the cards (A4)</a><br/>
+      <a href="https://www.blubabyshow.com/free/blu-feelings-cards-Letter.pdf" style="color:#2f83c9;font-size:14px">US Letter size</a></p>
     <p style="margin:0 0 14px">You're doing better than you think.</p>
     <p style="margin:20px 0 0;color:#5c5d7a">— The Blu Baby Show family<br/>
       <a href="https://instagram.com/theblubabyshow" style="color:#2f83c9">@theblubabyshow</a></p>

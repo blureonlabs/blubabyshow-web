@@ -3,6 +3,7 @@
 
 User-agent: *
 Allow: /
+Disallow: /free/
 
 # AI answer engines — explicitly welcomed so Blu can be cited in AI answers
 User-agent: GPTBot

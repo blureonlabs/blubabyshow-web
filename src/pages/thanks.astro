@@ -32,6 +32,22 @@ const book = bySlug('coloring-book')!;
   </section>
 </Base>
 
+<script>
+  // Purchase conversion: fires once per Dodo payment (return URL carries payment_id / status).
+  const q = new URLSearchParams(location.search);
+  const pid = q.get('payment_id') || q.get('paymentId');
+  const ok = !q.get('status') || q.get('status') === 'succeeded';
+  if (pid && ok) {
+    let seen = false;
+    try { seen = sessionStorage.getItem('bbs_purchase') === pid; sessionStorage.setItem('bbs_purchase', pid); } catch {}
+    if (!seen) {
+      const w = window as any;
+      w.fbq?.('track', 'Purchase', { currency: 'INR', value: 0 }, { eventID: pid });
+      w.posthog?.capture?.('purchase', { payment_id: pid });
+    }
+  }
+</script>
+
 <style>
   .thanks { padding-top: calc(var(--nav-h) + 2.5rem); padding-bottom: 1rem; }
   .narrow { max-width: 720px; }
