@@ -6,7 +6,7 @@ cluster: screen-free-play
 tags: ["screen time", "toddlers", "family media plan", "screen-free play", "tantrums"]
 heroImage: "/episodes/belly-hug.webp"
 heroAlt: "Blu resting his head on Mum's tummy for a hug on the sofa"
-cta: dos-and-donts
+cta: meltdown-scripts
 faq:
   - q: "How much screen time is recommended for toddlers?"
     a: "The WHO recommends no sedentary screen time for children under 2 and no more than one hour a day for children aged 2 to 4, saying less is better. The same guidelines ask for at least 180 minutes of physical activity a day for 1- to 4-year-olds."

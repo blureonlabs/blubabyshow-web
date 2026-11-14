@@ -6,7 +6,7 @@ cluster: new-sibling
 tags: ["new baby", "siblings", "toddlers", "pregnancy", "big brother", "big sister"]
 heroImage: "/episodes/belly-hug.webp"
 heroAlt: "Blu, in his blue onesie, hugs and kisses his Mum's pregnant tummy on the sofa while she smiles down at him."
-cta: dos-and-donts
+cta: meltdown-scripts
 faq:
   - q: "When should I tell my toddler about the new baby?"
     a: "Many health services suggest waiting until later in pregnancy, when your toddler can see the bump changing, because very young children struggle with long stretches of time. Linking the arrival to a season or event they understand, such as when it gets cold, helps more than counting months."

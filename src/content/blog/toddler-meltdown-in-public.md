@@ -6,7 +6,7 @@ cluster: big-feelings
 tags: ["toddler meltdown", "toddler tantrums", "public tantrum", "big feelings", "parenting tips"]
 heroImage: "/episodes/picks-his-outfit.webp"
 heroAlt: "Blu, a cartoon toddler in sunglasses, a bow tie and rainbow trousers, struts down a hallway as Mum claps behind him"
-cta: dos-and-donts
+cta: meltdown-scripts
 faq:
   - q: "What should I do when my toddler has a meltdown in a shop?"
     a: "Keep your child safe, move to a quieter spot if you can, and focus on staying calm rather than on the people watching. Name the feeling in a few words and hold your limit kindly. The NHS also suggests keeping shopping trips short and involving your child to prevent meltdowns in the first place."

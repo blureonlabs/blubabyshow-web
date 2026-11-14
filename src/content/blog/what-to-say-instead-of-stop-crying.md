@@ -6,7 +6,7 @@ cluster: big-feelings
 tags: ["toddler crying", "gentle parenting", "parenting scripts", "big feelings", "emotion coaching"]
 heroImage: "/episodes/meets-baby-sister.webp"
 heroAlt: "Blu, a cartoon toddler with a tear on his cheek, kisses his newborn baby sister as Mum and Dad look on"
-cta: dos-and-donts
+cta: meltdown-scripts
 faq:
   - q: "Why shouldn't I say stop crying to my toddler?"
     a: "Telling a toddler to stop crying rarely works, because they don't yet have the skills to switch a feeling off on command. The CDC advises against insisting a child stop feeling a certain way, as it doesn't help them understand their emotions. Naming the feeling and staying calm tends to help them settle faster."

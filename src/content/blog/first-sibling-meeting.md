@@ -6,7 +6,7 @@ cluster: new-sibling
 tags: ["first sibling meeting", "new baby", "siblings", "hospital visit", "toddlers"]
 heroImage: "/episodes/meets-baby-sister.webp"
 heroAlt: "Blu, teary-eyed, leans his head gently against his newborn sister in her pink heart blanket while Mum and Dad look on lovingly."
-cta: dos-and-donts
+cta: meltdown-scripts
 faq:
   - q: "Should my toddler visit the hospital to meet the new baby?"
     a: "If you can, yes. Health guides suggest arranging for your older child to visit you and the baby in hospital soon after the birth, ideally when few other visitors are there, so it feels like a family moment."

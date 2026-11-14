@@ -84,9 +84,14 @@ const jsonLd = [
       <ul class="ticks">
         {p.inside.map((i) => <li>{i}</li>)}
       </ul>
+      {p.previews && (
+        <div class="peek">
+          {p.previews.map((src, i) => <img src={src} alt={`Page preview ${i + 1} of ${p.name}`} loading="lazy" width="636" height="900" />)}
+        </div>
+      )}
       <p class="muted"><strong>Format:</strong> {p.format}</p>
       <p class="muted"><strong>For:</strong> {p.forWho}</p>
-      {p.slug === 'dos-and-donts' && (
+      {p.slug === 'meltdown-scripts' && (
         <p class="muted note">A friendly guide, not medical advice. Every child is different; for anything that worries you, talk to your paediatrician.</p>
       )}
       <div class="again"><BuyButton product={p} /></div>
@@ -131,4 +136,7 @@ const jsonLd = [
     .pd__grid { grid-template-columns: 1fr; gap: 1.5rem; text-align: center; }
     .pd__art { max-width: 320px; margin: 0 auto; padding: 1.2rem; }
   }
+  .peek { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin: 1.4rem 0; }
+  .peek img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 18px rgba(34,58,92,.14); }
+  @media (max-width: 560px) { .peek { grid-template-columns: 1fr 1fr; } }
 </style>

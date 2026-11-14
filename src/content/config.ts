@@ -13,7 +13,7 @@ const blog = defineCollection({
     tags: z.array(z.string()),
     heroImage: z.string(),
     heroAlt: z.string(),
-    cta: z.enum(['newsletter', 'dos-and-donts', 'coloring-book']),
+    cta: z.enum(['newsletter', 'meltdown-scripts', 'coloring-book']),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     sources: z.array(z.object({ title: z.string(), url: z.string() })).default([]),
     draft: z.boolean().default(false),

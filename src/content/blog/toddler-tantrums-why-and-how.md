@@ -6,7 +6,7 @@ cluster: big-feelings
 tags: ["toddler tantrums", "big feelings", "toddler behaviour", "gentle parenting"]
 heroImage: "/episodes/tummy-grumble.webp"
 heroAlt: "Blu, a cartoon toddler, lifts his blue top and frowns at his rumbling tummy"
-cta: dos-and-donts
+cta: meltdown-scripts
 faq:
   - q: "At what age do toddler tantrums start and stop?"
     a: "The NHS says tantrums usually start around 18 months and are far less common by age four. The American Academy of Pediatrics notes they are most common between one and three years and tend to improve after three. Every child is different, so a little earlier or later is usually fine."

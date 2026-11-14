@@ -3,5 +3,9 @@
   "framework": "astro",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/shop/dos-and-donts", "destination": "/shop/meltdown-scripts/", "permanent": true },
+    { "source": "/shop/dos-and-donts/", "destination": "/shop/meltdown-scripts/", "permanent": true }
+  ]
 }
