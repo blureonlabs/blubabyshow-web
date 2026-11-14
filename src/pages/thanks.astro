@@ -3,19 +3,30 @@
 // this page confirms it and offers the colouring book as the one-click next step.
 import Base from '../layouts/Base.astro';
 import BuyButton from '../components/BuyButton.astro';
-import { bySlug } from '../data/products';
+import { bySlug, products } from '../data/products';
 
 const book = bySlug('coloring-book')!;
+// Prices for the Purchase event value (by ?p=<slug>).
+const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd: x.usd }]));
 ---
 
 <Base title="Thank you! · The Blu Shop" description="Your Blu download is on its way." noindex>
   <section class="section section--center thanks">
     <div class="wrap narrow">
       <img class="sticker hero" src="/characters/blu.webp" alt="Blu waving" width="180" height="180" />
-      <p class="eyebrow">Thank you!</p>
-      <h1>Your download is on its way</h1>
-      <p class="lead">Check your email for the download link. It can take a minute, and sometimes hides in Promotions or Spam.</p>
-      <p class="muted">Nothing there after 10 minutes? Email <a href="mailto:blubabyshow@gmail.com">blubabyshow@gmail.com</a> and we’ll send it straight over.</p>
+      <div id="okState">
+        <p class="eyebrow">Thank you!</p>
+        <h1>Your download is on its way</h1>
+        <p class="lead">Check your email for the download link. It can take a minute, and sometimes hides in Promotions or Spam.</p>
+        <p class="muted">Nothing there after 10 minutes? Email <a href="mailto:blubabyshow@gmail.com">blubabyshow@gmail.com</a> and we’ll send it straight over.</p>
+      </div>
+      <div id="failState" hidden>
+        <p class="eyebrow">Payment didn't go through</p>
+        <h1>No money was taken</h1>
+        <p class="lead">Your payment wasn't completed, so nothing was charged. You can try again, or use a different card or UPI.</p>
+        <p><a class="btn" href="/shop/">Back to the shop</a></p>
+        <p class="muted">Stuck? Email <a href="mailto:blubabyshow@gmail.com">blubabyshow@gmail.com</a> and we'll help.</p>
+      </div>
     </div>
   </section>
 
@@ -32,18 +43,29 @@ const book = bySlug('coloring-book')!;
   </section>
 </Base>
 
-<script>
+<script define:vars={{ prices }}>
   // Purchase conversion: fires once per Dodo payment (return URL carries payment_id / status).
   const q = new URLSearchParams(location.search);
   const pid = q.get('payment_id') || q.get('paymentId');
-  const ok = !q.get('status') || q.get('status') === 'succeeded';
+  const status = q.get('status');
+  const ok = !status || status === 'succeeded';
+  if (!ok) {
+    document.getElementById('okState').hidden = true;
+    document.getElementById('failState').hidden = false;
+    const up = document.getElementById('upsell'); if (up) up.hidden = true;
+  }
+  const slug = q.get('p') || '';
+  const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return true; } })();
+  const pr = prices[slug];
+  const currency = inIndia ? 'INR' : 'USD';
+  const value = pr ? (inIndia ? pr.inr : pr.usd) : 0;
   if (pid && ok) {
     let seen = false;
     try { seen = sessionStorage.getItem('bbs_purchase') === pid; sessionStorage.setItem('bbs_purchase', pid); } catch {}
     if (!seen) {
-      const w = window as any;
-      w.fbq?.('track', 'Purchase', { currency: 'INR', value: 0 }, { eventID: pid });
-      w.posthog?.capture?.('purchase', { payment_id: pid });
+      const w = window;
+      w.fbq?.('track', 'Purchase', { currency, value, content_name: slug }, { eventID: pid });
+      w.posthog?.capture?.('purchase', { payment_id: pid, product: slug, value, currency });
     }
   }
 </script>
