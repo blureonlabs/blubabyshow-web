@@ -267,52 +267,58 @@ const family = [
     </div>
   </section>
 
-  <!-- ============ MUSIC ============ -->
-  <section class="section music" id="music">
-    <div class="wrap music__grid">
-      <div class="music__copy">
-        <p class="eyebrow">Blu’s Bedtime</p>
-        <h2>Lullabies for winding down.</h2>
-        <p class="muted">
-          Soft, wordless bedtime music from Blu’s calm reels. Press play at 2 a.m.
-          and let Blu do the winding down.
-        </p>
-        <div class="music__links">
-          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">Spotify</span>
-          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">Apple Music</span>
-          <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">YouTube Music</span>
+  <!-- ============ SHOP (featured carousel) ============ -->
+  <section class="section shop" id="shop">
+    <div class="wrap">
+      <p class="eyebrow" style="text-align:center">The Blu Shop</p>
+      <h2 style="text-align:center">Little helpers for big toddler moments</h2>
+      <div class="feat" id="feat" aria-roledescription="carousel">
+        <div class="feat__track">
+          <article class="feat__slide" aria-label="1 of 2">
+            <div class="shop__cover"><span class="shop__ribbon">New kit</span>
+              <img loading="lazy" decoding="async" class="sticker" src="/characters/blu.webp" alt="Blu, ready for his potty adventure" width="300" height="300" /></div>
+            <div class="shop__copy">
+              <h3>Blu Goes Potty</h3>
+              <p class="muted">Potty training in tiny, toddler-sized steps: a Blu video, a short story and the exact words to say. Works on your phone, printable too.</p>
+              <p class="shop__price"><span class="shop__amt" data-price-inr="99" data-price-usd="5">₹99</span> <span>· digital kit</span></p>
+              <a class="btn btn--primary" href="/kits/potty/?utm_source=site&utm_medium=home">See the potty kit</a>
+            </div>
+          </article>
+          <article class="feat__slide" aria-label="2 of 2">
+            <div class="shop__cover"><span class="shop__ribbon">PDF</span>
+              <img loading="lazy" decoding="async" class="sticker" src="/shop/meltdown/cover.webp" alt="Cover of What to Say When Your Toddler Melts Down" width="300" height="300" /></div>
+            <div class="shop__copy">
+              <h3>What to Say When Your Toddler Melts Down</h3>
+              <p class="muted">20 calm scripts with Blu for the hardest everyday moments: what to say, what to do, and what to avoid. Instant PDF, nothing is shipped.</p>
+              <p class="shop__price"><span class="shop__amt" data-price-inr="49" data-price-usd="3">₹49</span> <span>· instant PDF download</span></p>
+              <a class="btn btn--primary" href="/shop/meltdown-scripts/">Get the scripts</a>
+            </div>
+          </article>
+        </div>
+        <div class="feat__dots" role="tablist">
+          <button class="feat__dot is-on" aria-label="Show slide 1" data-i="0"></button>
+          <button class="feat__dot" aria-label="Show slide 2" data-i="1"></button>
         </div>
       </div>
-      <!-- TODO: replace with real Spotify embed once distributed via DistroKid -->
-      <div class="player">
-        <div class="player__disc"><span></span></div>
-        <div class="player__wave">
-          {Array.from({ length: 9 }).map(() => <span></span>)}
-        </div>
-        <p>Blu’s Bedtime: Vol. 1 · coming this season</p>
-      </div>
+      <p style="text-align:center;margin-top:1rem"><a class="btn btn--ghost" href="/kits/">All Blu Kits</a> <a class="btn btn--ghost" href="/shop/">The Blu Shop</a></p>
     </div>
   </section>
 
-  <!-- ============ SHOP ============ -->
-  <section class="section shop" id="shop">
-    <div class="wrap shop__grid">
-      <div class="shop__cover">
-        <span class="shop__ribbon">PDF</span>
-        <img loading="lazy" decoding="async" class="sticker" src="/characters/blu_book.webp" alt="Blu holding the Blu Colouring Book" width="300" height="300" />
-      </div>
-      <div class="shop__copy">
-        <p class="eyebrow">The Blu Shop</p>
-        <h2>The Blu Colouring Book</h2>
-        <p class="muted">
-          20 pages of Blu’s world to colour in: feelings, family and tiny adventures.
-          A digital download (PDF soft copy) you print at home. Nothing is shipped.
-        </p>
-        <p class="shop__price"><span class="shop__amt" data-price-inr="149" data-price-usd="7">₹149</span> <span>· instant PDF download</span></p>
-        <a class="btn btn--primary" href="/shop/">Visit the Blu Shop</a>
-      </div>
-    </div>
-  </section>
+  <script>
+    const track = document.querySelector('.feat__track') as HTMLElement | null;
+    const dots = [...document.querySelectorAll<HTMLButtonElement>('.feat__dot')];
+    if (track && dots.length) {
+      const go = (i: number) => track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+      dots.forEach((d) => d.addEventListener('click', () => { go(Number(d.dataset.i)); stop(); }));
+      track.addEventListener('scroll', () => {
+        const i = Math.round(track.scrollLeft / track.clientWidth);
+        dots.forEach((d, k) => d.classList.toggle('is-on', k === i));
+      }, { passive: true });
+      let n = 0; const t = setInterval(() => { n = (Math.round(track.scrollLeft / track.clientWidth) + 1) % dots.length; go(n); }, 6000);
+      const stop = () => clearInterval(t);
+      track.addEventListener('pointerdown', stop, { once: true });
+    }
+  </script>
 
   <!-- ============ FROM THE BLOG (renders nothing if no published posts) ============ -->
   {latestPosts.length > 0 && (
@@ -662,6 +668,15 @@ const family = [
 
   /* ---------- SHOP ---------- */
   .shop { background: var(--base); }
+  .feat { margin-top: 1.5rem; }
+  .feat__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--radius); }
+  .feat__track::-webkit-scrollbar { display: none; }
+  .feat__slide { flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 2.5rem; padding: 0.5rem; }
+  .feat__slide h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin: 0 0 .4rem; }
+  .feat__dots { display: flex; justify-content: center; gap: .5rem; margin-top: .8rem; }
+  .feat__dot { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #c9d6e3; cursor: pointer; padding: 0; }
+  .feat__dot.is-on { background: var(--blu-d, #30598a); width: 26px; border-radius: 999px; }
+  @media (max-width: 760px) { .feat__slide { grid-template-columns: 1fr; text-align: center; gap: 1rem; } .feat__slide .btn { margin: 0 auto; } }
   .shop__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 2.5rem; }
   .shop__cover {
     position: relative; background: linear-gradient(160deg, var(--sun) 0%, var(--orange) 100%);
