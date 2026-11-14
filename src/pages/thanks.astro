@@ -1,11 +1,11 @@
 ---
 // Post-checkout page (set as the Dodo return URL). Download link arrives by email from Dodo;
-// this page confirms it and offers the colouring book as the one-click next step.
+// this page confirms it and offers the colouring + ABC bundle as the one-click next step.
 import Base from '../layouts/Base.astro';
 import BuyButton from '../components/BuyButton.astro';
 import { bySlug, products } from '../data/products';
 
-const book = bySlug('coloring-book')!;
+const book = bySlug('colouring-abc-bundle')!;
 // Prices for the Purchase event value (by ?p=<slug>).
 const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd: x.usd }]));
 ---

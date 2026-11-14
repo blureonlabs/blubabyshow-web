@@ -14,6 +14,16 @@
       "source": "/shop/dos-and-donts/",
       "destination": "/shop/meltdown-scripts/",
       "permanent": true
+    },
+    {
+      "source": "/shop/coloring-book",
+      "destination": "/shop/colouring-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/shop/coloring-book/",
+      "destination": "/shop/colouring-pack/",
+      "permanent": true
     }
   ],
   "headers": [

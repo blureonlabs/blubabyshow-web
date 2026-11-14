@@ -6,7 +6,7 @@ cluster: early-learning
 tags: ["learning colours", "toddler development", "early learning", "milestones"]
 heroImage: "/episodes/picks-his-outfit.webp"
 heroAlt: "Blu striding down the hallway in rainbow dungarees, a bow tie and sunglasses while Mum claps behind him"
-cta: coloring-book
+cta: colouring-pack
 faq:
   - q: "At what age should a child know their colours?"
     a: "The CDC lists 'names a few colours of items' as a milestone most children reach by 4 years. Many toddlers begin to understand and use some colour words between 2 and 3, but mix-ups are common for a long time after that."
@@ -83,6 +83,6 @@ Not knowing colours by 2 or 3 is usually not a worry on its own. The CDC encoura
 
 ## Colours and feelings
 
-At Blu Baby Show we talk about feelings before facts, and colours can help with both. Many families use colours to talk about moods: a "red" angry feeling, a "blue" sad feeling. Our [Big Feelings colouring pack](/shop/coloring-book/) uses Blu and his family to start those small conversations.
+At Blu Baby Show we talk about feelings before facts, and colours can help with both. Many families use colours to talk about moods: a "red" angry feeling, a "blue" sad feeling. Our [Blu colouring pack](/shop/colouring-pack/) uses Blu and his family to start those small conversations.
 
 For more everyday learning ideas, see our posts on [encouraging your baby to talk](/blog/encourage-baby-to-talk/) and [counting with your toddler](/blog/counting-with-toddlers/).

@@ -6,7 +6,7 @@ cluster: big-feelings
 tags: ["big feelings", "toddler emotions", "gentle parenting", "emotional development", "self-regulation"]
 heroImage: "/episodes/kisses-sister.webp"
 heroAlt: "Blu, a cartoon toddler in a blue top, gently kisses his sleeping newborn sister on the forehead"
-cta: coloring-book
+cta: colouring-pack
 faq:
   - q: "Why are my toddler's emotions so big?"
     a: "Toddlers feel emotions fully but have limited words and very little impulse control to manage them. The American Academy of Pediatrics says it's normal for two-year-olds to swing quickly between moods and for frustration to erupt as crying, hitting or screaming. These skills grow slowly with time and adult support."

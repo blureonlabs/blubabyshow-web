@@ -1,0 +1,88 @@
+---
+// "Before you go" offer: shown once per visitor when they head for the exit.
+// Desktop: pointer leaves through the top of the window. Phone: a fast scroll back up after 15 s.
+// The code STAY15 (15% off, once per customer) lives in Dodo; the buyer pastes it at checkout.
+import type { Product } from '../data/products';
+interface Props { product: Product }
+const { product: p } = Astro.props;
+const href = p.checkoutInr || p.checkoutUsd;
+---
+
+{href && (
+  <div class="stay" id="stay" hidden role="dialog" aria-modal="true" aria-labelledby="stayH" data-slug={p.slug}>
+    <div class="stay__card">
+      <button class="stay__x" type="button" aria-label="Close" data-stay-close>×</button>
+      <p class="stay__eyebrow">Before you go</p>
+      <h2 id="stayH">15% off {p.name.replace(' (PDF)', '')}</h2>
+      <p class="stay__sub">Use this code at checkout. One use per family.</p>
+      <div class="stay__code">
+        <span>STAY15</span>
+        <button type="button" class="stay__copy" data-stay-copy>Copy code</button>
+      </div>
+      <a class="btn btn--primary stay__go" href={href} data-stay-go>Continue to checkout</a>
+      <button class="stay__no" type="button" data-stay-close>No thanks</button>
+    </div>
+  </div>
+)}
+
+<style>
+  .stay { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 16px; background: rgba(20,34,58,.55); }
+  .stay[hidden] { display: none; }
+  .stay__card { position: relative; width: min(420px, 100%); background: #fff; border-radius: 24px; padding: 1.6rem 1.4rem 1.2rem; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.25); }
+  .stay__x { position: absolute; top: 10px; right: 12px; border: 0; background: none; font-size: 1.6rem; line-height: 1; color: #6b6c85; cursor: pointer; }
+  .stay__eyebrow { margin: 0; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--orange-d, #db631d); }
+  .stay h2 { margin: .3rem 0 .4rem; font-size: 1.45rem; color: var(--blu-deep, #30598a); }
+  .stay__sub { margin: 0 0 1rem; color: #5c5d7a; }
+  .stay__code { display: flex; align-items: center; justify-content: space-between; gap: .6rem; border: 2px dashed var(--sun, #f6c344); border-radius: 14px; padding: .55rem .6rem .55rem 1rem; margin-bottom: 1rem; }
+  .stay__code span { font-family: var(--font-head); font-weight: 700; font-size: 1.4rem; letter-spacing: .08em; color: var(--blu-deep, #30598a); }
+  .stay__copy { border: 0; border-radius: 999px; background: var(--sun, #f6c344); color: #223a5c; font-weight: 700; padding: .5rem .9rem; cursor: pointer; }
+  .stay__go { display: flex; width: 100%; justify-content: center; }
+  .stay__no { margin-top: .6rem; border: 0; background: none; color: #6b6c85; text-decoration: underline; cursor: pointer; font-size: .9rem; }
+</style>
+
+<script>
+  const box = document.getElementById('stay');
+  if (box) {
+    const w = window as any;
+    const slug = box.dataset.slug;
+    const KEY = 'blu_stay_seen';
+    const seen = () => { try { return localStorage.getItem(KEY) === '1'; } catch { return false; } };
+    const mark = () => { try { localStorage.setItem(KEY, '1'); } catch {} };
+    let armed = !seen();
+    const start = Date.now();
+    // Someone who already clicked Buy is not leaving: never interrupt them.
+    document.querySelectorAll('a.buy').forEach((a) => a.addEventListener('click', () => { armed = false; }));
+
+    const show = (how: string) => {
+      if (!armed) return;
+      armed = false; mark();
+      box.hidden = false;
+      (box.querySelector('[data-stay-copy]') as HTMLElement)?.focus();
+      w.posthog?.capture?.('exit_offer_shown', { product: slug, how });
+    };
+    const hide = () => { box.hidden = true; };
+
+    document.addEventListener('mouseout', (e) => {
+      if (!e.relatedTarget && e.clientY <= 0 && Date.now() - start > 4000) show('exit-top');
+    });
+    let lastY = window.scrollY, lastT = Date.now();
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY, t = Date.now();
+      const fastUp = lastY - y > 600 && t - lastT < 400;
+      if (fastUp && t - start > 15000 && matchMedia('(pointer: coarse)').matches) show('fast-scroll-up');
+      if (t - lastT > 400) { lastY = y; lastT = t; }
+    }, { passive: true });
+
+    box.querySelectorAll('[data-stay-close]').forEach((b) => b.addEventListener('click', hide));
+    box.addEventListener('click', (e) => { if (e.target === box) hide(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+    box.querySelector('[data-stay-copy]')?.addEventListener('click', async (e) => {
+      const b = e.currentTarget as HTMLButtonElement;
+      try { await navigator.clipboard.writeText('STAY15'); b.textContent = 'Copied!'; } catch { b.textContent = 'STAY15'; }
+      w.posthog?.capture?.('exit_offer_copy', { product: slug });
+    });
+    box.querySelector('[data-stay-go]')?.addEventListener('click', () => {
+      w.posthog?.capture?.('exit_offer_checkout', { product: slug });
+    });
+  }
+</script>

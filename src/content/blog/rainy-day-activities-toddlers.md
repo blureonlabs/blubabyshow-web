@@ -6,7 +6,7 @@ cluster: screen-free-play
 tags: ["rainy day activities", "toddler play", "screen-free play", "indoor activities"]
 heroImage: "/episodes/flour-ghosts.webp"
 heroAlt: "Blu, Puppy and Dad covered in flour in the kitchen, with paw prints across the floor and Mum watching from the doorway"
-cta: coloring-book
+cta: colouring-pack
 faq:
   - q: "What can I do with a toddler indoors on a rainy day?"
     a: "Short, simple activities work best: a sock-ball toss, a cushion path, a pots-and-pans band, a sorting game or a blanket fort. Rotate between a moving activity and a calm one so your toddler gets both energy release and rest."

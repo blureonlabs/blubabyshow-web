@@ -6,7 +6,7 @@ cluster: big-feelings
 tags: ["naming feelings", "emotional literacy", "toddler language", "big feelings", "emotion coaching"]
 heroImage: "/episodes/toothpaste-mohawk.webp"
 heroAlt: "Blu, a cartoon toddler, grins in the bathroom mirror with toothpaste foam spiked on his head like a mohawk"
-cta: coloring-book
+cta: colouring-pack
 faq:
   - q: "At what age can a toddler name feelings?"
     a: "Every child is different, and toddlers usually read feelings in faces well before they can name them. The CDC notes that by two, many children notice when others are hurt or upset and look at your face to see how to react. Feeling words follow slowly, learned by hearing you use them in everyday moments."

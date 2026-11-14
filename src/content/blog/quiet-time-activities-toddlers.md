@@ -6,7 +6,7 @@ cluster: screen-free-play
 tags: ["quiet time", "independent play", "toddler activities", "screen-free play"]
 heroImage: "/episodes/kisses-sister.webp"
 heroAlt: "Blu gently kissing the head of his sleeping newborn sister wrapped in a heart-print blanket"
-cta: coloring-book
+cta: colouring-pack
 faq:
   - q: "How long can a toddler play on their own?"
     a: "It varies a lot by age and temperament. Many young toddlers manage a few minutes of independent play, building up slowly with practice, while older preschoolers can often focus for longer. CDC milestones list paying attention for 5 to 10 minutes during activities by age 5."
@@ -83,7 +83,7 @@ Quiet time is often most needed when a newborn arrives and a parent is feeding o
 
 Sometimes a show is the right tool, and that is fine. Screens can be part of a balanced day. The American Academy of Pediatrics suggests using screens at regular times and trying not to hand over a device every time a child is upset or bored, so these quiet activities give you options for the in-between moments. For more on finding a balance that suits your family, read [how to reduce toddler screen time without a fight](/blog/reduce-screen-time-toddlers/).
 
-If you would like a ready-made quiet activity, our [Big Feelings colouring pack](/shop/coloring-book/) has pages of Blu and his family to colour and talk about together.
+If you would like a ready-made quiet activity, our [Blu colouring pack](/shop/colouring-pack/) has pages of Blu and his family to colour and talk about together.
 
 ## A last word
 

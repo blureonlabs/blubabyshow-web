@@ -2,6 +2,7 @@
 // One landing page per product: this is where the Meta ads point.
 import Base from '../../layouts/Base.astro';
 import BuyButton from '../../components/BuyButton.astro';
+import StayOffer from '../../components/StayOffer.astro';
 import { products, bySlug } from '../../data/products';
 
 export function getStaticPaths() {
@@ -9,7 +10,7 @@ export function getStaticPaths() {
 }
 
 const p = bySlug(Astro.params.slug!)!;
-const other = products.find((x) => x.slug !== p.slug)!;
+const other = products.find((x) => x.slug === (p.slug === 'colouring-abc-bundle' ? 'meltdown-scripts' : 'colouring-abc-bundle')) ?? products.find((x) => x.slug !== p.slug)!;
 
 const SITE = 'https://www.blubabyshow.com';
 const url = `${SITE}/shop/${p.slug}/`;
@@ -106,6 +107,7 @@ const jsonLd = [
       <a class="btn btn--ghost" href={`/shop/${other.slug}`}>Take a look</a>
     </div>
   </section>
+  <StayOffer product={p} />
 </Base>
 
 <script define:vars={{ slug: p.slug, inr: p.inr }}>

@@ -6,7 +6,7 @@ cluster: new-sibling
 tags: ["new baby", "sibling jealousy", "toddlers", "big feelings", "what to say"]
 heroImage: "/episodes/tummy-grumble.webp"
 heroAlt: "Blu, in his blue top, holds it up over his round tummy and looks worried, his lip wobbling."
-cta: coloring-book
+cta: colouring-pack
 faq:
   - q: "Is it normal for a toddler to say they don't want the new baby?"
     a: "Yes. Child development experts describe older siblings announcing that they wish the baby would just go away. It is usually a way of saying they miss your attention, not a sign that they will never love their sibling."

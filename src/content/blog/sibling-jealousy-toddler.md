@@ -6,7 +6,7 @@ cluster: new-sibling
 tags: ["sibling jealousy", "sibling rivalry", "toddlers", "new baby", "regression"]
 heroImage: "/episodes/big-brother-hospital.webp"
 heroAlt: "Blu, held in his Dad's arms in a hospital corridor, looks wide-eyed and unsure as a smiling nurse speaks to him."
-cta: coloring-book
+cta: colouring-pack
 faq:
   - q: "What are the signs of sibling jealousy in a toddler?"
     a: "Common signs include clinginess, more crying or tantrums, night waking, potty accidents, baby talk, asking for things during feeds, and sometimes hitting or pulling at the baby. These are usually ways of saying 'I need you too', not signs that something is wrong with your child."
