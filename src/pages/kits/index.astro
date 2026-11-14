@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import { kits } from '../../data/kits';
+---
+
+<Base title="Blu Kits · Blu Baby Show" description="Small, phone-friendly kits for the big toddler moments: potty, new baby, hitting and bedtime, with Blu.">
+  <section class="kits">
+    <div class="kits__wrap">
+      <h1>Blu Kits</h1>
+      <p class="kits__sub">Small kits for the big toddler moments. A Blu video, a short story and the exact words to say. Works on your phone.</p>
+      <div class="kits__grid">
+        {kits.map((k) => (
+          <a class="kits__card" href={`/kits/${k.slug}/`} style={`--kit:${k.accent}`}>
+            <div class="kits__img"><img src={k.img} alt={k.imgAlt} width="200" height="200" loading="lazy" /></div>
+            <h2>{k.name}</h2>
+            <p>{k.tagline}</p>
+            <span class="kits__price" data-price-inr={k.inr} data-price-usd={k.usd}>${k.usd}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return false; } })();
+  document.querySelectorAll<HTMLElement>('[data-price-inr]').forEach((el) => {
+    el.textContent = inIndia ? `₹${el.dataset.priceInr}` : `$${el.dataset.priceUsd}`;
+  });
+</script>
+
+<style>
+  .kits { padding: calc(var(--nav-h, 64px) + 1.5rem) 16px 3rem; background: #FBF3E7; }
+  .kits__wrap { max-width: 960px; margin: 0 auto; text-align: center; }
+  .kits h1 { font-size: clamp(2rem, 6vw, 2.6rem); margin: 0; }
+  .kits__sub { color: #4a4b66; max-width: 520px; margin: .4rem auto 1.6rem; }
+  .kits__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .kits__card { background: #fff; border-radius: 22px; padding: 1rem; color: inherit; text-decoration: none; box-shadow: 0 4px 16px rgba(34,58,92,.08); transition: transform .15s; }
+  .kits__card:hover { transform: translateY(-3px); }
+  .kits__img { background: var(--kit); border-radius: 16px; padding: .6rem; }
+  .kits__img img { width: 60%; height: auto; }
+  .kits__card h2 { font-size: 1.15rem; margin: .7rem 0 .3rem; }
+  .kits__card p { font-size: .92rem; color: #5c5d7a; margin: 0 0 .6rem; }
+  .kits__price { display: inline-block; background: #30598a; color: #fff; font-weight: 800; border-radius: 999px; padding: .3rem .9rem; }
+</style>
