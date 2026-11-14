@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Contact Us · Blu Baby Show" description="Get in touch with Blu Baby Show: orders, refunds, collaborations.">
+  <section class="section legal">
+    <div class="wrap">
+      <p class="eyebrow">Blu Baby Show</p>
+      <h1>Contact Us</h1>
+      <p>We're a small team and we read every message.</p>
+
+      <h2>Email</h2>
+      <p><a href="mailto:hello@blubabyshow.com">hello@blubabyshow.com</a></p>
+      <p class="muted">We reply within 1–2 working days (Monday to Saturday, India time).</p>
+
+      <h2>Orders and refunds</h2>
+      <p>Please include the email address you used at checkout. For refunds, see our
+        <a href="/refund">Refund &amp; Cancellation Policy</a>; for downloads, our <a href="/delivery">Delivery Policy</a>.</p>
+
+      <h2>Social</h2>
+      <p>Instagram: <a href="https://instagram.com/theblubabyshow">@theblubabyshow</a> ·
+        YouTube: <a href="https://youtube.com/@blubabyshow">@blubabyshow</a></p>
+
+      <h2>Based in</h2>
+      <p>Bangalore, India</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { padding-top: calc(var(--nav-h) + 2rem); max-width: 720px; }
+  .legal h1 { margin-bottom: 0.4rem; }
+  .legal h2 { font-size: 1.3rem; margin-top: 2rem; color: var(--blu-deep); }
+  .legal a { color: var(--blu-d); text-decoration: underline; }
+</style>

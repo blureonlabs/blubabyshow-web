@@ -2,33 +2,77 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Privacy Policy · Blu Baby Show" description="How Blu Baby Show handles your information.">
+<Base title="Privacy Policy · Blu Baby Show" description="How Blu Baby Show collects, uses and protects your information.">
   <section class="section legal">
     <div class="wrap">
       <p class="eyebrow">Blu Baby Show</p>
       <h1>Privacy Policy</h1>
-      <p class="muted">Last updated: July 2026</p>
+      <p class="muted">Last updated: 15 November 2026</p>
 
-      <p>We keep this simple, because you're a busy parent.</p>
+      <p>This policy explains what information Blu Baby Show ("we", "us") collects when you use
+        <strong>blubabyshow.com</strong> or buy from the Blu Shop, how we use it, and the choices you have.
+        We keep it short and plain, because you're a busy parent.</p>
 
-      <h2>What we collect</h2>
-      <p>If you join our newsletter, we collect your <strong>email address</strong> — nothing else. If you
-        ever buy something, our payment partner handles your payment details; we never see or store your card.</p>
+      <h2>1. What we collect</h2>
+      <ul>
+        <li><strong>Email address</strong>: when you join our newsletter, or when you buy a product (so we can send your download).</li>
+        <li><strong>Order details</strong>: what you bought, the price, and the date. Our payment partner tells us this after you pay.</li>
+        <li><strong>Usage data</strong>: anonymous information about how the site is used (pages visited, clicks, device and browser type, approximate country), collected through cookies and similar tools.</li>
+        <li><strong>Messages</strong>: anything you send us by email.</li>
+      </ul>
+      <p>We <strong>never</strong> see or store your card, UPI or bank details. Payments are handled entirely by our payment partner (see section 4).</p>
 
-      <h2>How we use it</h2>
-      <p>Your email is used only to send you our weekly note and occasional updates about Blu. We never sell,
-        rent, or share your email with anyone. You can unsubscribe any time with one tap.</p>
+      <h2>2. How we use it</h2>
+      <ul>
+        <li>To deliver what you bought and send your download link and receipt.</li>
+        <li>To send our newsletter, if you signed up. Every email has a one-tap unsubscribe link.</li>
+        <li>To answer your questions and handle refunds.</li>
+        <li>To understand which pages and products are useful, and to measure our ads.</li>
+        <li>To prevent fraud and meet legal and tax obligations.</li>
+      </ul>
+      <p>We do not sell or rent your personal information to anyone.</p>
 
-      <h2>Children's information</h2>
-      <p>Blu Baby Show is a brand made <em>for parents</em>. We do not knowingly collect personal information
-        from children. Any product that involves uploading a photo of your child is used <strong>only</strong>
-        to create your order, is processed with your consent, and is not stored or used for anything else.</p>
+      <h2>3. Cookies and analytics</h2>
+      <p>We use a small number of tools that set cookies or similar identifiers:</p>
+      <ul>
+        <li><strong>PostHog</strong>: site analytics (page views, clicks).</li>
+        <li><strong>Meta Pixel</strong> (Facebook / Instagram): to measure whether our ads lead to visits and purchases.</li>
+      </ul>
+      <p>You can block or delete cookies in your browser settings at any time. The site still works without them.</p>
 
-      <h2>Contact</h2>
-      <p>Questions? Email <a href="mailto:hello@blubabyshow.com">hello@blubabyshow.com</a>.</p>
+      <h2>4. Who we share it with</h2>
+      <p>We share information only with the service providers that help us run the shop, and only as much as they need:</p>
+      <ul>
+        <li><strong>Dodo Payments</strong>: processes payments as our merchant of record and handles your payment details, receipts, taxes and refunds. Their own privacy policy applies to the payment.</li>
+        <li><strong>Supabase</strong>: securely stores newsletter sign-ups.</li>
+        <li><strong>Resend</strong>: sends our emails.</li>
+        <li><strong>Vercel</strong>: hosts this website.</li>
+        <li><strong>PostHog</strong> and <strong>Meta</strong>: analytics and ad measurement, as above.</li>
+      </ul>
+      <p>We may also share information if the law requires it.</p>
 
-      <p class="muted"><small>This is a plain-language summary. A full policy will be published before any
-        paid or photo-based product launches.</small></p>
+      <h2>5. How long we keep it</h2>
+      <p>Newsletter emails are kept until you unsubscribe. Order records are kept for as long as tax and accounting law requires.
+        You can ask us to delete your information at any time (see section 7).</p>
+
+      <h2>6. Children</h2>
+      <p>Blu Baby Show makes content for families, but this website and shop are for <strong>parents and adults</strong>.
+        We do not knowingly collect personal information from children under 18. If you believe a child has given us
+        their information, email us and we will delete it.</p>
+
+      <h2>7. Your choices and rights</h2>
+      <p>You can ask us to show you, correct or delete the personal information we hold about you, or to stop sending you emails.
+        Just write to <a href="mailto:hello@blubabyshow.com">hello@blubabyshow.com</a>. We reply within 7 days.</p>
+
+      <h2>8. Security</h2>
+      <p>We use trusted providers with encryption in transit (HTTPS) and limit who can access your information.
+        No system is perfectly secure, but we take reasonable care to protect it.</p>
+
+      <h2>9. Changes</h2>
+      <p>If we change this policy, we will update the date at the top of this page.</p>
+
+      <h2>10. Contact</h2>
+      <p>Blu Baby Show, Bangalore, India · <a href="mailto:hello@blubabyshow.com">hello@blubabyshow.com</a> · <a href="/contact">Contact page</a></p>
     </div>
   </section>
 </Base>
@@ -37,5 +81,7 @@ import Base from '../layouts/Base.astro';
   .legal { padding-top: calc(var(--nav-h) + 2rem); max-width: 720px; }
   .legal h1 { margin-bottom: 0.4rem; }
   .legal h2 { font-size: 1.3rem; margin-top: 2rem; color: var(--blu-deep); }
+  .legal ul { padding-left: 1.2rem; }
+  .legal li { margin-bottom: 0.4rem; }
   .legal a { color: var(--blu-d); text-decoration: underline; }
 </style>
