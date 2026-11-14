@@ -64,42 +64,47 @@ const family = [
   { img: '/characters/puppy.webp',       name: 'Puppy',  tag: 'clumsy & kind', c: 'var(--sun)', cutout: true },
   { img: '/characters/sister_face.webp', name: 'Sister', tag: 'the newest baby', c: 'var(--grape)' },
 ];
+
+const IG = 'https://www.instagram.com/theblubabyshow/';
+type Tile =
+  | { kind: 'char'; img: string; name: string; tag: string; c: string }
+  | { kind: 'ep'; img: string; title: string; href: string; c: string }
+  | { kind: 'link'; small: string; big: string; href: string; c: string; icon: string; pat: string; ext?: boolean };
+const wall: Tile[][] = [
+  [ { kind: 'char', img: '/characters/blu.webp', name: 'Blu', tag: 'the little mischief', c: 'var(--sky)' },
+    { kind: 'ep', img: episodes[2].img, title: episodes[2].title, href: episodes[2].href, c: 'var(--sun)' } ],
+  [ { kind: 'ep', img: episodes[0].img, title: episodes[0].title, href: episodes[0].href, c: 'var(--pink)' },
+    { kind: 'char', img: '/characters/mom.webp', name: 'Mum', tag: 'keeps it all together', c: 'var(--pink)' } ],
+  [ { kind: 'link', small: 'Join us on', big: 'Instagram', href: IG, c: 'var(--orange)', icon: 'heart', pat: 'dots', ext: true },
+    { kind: 'char', img: '/characters/dad.webp', name: 'Dad', tag: 'always shows up', c: 'var(--grass)' },
+    { kind: 'link', small: 'Watch on', big: 'YouTube', href: 'https://www.youtube.com/@blubabyshow', c: 'var(--blu-d)', icon: 'play', pat: 'waves', ext: true } ],
+  [ { kind: 'char', img: '/characters/puppy.webp', name: 'Puppy', tag: 'clumsy & kind', c: 'var(--sun)' },
+    { kind: 'link', small: 'Help for big moments', big: 'Blu Kits', href: '/kits/', c: 'var(--grape)', icon: 'book', pat: 'dots' } ],
+  [ { kind: 'char', img: '/characters/sister.webp', name: 'Sister', tag: 'the newest baby', c: 'var(--grape)' },
+    { kind: 'ep', img: episodes[1].img, title: episodes[1].title, href: episodes[1].href, c: 'var(--sky)' } ],
+];
 ---
 
 <Base>
-  <!-- ============ HERO — welcome card over a full family scene (bluey.tv style) ============ -->
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero__card reveal d1">
-        <p class="eyebrow">Welcome to the home of Blu</p>
-        <h1>The happiest<br /><span class="hero__pop">little show</span><br />for real families.</h1>
-        <p class="hero__sub">
-          Warm, giggly little stories that help your little one name big feelings —
-          and make the long days a little softer. Watched <strong>{proof.views.replace('M+', ' million+')}</strong> times
-          by families around the world.
-        </p>
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="https://www.instagram.com/theblubabyshow/">Watch Blu on Instagram</a>
-          <a class="btn btn--sun" href="#newsletter">Get the free Feelings Cards</a>
-        </div>
-        <div class="hero__stats">
-          <span><b>{proof.views}</b> views</span>
-          <span class="dotsep">·</span>
-          <span><b>{proof.followers}</b> followers</span>
-          <span class="dotsep">·</span>
-          <span><b>{proof.likes}</b> likes</span>
+  <!-- ============ HERO: full-bleed video, curved bottom ============ -->
+  <section class="vhero">
+    <div class="vhero__media">
+      <video class="vhero__bg" autoplay muted loop playsinline preload="metadata" poster="/hero/blu-hero-poster.webp" aria-hidden="true" tabindex="-1">
+        <source src="/hero/blu-hero.mp4" type="video/mp4" />
+      </video>
+      <video class="vhero__vid" autoplay muted loop playsinline preload="metadata" poster="/hero/blu-hero-poster.webp" aria-hidden="true">
+        <source src="/hero/blu-hero.mp4" type="video/mp4" />
+      </video>
+      <div class="vhero__shade" aria-hidden="true"></div>
+      <div class="vhero__copy">
+        <p class="vhero__eyebrow">Meet Blu and his family</p>
+        <h1>Little stories about big feelings</h1>
+        <p class="vhero__sub">A wordless family cartoon, watched {proof.views.replace('M+', ' million+')} times by families around the world.</p>
+        <div class="vhero__cta">
+          <a class="btn btn--sun" href="/kits/?utm_source=site&utm_medium=hero">See the Blu Kits</a>
+          <a class="btn btn--ghost-light" href="#newsletter">Free Feelings Cards</a>
         </div>
       </div>
-    </div>
-
-    <!-- Real stills from our most-watched reels (not mock-ups) -->
-    <div class="hero__reels" aria-label="Stills from Blu's most-watched episodes">
-      {episodes.slice(0, 5).map((e, i) => (
-        <a class={`reel reel--${i}`} href={e.href} target="_blank" rel="noopener">
-          <img src={e.img} alt={e.title} width="720" height="900" fetchpriority={i === 2 ? 'high' : 'auto'} loading={i === 2 ? 'eager' : 'lazy'} decoding="async" />
-          <span class="reel__views">▶ {e.views}</span>
-        </a>
-      ))}
     </div>
   </section>
 
@@ -229,21 +234,45 @@ const family = [
     </div>
   </section>
 
-  <!-- ============ MEET THE FAMILY ============ -->
-  <section class="section fam" id="story">
-    <div class="wrap">
-      <div class="section__head section--center">
-        <p class="eyebrow" style="color:#fff">The whole gang</p>
-        <h2 style="color:#fff">Meet Blu’s family</h2>
-      </div>
-      <div class="fam__row">
-        {family.map((m) => (
-          <div class="fam__card" style={`--c:${m.c}`}>
-            <div class={`fam__ph${m.cutout ? ' fam__ph--cut' : ''}`}><img loading="lazy" decoding="async" src={m.img} alt={m.name} width="400" height="400" /></div>
-            <strong>{m.name}</strong>
-            <span>{m.tag}</span>
-          </div>
-        ))}
+  <!-- ============ MEET THE FAMILY: colour wall ============ -->
+  <section class="section wallsec" id="story">
+    <div class="section__head section--center">
+      <p class="eyebrow">The whole gang</p>
+      <h2>Meet Blu’s family</h2>
+    </div>
+    <div class="wall">
+      {wall.map((col, ci) => (
+        <div class={`wall__col wall__col--${ci}`}>
+          {col.map((t) => t.kind === 'char' ? (
+            <div class="wt wt--char" style={`--c:${t.c}`}>
+              <img src={t.img} alt={t.name} width="800" height="800" loading="lazy" decoding="async" />
+              <span class="wt__name">{t.name}<small>{t.tag}</small></span>
+            </div>
+          ) : t.kind === 'ep' ? (
+            <a class="wt wt--ep" href={t.href} target="_blank" rel="noopener" style={`--c:${t.c}`}>
+              <img src={t.img} alt={t.title} width="720" height="900" loading="lazy" decoding="async" />
+              <span class="wt__play" aria-hidden="true">▶</span>
+            </a>
+          ) : (
+            <a class={`wt wt--link wt--${t.pat}`} href={t.href} style={`--c:${t.c}`} {...(t.ext ? { target: '_blank', rel: 'noopener' } : {})}>
+              <span class="wt__small">{t.small}</span>
+              <span class="wt__big">{t.big}</span>
+              <span class="wt__btn" aria-hidden="true"><Icon name={t.icon} size={20} /></span>
+            </a>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ ABOUT: two-column ============ -->
+  <section class="section about">
+    <div class="wrap about__grid">
+      <div class="about__img"><img src="/characters/family_hero_clean.webp" alt="Blu with Mum, Dad, baby Sister and Puppy" width="1024" height="1024" loading="lazy" decoding="async" /></div>
+      <div class="about__copy">
+        <h2>Blu Baby Show is cartoons, kits, printables and more!</h2>
+        <p>It started as one little reel about a toddler and his family. Now it’s a new wordless episode every day, phone-friendly kits for the big toddler moments, and printable guides you can use at home. No words needed, so it works in every language and every home.</p>
+        <a class="btn btn--primary" href="/kits/">Explore the Blu Kits</a>
       </div>
     </div>
   </section>
@@ -357,6 +386,8 @@ const family = [
 </Base>
 
 <script>
+  // Respect reduced motion: hold the hero video on its poster.
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { document.querySelectorAll<HTMLVideoElement>('.vhero video').forEach((v) => { v.removeAttribute('autoplay'); v.pause(); }); }
   // Local currency for static prices (same rule as the shop: India time zone = ₹, else $).
   const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return true; } })();
   document.querySelectorAll('[data-price-inr]').forEach((el) => {
@@ -783,4 +814,69 @@ const family = [
     .fam__ph { width: min(134px, 100%); height: auto; aspect-ratio: 1; }
     .fam__ph img { width: 100%; height: 100%; }
   }
+
+  /* ---- video hero (curved bottom) ---- */
+  .vhero { padding: 0; }
+  .vhero__media { position: relative; height: min(92vh, 820px); min-height: 520px; overflow: hidden;
+    border-bottom-left-radius: 50% 70px; border-bottom-right-radius: 50% 70px; background: var(--blu-deep); }
+  .vhero__bg { display: none; }
+  .vhero__vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
+  .vhero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,34,58,.15) 0%, rgba(20,34,58,0) 35%, rgba(20,34,58,.55) 100%); }
+  .vhero__copy { position: absolute; left: 0; right: 0; bottom: clamp(56px, 10vh, 110px); text-align: center; color: #fff; padding: 0 16px; }
+  @media (min-width: 761px) {
+    .vhero__bg { display: block; position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; filter: blur(28px) saturate(1.2) brightness(.8); }
+    .vhero__vid { left: auto; right: max(5vw, calc(50% - 600px)); top: calc(var(--nav-h) + 24px); bottom: 70px; inset-inline-start: auto; width: auto; height: calc(100% - var(--nav-h) - 94px); aspect-ratio: 9 / 16; border-radius: 30px; box-shadow: 0 24px 60px rgba(0,0,0,.35); z-index: 2; }
+    .vhero__shade { background: linear-gradient(90deg, rgba(20,34,58,.55) 0%, rgba(20,34,58,.2) 60%, rgba(20,34,58,0) 100%); }
+    .vhero__copy { left: max(5vw, calc(50% - 600px)); right: auto; top: 50%; bottom: auto; transform: translateY(-40%); text-align: left; max-width: 560px; padding: 0; z-index: 3; }
+    .vhero h1 { margin: 0; }
+    .vhero .vhero__sub { margin-left: 0; }
+    .vhero .vhero__cta { justify-content: flex-start; }
+  }
+  .vhero__eyebrow { font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; margin: 0 0 .4rem; opacity: .95; }
+  .vhero h1 { color: #fff; font-size: clamp(2.2rem, 6.4vw, 4.4rem); line-height: 1.02; margin: 0 auto; max-width: 13ch; text-wrap: balance; text-shadow: 0 3px 18px rgba(0,0,0,.25); }
+  .vhero__sub { max-width: 44ch; margin: .8rem auto 0; font-size: 1.05rem; opacity: .95; }
+  .vhero__cta { display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap; margin-top: 1.3rem; }
+  .btn--ghost-light { background: rgba(255,255,255,.18); color: #fff; border: 2px solid rgba(255,255,255,.8); backdrop-filter: blur(4px); }
+  .btn--ghost-light:hover { background: rgba(255,255,255,.3); }
+  @media (max-width: 560px) {
+    .vhero__media { height: 86vh; border-bottom-left-radius: 50% 36px; border-bottom-right-radius: 50% 36px; }
+    .vhero__cta { flex-direction: column; align-items: stretch; max-width: 320px; margin-inline: auto; }
+  }
+
+  /* ---- colour wall ---- */
+  .wallsec { overflow: hidden; }
+  .wall { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; padding: 1rem 12px 0; max-width: 1440px; margin: 0 auto; }
+  .wall__col { display: flex; flex-direction: column; gap: 12px; }
+  .wall__col--0 { padding-top: 90px; } .wall__col--1 { padding-top: 30px; } .wall__col--3 { padding-top: 60px; } .wall__col--4 { padding-top: 110px; }
+  .wt { position: relative; display: block; border-radius: 22px; overflow: hidden; background: var(--c); color: #fff; text-decoration: none; transition: transform .2s; }
+  .wt:hover { transform: translateY(-4px) rotate(-.6deg); }
+  .wt--char { aspect-ratio: 1; }
+  .wt--char img { position: absolute; inset: 6% 6% 0; width: 88%; height: 94%; object-fit: contain; object-position: bottom; transition: transform .25s; }
+  .wt--char:hover img { transform: scale(1.05); }
+  .wt__name { position: absolute; left: 12px; bottom: 12px; background: #fff; color: var(--blu-deep); font-family: var(--font-head); font-weight: 700; font-size: 1rem; border-radius: 14px; padding: .3rem .7rem; line-height: 1.15; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+  .wt__name small { display: block; font-family: inherit; font-weight: 500; font-size: .72rem; color: #5c5d7a; }
+  .wt--ep { aspect-ratio: 4 / 5; }
+  .wt--ep img { width: 100%; height: 100%; object-fit: cover; }
+  .wt__play { position: absolute; right: 12px; bottom: 12px; width: 40px; height: 40px; border-radius: 50%; background: #fff; color: var(--blu-deep); display: grid; place-items: center; font-size: .9rem; }
+  .wt--link { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: .2rem; }
+  .wt--dots { background-image: radial-gradient(rgba(255,255,255,.18) 18%, transparent 19%); background-size: 26px 26px; background-color: var(--c); }
+  .wt--waves { background-image: repeating-radial-gradient(circle at 20% 110%, rgba(255,255,255,.12) 0 14px, transparent 14px 30px); background-color: var(--c); }
+  .wt__small { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; opacity: .95; }
+  .wt__big { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.05; }
+  .wt__btn { margin-top: .7rem; width: 46px; height: 46px; border-radius: 50%; background: #fff; color: var(--c); display: grid; place-items: center; }
+  @media (max-width: 760px) {
+    .wall { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 1rem 16px 1rem; gap: 10px; scrollbar-width: none; }
+    .wall::-webkit-scrollbar { display: none; }
+    .wall__col { flex: 0 0 46vw; scroll-snap-align: start; gap: 10px; }
+    .wall__col--0, .wall__col--1, .wall__col--3, .wall__col--4 { padding-top: 0; }
+    .wall__col:nth-child(even) { padding-top: 40px; }
+  }
+
+  /* ---- about two-column ---- */
+  .about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem, 4vw, 3rem); align-items: center; }
+  .about__img { background: linear-gradient(160deg, var(--sky) 0%, var(--blu) 100%); border-radius: 28px; overflow: hidden; }
+  .about__img img { width: 100%; height: auto; display: block; aspect-ratio: 4 / 3; object-fit: contain; object-position: bottom; padding-top: 1.2rem; }
+  .about__copy h2 { color: var(--blu-deep); font-size: clamp(1.8rem, 3.6vw, 2.7rem); line-height: 1.08; margin: 0 0 .8rem; }
+  .about__copy p { color: var(--ink-soft); font-size: 1.05rem; margin: 0 0 1.3rem; }
+  @media (max-width: 760px) { .about__grid { grid-template-columns: 1fr; } }
 </style>
