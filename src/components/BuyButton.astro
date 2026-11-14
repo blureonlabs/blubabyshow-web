@@ -41,6 +41,10 @@ const live = Boolean(p.checkoutInr || p.checkoutUsd);
     a.textContent = a.dataset[`${cur}Label`] || a.textContent;
     a.addEventListener('click', () => {
       const w = window as any;
+      w.posthog?.capture?.('buy_click', {
+        product: a.dataset.slug, currency: inIndia ? 'INR' : 'USD',
+        value: Number(inIndia ? a.dataset.inr : a.dataset.usd),
+      });
       if (typeof w.fbq === 'function') {
         w.fbq('track', 'InitiateCheckout', {
           content_ids: [a.dataset.slug], content_type: 'product',
