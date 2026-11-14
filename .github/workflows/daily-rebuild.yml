@@ -1,0 +1,22 @@
+# Rebuild the static site daily so future-dated blog posts go live on their pubDate.
+name: Daily rebuild (scheduled blog posts)
+
+on:
+  schedule:
+    - cron: "0 1 * * *" # 01:00 UTC = 06:30 IST
+  workflow_dispatch:
+
+jobs:
+  trigger-vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$VERCEL_DEPLOY_HOOK" ]; then
+            echo "VERCEL_DEPLOY_HOOK secret is not set; skipping rebuild."
+            exit 0
+          fi
+          curl -fsS -X POST "$VERCEL_DEPLOY_HOOK"
+          echo "Vercel rebuild triggered."

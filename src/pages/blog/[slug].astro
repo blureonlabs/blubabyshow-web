@@ -1,0 +1,228 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPublishedPosts, readingTime, formatDate, CLUSTER_LABELS, SITE, type Post } from '../../lib/posts';
+import { bySlug } from '../../data/products';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      related: posts.filter((p) => p.slug !== post.slug && p.data.cluster === post.data.cluster).slice(0, 3),
+    },
+  }));
+}
+
+interface Props { post: Post; related: Post[]; }
+const { post, related } = Astro.props;
+const d = post.data;
+const { Content } = await post.render();
+const minutes = readingTime(post.body);
+
+const url = `${SITE}/blog/${post.slug}/`;
+const imageAbs = new URL(d.heroImage, SITE).href;
+const modified = d.updatedDate ?? d.pubDate;
+
+// CTA box: products come from the catalogue (never hardcode prices).
+let cta: { eyebrow: string; title: string; text: string; href: string; label: string; img?: string; imgAlt?: string };
+if (d.cta === 'newsletter') {
+  cta = {
+    eyebrow: 'Free, every Sunday',
+    title: 'Join Blu’s Sunday Club (free)',
+    text: 'One warm, practical note a week for parents of little ones, plus new Blu episodes first.',
+    href: '/#newsletter',
+    label: 'Join Blu’s Sunday Club (free)',
+  };
+} else {
+  const p = bySlug(d.cta)!;
+  cta = {
+    eyebrow: 'From the Blu Shop',
+    title: p.name,
+    text: `${p.short} PDF download, ₹${p.inr}.`,
+    href: `/shop/${p.slug}/`,
+    label: 'Take a look',
+    img: p.img,
+    imgAlt: p.imgAlt,
+  };
+}
+
+const org = {
+  '@type': 'Organization',
+  '@id': `${SITE}/#org`,
+  name: 'Blu Baby Show',
+  url: `${SITE}/`,
+  logo: { '@type': 'ImageObject', url: `${SITE}/characters/watermark.png` },
+};
+
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@type': 'BlogPosting',
+    '@id': `${url}#post`,
+    headline: d.title,
+    description: d.description,
+    image: [imageAbs],
+    datePublished: d.pubDate.toISOString(),
+    dateModified: modified.toISOString(),
+    author: org,
+    publisher: org,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    url,
+    keywords: d.tags.join(', '),
+    articleSection: CLUSTER_LABELS[d.cluster],
+    inLanguage: 'en',
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+      { '@type': 'ListItem', position: 3, name: d.title, item: url },
+    ],
+  },
+];
+if (d.faq.length > 0) {
+  jsonLd.push({
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    mainEntity: d.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
+---
+
+<Base
+  title={`${d.title} · Blu Baby Show`}
+  description={d.description}
+  image={d.heroImage}
+  imageAlt={d.heroAlt}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <article class="post">
+    <header class="wrap post__head">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a> <span aria-hidden="true">›</span> <a href="/blog/">Blog</a> <span aria-hidden="true">›</span>
+        <span aria-current="page">{d.title}</span>
+      </nav>
+      <p class="eyebrow">{CLUSTER_LABELS[d.cluster]}</p>
+      <h1>{d.title}</h1>
+      <p class="post__meta">
+        <time datetime={d.pubDate.toISOString()}>{formatDate(d.pubDate)}</time> · {minutes} min read
+        {d.updatedDate && <> · Updated <time datetime={d.updatedDate.toISOString()}>{formatDate(d.updatedDate)}</time></>}
+      </p>
+      <div class="post__hero">
+        <img src={d.heroImage} alt={d.heroAlt} width="1200" height="750" fetchpriority="high" />
+      </div>
+    </header>
+
+    <div class="wrap">
+      <div class="prose">
+        <Content />
+      </div>
+
+      {d.faq.length > 0 && (
+        <section class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Questions parents ask</h2>
+          {d.faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </section>
+      )}
+
+      {d.sources.length > 0 && (
+        <section class="sources" aria-labelledby="src-h">
+          <h2 id="src-h">Sources</h2>
+          <ol>
+            {d.sources.map((s) => (
+              <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      <aside class="cta">
+        {cta.img && <img class="cta__img sticker" src={cta.img} alt={cta.imgAlt} width="160" height="160" loading="lazy" />}
+        <div>
+          <p class="eyebrow">{cta.eyebrow}</p>
+          <h2 class="cta__title">{cta.title}</h2>
+          <p class="muted">{cta.text}</p>
+          <a class="btn btn--primary" href={cta.href}>{cta.label}</a>
+        </div>
+      </aside>
+
+      <p class="disclaimer muted">A friendly guide, not medical advice. For anything that worries you, talk to your paediatrician.</p>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="section related">
+      <div class="wrap">
+        <h2 class="related__h">More from this topic</h2>
+        <div class="related__grid">{related.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .post { padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 2rem; }
+  .post__head { max-width: 900px; }
+  .crumbs { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .crumbs a { color: var(--blu-d); font-weight: 600; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs [aria-current] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 40ch; }
+  .post h1 { font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.08; }
+  .post__meta { color: var(--ink-soft); font-weight: 600; font-size: 0.95rem; }
+  .post__hero { margin: 1.6rem 0 2.4rem; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 10; background: var(--sand); box-shadow: var(--shadow-soft); }
+  .post__hero img { width: 100%; height: 100%; object-fit: cover; }
+
+  .prose { max-width: 70ch; margin: 0 auto; font-size: 1.12rem; line-height: 1.8; }
+  .prose :global(p) { margin: 0 0 1.3rem; }
+  .prose :global(h2) { font-size: clamp(1.5rem, 3vw, 1.95rem); line-height: 1.2; margin: 2.6rem 0 0.9rem; }
+  .prose :global(h3) { font-size: clamp(1.2rem, 2.4vw, 1.4rem); line-height: 1.25; margin: 2rem 0 0.7rem; }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.4rem; margin: 0 0 1.4rem; }
+  .prose :global(li) { margin-bottom: 0.5rem; }
+  .prose :global(li::marker) { color: var(--blu-d); font-weight: 700; }
+  .prose :global(a) { color: var(--blu-d); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+  .prose :global(a:hover) { color: var(--blu-deep); }
+  .prose :global(strong) { color: var(--ink); font-weight: 800; }
+  .prose :global(blockquote) { margin: 1.8rem 0; padding: 1rem 1.4rem; background: var(--sand); border-left: 5px solid var(--sun); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-family: var(--font-serif); font-size: 1.2rem; font-style: italic; }
+  .prose :global(blockquote p:last-child) { margin-bottom: 0; }
+  .prose :global(img) { border-radius: var(--radius-sm); margin: 1.6rem 0; }
+  .prose :global(hr) { border: 0; border-top: 2px dashed var(--sand-2); margin: 2.4rem 0; }
+
+  .faq, .sources, .cta, .disclaimer { max-width: 70ch; margin-left: auto; margin-right: auto; }
+  .faq { margin-top: 3rem; }
+  .faq h2, .sources h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+  .faq details { background: var(--paper); border-radius: var(--radius-sm); box-shadow: var(--shadow-soft); padding: 0.2rem 1.2rem; margin-bottom: 0.8rem; }
+  .faq summary { cursor: pointer; font-family: var(--font-head); font-weight: 600; font-size: 1.1rem; color: var(--blu-deep); padding: 0.9rem 0; list-style-position: outside; }
+  .faq details p { margin: 0 0 1rem; line-height: 1.7; }
+  .sources { margin-top: 2.5rem; }
+  .sources ol { padding-left: 1.3rem; }
+  .sources li { margin-bottom: 0.4rem; }
+  .sources a { color: var(--blu-d); text-decoration: underline; word-break: break-word; }
+
+  .cta { margin-top: 3rem; background: var(--cream-2); border-radius: var(--radius); padding: 1.8rem 2rem; display: flex; gap: 1.6rem; align-items: center; }
+  .cta__img { width: 130px; flex: none; }
+  .cta__title { font-size: clamp(1.4rem, 3vw, 1.8rem); line-height: 1.15; }
+  .cta .btn { margin-top: 0.4rem; }
+  .disclaimer { margin-top: 2rem; font-size: 0.92rem; background: var(--sand); padding: 0.8rem 1rem; border-radius: var(--radius-sm); }
+
+  .related { padding-top: 2rem; }
+  .related__h { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+  .related__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 1.5rem; }
+
+  @media (max-width: 640px) {
+    .prose { font-size: 1.05rem; }
+    .cta { flex-direction: column; text-align: center; padding: 1.5rem 1.2rem; }
+    .cta__img { width: 110px; }
+  }
+</style>

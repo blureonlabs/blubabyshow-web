@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import remarkUnlinkFuturePosts from './src/plugins/remark-unlink-future-posts.mjs';
 
 // https://astro.build
 export default defineConfig({
@@ -13,6 +14,9 @@ export default defineConfig({
       filter: (page) => !page.includes('/thanks'),
     }),
   ],
+  markdown: {
+    remarkPlugins: [remarkUnlinkFuturePosts],
+  },
   build: {
     inlineStylesheets: 'auto',
   },

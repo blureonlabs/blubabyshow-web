@@ -1,0 +1,37 @@
+---
+import type { Post } from '../lib/posts';
+import { readingTime, formatDate, CLUSTER_LABELS } from '../lib/posts';
+
+interface Props { post: Post; }
+const { post } = Astro.props;
+const d = post.data;
+---
+
+<article class="pcard">
+  <a class="pcard__link" href={`/blog/${post.slug}/`}>
+    <div class="pcard__img">
+      <img src={d.heroImage} alt={d.heroAlt} loading="lazy" decoding="async" width="800" height="500" />
+    </div>
+    <div class="pcard__body">
+      <span class="pcard__chip">{CLUSTER_LABELS[d.cluster]}</span>
+      <h3 class="pcard__title">{d.title}</h3>
+      <p class="pcard__desc muted">{d.description}</p>
+      <p class="pcard__meta">
+        <time datetime={d.pubDate.toISOString()}>{formatDate(d.pubDate)}</time> · {readingTime(post.body)} min read
+      </p>
+    </div>
+  </a>
+</article>
+
+<style>
+  .pcard { background: var(--paper); border-radius: var(--radius-sm); box-shadow: var(--shadow-soft); overflow: hidden; transition: transform 0.16s ease, box-shadow 0.16s ease; height: 100%; }
+  .pcard:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .pcard__link { display: flex; flex-direction: column; height: 100%; }
+  .pcard__img { aspect-ratio: 16 / 10; background: var(--sand); overflow: hidden; }
+  .pcard__img img { width: 100%; height: 100%; object-fit: cover; }
+  .pcard__body { padding: 1.1rem 1.25rem 1.3rem; display: flex; flex-direction: column; gap: 0.45rem; flex: 1; }
+  .pcard__chip { align-self: flex-start; font-family: var(--font-head); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blu-d); background: var(--cream-2); padding: 0.25rem 0.7rem; border-radius: 999px; }
+  .pcard__title { font-size: 1.28rem; margin: 0; line-height: 1.15; color: var(--blu-deep); }
+  .pcard__desc { font-size: 0.97rem; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .pcard__meta { margin: auto 0 0; padding-top: 0.4rem; font-size: 0.85rem; color: var(--ink-soft); font-weight: 600; }
+</style>
