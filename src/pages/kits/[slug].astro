@@ -20,7 +20,7 @@ const others = kits.filter((k) => k.slug !== kit.slug);
       <div class="kit__hero"><img src={kit.img} alt={kit.imgAlt} width="420" height="420" loading="eager" /></div>
 
       <div class="kit__buy">
-        <p class="kit__price"><span data-price-inr={kit.inr} data-price-usd={kit.usd}>${kit.usd}</span> <small>one-time · instant access</small></p>
+        <p class="kit__price"><span data-price-inr={kit.inr} data-price-usd={kit.usd}>₹{kit.inr}</span> <small>one-time · instant access</small></p>
         <button id="buyBtn" class="kit__btn" data-slug={kit.slug} data-inr={kit.inr} data-usd={kit.usd}>Get the kit</button>
         <p class="kit__fine">Works on your phone. Printable too. Digital only: nothing is shipped.</p>
 

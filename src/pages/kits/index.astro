@@ -14,7 +14,7 @@ import { kits } from '../../data/kits';
             <div class="kits__img"><img src={k.img} alt={k.imgAlt} width="200" height="200" loading="lazy" /></div>
             <h2>{k.name}</h2>
             <p>{k.tagline}</p>
-            <span class="kits__price" data-price-inr={k.inr} data-price-usd={k.usd}>${k.usd}</span>
+            <span class="kits__price" data-price-inr={k.inr} data-price-usd={k.usd}>₹{k.inr}</span>
           </a>
         ))}
       </div>
