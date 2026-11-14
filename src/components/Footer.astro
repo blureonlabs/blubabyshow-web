@@ -1,38 +1,39 @@
 ---
-const year = 2026;
+const year = new Date().getFullYear();
 ---
 
 <footer class="foot">
   <div class="wrap foot__inner">
     <div class="foot__brand">
-      <p class="foot__word"><span class="foot__dot"></span>Blu Baby Show</p>
+      <p class="foot__word"><img class="foot__mark" src="/brand/blu-mark.webp" alt="" width="36" height="36" loading="lazy" />Blu Baby Show</p>
       <p class="foot__tag">Every episode teaches feelings before it teaches facts.</p>
       <div class="foot__social">
-        <a href="https://instagram.com/theblubabyshow" aria-label="Instagram">Instagram</a>
-        <a href="https://youtube.com/@blubabyshow" aria-label="YouTube">YouTube</a>
+        <a href="https://www.instagram.com/theblubabyshow/" target="_blank" rel="noopener">Instagram @theblubabyshow</a>
+        <a href="https://www.youtube.com/@blubabyshow" target="_blank" rel="noopener">YouTube</a>
       </div>
     </div>
 
     <nav class="foot__col" aria-label="Explore">
       <span class="foot__h">Explore</span>
       <a href="/#watch">Watch</a>
-      <a href="/#learn">Learn</a>
-      <a href="/shop">Shop</a>
+      <a href="/kits/">Blu Kits</a>
+      <a href="/shop/">Shop</a>
       <a href="/blog/">Blog</a>
-      <a href="/#story">Story</a>
+      <a href="/#newsletter">Newsletter</a>
     </nav>
 
     <nav class="foot__col" aria-label="Company">
       <span class="foot__h">Company</span>
       <a href="/#story">About Blu</a>
-      <a href="/contact">Contact</a>
+      <a href="/studio/">Work with us</a>
+      <a href="/contact/">Contact</a>
     </nav>
   </div>
 
   <div class="wrap foot__base">
     <span>© {year} Blu Baby Show</span>
     <span class="foot__legal">
-      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/refund">Refunds</a> · <a href="/delivery">Delivery</a> · <a href="/contact">Contact</a>
+      <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/refund/">Refunds</a> · <a href="/delivery/">Delivery</a> · <a href="/contact/">Contact</a>
     </span>
   </div>
 </footer>
@@ -57,10 +58,7 @@ const year = 2026;
     align-items: center;
     gap: 0.5rem;
   }
-  .foot__dot {
-    width: 14px; height: 14px; border-radius: 50%;
-    background: var(--sun);
-  }
+  .foot__mark { width: 36px; height: 36px; border-radius: 50%; display: block; }
   .foot__tag {
     font-family: var(--font-serif);
     font-style: italic;
@@ -68,7 +66,7 @@ const year = 2026;
     max-width: 30ch;
     margin: 0.8rem 0 1.2rem;
   }
-  .foot__social { display: flex; gap: 1.1rem; font-weight: 500; }
+  .foot__social { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-weight: 500; }
   .foot__social a { color: #d6ecff; }
   .foot__social a:hover { color: #fff; }
 

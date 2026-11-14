@@ -18,7 +18,7 @@ const latestPosts = (await getPublishedPosts()).slice(0, 3);
 
 const pillars = [
   { title: 'Big Feelings', blurb: 'Little moments about the feelings of growing up, and of raising a tiny human.', c: 'var(--orange)', img: '/episodes/kisses-sister.webp' },
-  { title: 'Learn with Blu', blurb: 'Numbers, animals, colours and first words, the gentle way.', c: 'var(--grass)', img: '/episodes/picks-his-outfit.webp' },
+  { title: 'Calm & Bedtime', blurb: 'Slow, wordless calm reels and swipe-through storybooks for winding down.', c: 'var(--grass)', img: '/episodes/meets-baby-sister.webp' },
   { title: 'Blu vs the World', blurb: 'Tiny-chaos comedy. Flour, toothpaste, and one very patient Dad.', c: 'var(--sun)', img: '/episodes/toothpaste-mohawk.webp' },
   { title: 'Family Life', blurb: 'Warm slice-of-life with Mum, Dad, Puppy and baby Sister.', c: 'var(--grape)', img: '/episodes/belly-hug.webp' },
 ];
@@ -50,11 +50,11 @@ const comments = [
 ];
 
 const hub = [
-  { label: 'Watch the newest episode', sub: 'New every week', href: 'https://instagram.com/theblubabyshow', c: 'var(--blu)', icon: 'play' },
+  { label: 'Watch the newest episode', sub: 'A new episode every day', href: 'https://www.instagram.com/theblubabyshow/', c: 'var(--blu)', icon: 'play' },
   { label: 'Join Blu’s Sunday Club', sub: 'Free feelings cards inside', href: '#newsletter', c: 'var(--sun)', icon: 'mail' },
-  { label: 'Blu’s Bedtime music', sub: 'Lullabies on Spotify', href: '#music', c: 'var(--grape)', icon: 'music' },
-  { label: 'The Blu Colouring Book', sub: 'PDF soft copy · ₹149', href: '/shop/coloring-book', c: 'var(--grass)', icon: 'pencil' },
-  { label: 'Watch on the big screen', sub: 'Subscribe on YouTube', href: 'https://youtube.com/@blubabyshow', c: 'var(--sky)', icon: 'tv' },
+  { label: 'Blu Kits', sub: 'Potty, new baby, kind hands, bedtime', href: '/kits/', c: 'var(--grape)', icon: 'book' },
+  { label: 'The Blu Shop', sub: 'Printable PDFs for parents', href: '/shop/', c: 'var(--grass)', icon: 'pencil' },
+  { label: 'Watch on the big screen', sub: 'Subscribe on YouTube', href: 'https://www.youtube.com/@blubabyshow', c: 'var(--sky)', icon: 'tv' },
 ];
 
 const family = [
@@ -79,8 +79,8 @@ const family = [
           by families around the world.
         </p>
         <div class="hero__cta">
-          <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Watch Blu on Instagram</a>
-          <a class="btn btn--sun" href="#newsletter">Get the free newsletter</a>
+          <a class="btn btn--primary" href="https://www.instagram.com/theblubabyshow/">Watch Blu on Instagram</a>
+          <a class="btn btn--sun" href="#newsletter">Get the free Feelings Cards</a>
         </div>
         <div class="hero__stats">
           <span><b>{proof.views}</b> views</span>
@@ -154,7 +154,7 @@ const family = [
         ))}
       </div>
       <div class="proof__cta">
-        <a class="btn btn--primary" href="https://instagram.com/theblubabyshow" target="_blank" rel="noopener">See all on @theblubabyshow</a>
+        <a class="btn btn--primary" href="https://www.instagram.com/theblubabyshow/" target="_blank" rel="noopener">See all on @theblubabyshow</a>
       </div>
     </div>
   </section>
@@ -214,11 +214,11 @@ const family = [
       <div class="section__head">
         <p class="eyebrow">What we make</p>
         <h2>Four kinds of Blu</h2>
-        <p class="muted">Feelings, learning, laughs and family. A new little episode every day.</p>
+        <p class="muted">Feelings, laughs, family and calm. No words needed. A new little episode every day.</p>
       </div>
       <div class="pillars">
         {pillars.map((p, i) => (
-          <a class={`pill tilt${i % 2}`} href="https://instagram.com/theblubabyshow" style={`--c:${p.c}`}>
+          <a class={`pill tilt${i % 2}`} href="https://www.instagram.com/theblubabyshow/" style={`--c:${p.c}`}>
             <span class="pill__img"><img src={p.img} alt="" width="720" height="900" loading="lazy" decoding="async" /></span>
             <h3>{p.title}</h3>
             <p class="muted">{p.blurb}</p>
@@ -249,20 +249,20 @@ const family = [
   </section>
 
   <!-- ============ LEARN ============ -->
-  <section class="section learn" id="learn">
+  <section class="section learn" id="kits">
     <div class="wrap learn__grid">
       <div class="learn__art">
         <span class="learn__blob" aria-hidden="true"></span>
-        <img loading="lazy" decoding="async" class="sticker" src="/characters/puppy.webp" alt="Blu’s puppy learning with blocks" width="340" height="340" />
+        <img loading="lazy" decoding="async" class="sticker" src="/characters/puppy.webp" alt="Blu’s puppy" width="340" height="340" />
       </div>
       <div class="learn__copy">
-        <p class="eyebrow">Learn with Blu</p>
-        <h2>Real early-learning, with Blu and his puppy.</h2>
+        <p class="eyebrow">Blu Kits</p>
+        <h2>Help for the big toddler moments.</h2>
         <p class="muted">
-          Numbers, animals, feelings, colours, first words — browsable, free to read.
-          Every carousel ends with a free printable dropped straight to your inbox.
+          Potty training, a new baby, hitting, bedtime. Each kit is a Blu video, a short
+          story and the exact words to say. Made for your phone.
         </p>
-        <a class="btn btn--grass" href="#newsletter">Get the free printables →</a>
+        <a class="btn btn--grass" href="/kits/">See the Blu Kits →</a>
       </div>
     </div>
   </section>
@@ -274,8 +274,8 @@ const family = [
         <p class="eyebrow">Blu’s Bedtime</p>
         <h2>Lullabies for winding down.</h2>
         <p class="muted">
-          Twinkle Twinkle, Baba Black Sheep &amp; more — Blu’s own bedtime album.
-          Press play at 2 a.m. so you don’t have to sing it yourself.
+          Soft, wordless bedtime music from Blu’s calm reels. Press play at 2 a.m.
+          and let Blu do the winding down.
         </p>
         <div class="music__links">
           <span class="btn btn--ghost btn--soon" role="link" aria-disabled="true">Spotify</span>
@@ -308,8 +308,8 @@ const family = [
           20 pages of Blu’s world to colour in: feelings, family and tiny adventures.
           A digital download (PDF soft copy) you print at home. Nothing is shipped.
         </p>
-        <p class="shop__price">₹149 <span>· instant PDF download</span></p>
-        <a class="btn btn--primary" href="/shop">Visit the Blu Shop</a>
+        <p class="shop__price"><span class="shop__amt" data-price-inr="149" data-price-usd="7">₹149</span> <span>· instant PDF download</span></p>
+        <a class="btn btn--primary" href="/shop/">Visit the Blu Shop</a>
       </div>
     </div>
   </section>
@@ -343,7 +343,7 @@ const family = [
       <h2>Come hang out with Blu every day.</h2>
       <p class="muted closing__sub">Free, warm, and made with love. A new little episode every day.</p>
       <div class="closing__cta">
-        <a class="btn btn--primary" href="https://instagram.com/theblubabyshow">Follow on Instagram</a>
+        <a class="btn btn--primary" href="https://www.instagram.com/theblubabyshow/">Follow on Instagram</a>
         <a class="btn btn--sun" href="#newsletter">Join Blu’s Sunday Club</a>
       </div>
     </div>
@@ -351,6 +351,12 @@ const family = [
 </Base>
 
 <script>
+  // Local currency for static prices (same rule as the shop: India time zone = ₹, else $).
+  const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return true; } })();
+  document.querySelectorAll('[data-price-inr]').forEach((el) => {
+    el.textContent = inIndia ? `₹${el.dataset.priceInr}` : `$${el.dataset.priceUsd}`;
+  });
+
   const form = document.getElementById('newsForm');
   const msg = document.getElementById('newsMsg');
   if (form && msg) {

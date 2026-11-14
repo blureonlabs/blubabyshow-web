@@ -3,10 +3,10 @@
 // a divider + circular mail button on the right (hamburger on mobile).
 const links = [
   { label: 'Watch', href: '/#watch' },
-  { label: 'Learn', href: '/#learn' },
-  { label: 'Shop', href: '/shop' },
+  { label: 'Kits', href: '/kits/' },
+  { label: 'Shop', href: '/shop/' },
   { label: 'Blog', href: '/blog/' },
-  { label: 'Story', href: '/#story' },
+  { label: 'About', href: '/#story' },
   { label: 'Newsletter', href: '/#newsletter' },
 ];
 ---
@@ -14,7 +14,7 @@ const links = [
 <header class="nav">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/">
-      <img class="nav__mark" src="/characters/watermark.png" alt="" width="40" height="40" aria-hidden="true" />
+      <img class="nav__mark" src="/brand/blu-mark.webp" alt="" width="42" height="42" aria-hidden="true" />
       <span class="nav__word">Blu&nbsp;Baby&nbsp;Show</span>
     </a>
 
@@ -93,7 +93,7 @@ const links = [
     flex: none;
     width: 42px;
     height: 42px;
-    border-radius: 12px;
+    border-radius: 50%;
     display: block;
     filter: drop-shadow(0 4px 8px rgba(43, 44, 65, 0.22));
   }

@@ -46,7 +46,7 @@ const graph: Record<string, unknown>[] = [
     '@id': ORG_ID,
     name: 'Blu Baby Show',
     url: `${SITE}/`,
-    logo: { '@type': 'ImageObject', url: `${SITE}/characters/watermark.png` },
+    logo: { '@type': 'ImageObject', url: `${SITE}/brand/logo-512.jpg` },
     image: `${SITE}/og/default.png`,
     description:
       'Blu Baby Show makes short 3D animated stories about Blu, a 2-year-old boy, and his family, plus printable PDFs for parents of young children.',
@@ -116,7 +116,10 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188'
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/characters/watermark.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -151,6 +154,11 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188'
       href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Privacy: strip buyer PII (Dodo appends it to the /thanks return URL) before analytics loads -->
+    <script is:inline>
+      (function(){try{var u=new URL(location.href),d=false;['email','customer_email','name','phone'].forEach(function(k){if(u.searchParams.has(k)){u.searchParams.delete(k);d=true}});if(d)history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}})();
+    </script>
 
     <!-- Analytics: PostHog (pageviews + autocaptured clicks + bounce for funnels/drop-off) -->
     {POSTHOG_KEY && (
