@@ -1,0 +1,55 @@
+---
+// Buy button with local currency: INR for visitors in India (by browser time zone), USD elsewhere.
+// Links to the Dodo hosted checkout for that currency. With no checkout link configured it
+// becomes a "notify me" button pointing at the newsletter, so nothing breaks before launch.
+import type { Product } from '../data/products';
+
+interface Props { product: Product; variant?: string; full?: boolean }
+const { product: p, variant = 'btn--primary', full = false } = Astro.props;
+const live = Boolean(p.checkoutInr || p.checkoutUsd);
+---
+
+{live ? (
+  <a
+    class={`btn ${variant} buy ${full ? 'buy--full' : ''}`}
+    href={p.checkoutInr || p.checkoutUsd}
+    data-inr-href={p.checkoutInr || p.checkoutUsd}
+    data-usd-href={p.checkoutUsd || p.checkoutInr}
+    data-inr-label={`Buy now · ₹${p.inr}`}
+    data-usd-label={`Buy now · $${p.usd}`}
+    data-slug={p.slug}
+    data-inr={p.inr}
+    data-usd={p.usd}
+  >Buy now · ₹{p.inr}</a>
+) : (
+  <a class={`btn ${variant} ${full ? 'buy--full' : ''}`} href="/#newsletter">Launching soon · notify me</a>
+)}
+
+<style>
+  .buy--full { width: 100%; justify-content: center; text-align: center; }
+</style>
+
+<script>
+  // Pick the currency once per page, then wire every buy button.
+  const inIndia = (() => {
+    try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); }
+    catch { return true; }
+  })();
+  document.querySelectorAll<HTMLAnchorElement>('a.buy').forEach((a) => {
+    const cur = inIndia ? 'inr' : 'usd';
+    a.href = a.dataset[`${cur}Href`] || a.href;
+    a.textContent = a.dataset[`${cur}Label`] || a.textContent;
+    a.addEventListener('click', () => {
+      const w = window as any;
+      if (typeof w.fbq === 'function') {
+        w.fbq('track', 'InitiateCheckout', {
+          content_ids: [a.dataset.slug], content_type: 'product',
+          value: Number(inIndia ? a.dataset.inr : a.dataset.usd), currency: inIndia ? 'INR' : 'USD',
+        });
+      }
+    });
+  });
+  document.querySelectorAll<HTMLElement>('[data-price-inr]').forEach((el) => {
+    el.textContent = inIndia ? `₹${el.dataset.priceInr}` : `$${el.dataset.priceUsd}`;
+  });
+</script>

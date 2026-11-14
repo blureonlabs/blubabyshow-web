@@ -1,0 +1,86 @@
+---
+// One landing page per product: this is where the Meta ads point.
+import Base from '../../layouts/Base.astro';
+import BuyButton from '../../components/BuyButton.astro';
+import { products, bySlug } from '../../data/products';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const p = bySlug(Astro.params.slug!)!;
+const other = products.find((x) => x.slug !== p.slug)!;
+---
+
+<Base title={`${p.name} · The Blu Shop`} description={`${p.short} Instant PDF, ₹${p.inr}. Pay with UPI.`}>
+  <section class="section pd" style={`--c:${p.accent}`}>
+    <div class="wrap pd__grid">
+      <div class="pd__art">
+        <img class="sticker" src={p.img} alt={p.imgAlt} width="420" height="420" />
+      </div>
+      <div class="pd__copy">
+        <p class="eyebrow">{p.badge}</p>
+        <h1>{p.name}</h1>
+        <p class="lead">{p.short}</p>
+        <p class="price"><span data-price-inr={p.inr} data-price-usd={p.usd}>₹{p.inr}</span> <small>· one-time · PDF soft copy</small></p>
+        <p class="digital">📄 Digital download only (PDF soft copy). Nothing is shipped; you print it at home.</p>
+        <BuyButton product={p} full />
+        <p class="trust muted">UPI · RuPay · cards &nbsp;·&nbsp; 7-day refund &nbsp;·&nbsp; secure checkout by Dodo Payments</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section inside">
+    <div class="wrap narrow">
+      <h2>What’s inside</h2>
+      <ul class="ticks">
+        {p.inside.map((i) => <li>{i}</li>)}
+      </ul>
+      <p class="muted"><strong>Format:</strong> {p.format}</p>
+      <p class="muted"><strong>For:</strong> {p.forWho}</p>
+      {p.slug === 'dos-and-donts' && (
+        <p class="muted note">A friendly guide, not medical advice. Every child is different; for anything that worries you, talk to your paediatrician.</p>
+      )}
+      <div class="again"><BuyButton product={p} /></div>
+    </div>
+  </section>
+
+  <section class="section section--center also">
+    <div class="wrap narrow">
+      <p class="eyebrow">You might also like</p>
+      <h3><a href={`/shop/${other.slug}`}>{other.name}</a></h3>
+      <p class="muted">{other.short}</p>
+      <a class="btn btn--ghost" href={`/shop/${other.slug}`}>Take a look</a>
+    </div>
+  </section>
+</Base>
+
+<script define:vars={{ slug: p.slug, inr: p.inr }}>
+  if (typeof window.fbq === 'function') {
+    window.fbq('track', 'ViewContent', { content_ids: [slug], content_type: 'product', value: inr, currency: 'INR' });
+  }
+</script>
+
+<style>
+  .pd { padding-top: calc(var(--nav-h) + 2.5rem); }
+  .pd__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: center; }
+  .pd__art { background: color-mix(in srgb, var(--c) 18%, var(--paper)); border-radius: var(--radius); padding: 2rem; }
+  .pd__art img { margin: 0 auto; max-width: 360px; width: 100%; }
+  .lead { font-size: 1.2rem; }
+  .price { font-family: var(--font-head); font-size: 2.6rem; font-weight: 700; color: var(--blu-deep); margin: 1rem 0; }
+  .price small { font-size: 1rem; color: var(--ink-soft); font-weight: 500; }
+  .digital { background: var(--sand); border-radius: var(--radius-sm); padding: 0.6rem 1rem; font-weight: 700; font-size: 0.98rem; margin: 0 0 1.2rem; }
+  .trust { font-size: 0.9rem; margin-top: 1.4rem; }
+  .narrow { max-width: 720px; }
+  .inside { padding-top: 1rem; }
+  .ticks { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+  .ticks li { padding: 0.7rem 0 0.7rem 2.2rem; position: relative; border-bottom: 1px dashed var(--sand-2); font-size: 1.08rem; }
+  .ticks li::before { content: "✓"; position: absolute; left: 0; top: 0.6rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--grass); color: #fff; font-weight: 800; text-align: center; line-height: 1.5rem; font-size: 0.9rem; }
+  .note { font-size: 0.92rem; background: var(--sand); padding: 0.8rem 1rem; border-radius: var(--radius-sm); }
+  .again { margin-top: 1.5rem; }
+  .also h3 a { color: var(--blu-deep); }
+  @media (max-width: 820px) {
+    .pd__grid { grid-template-columns: 1fr; gap: 1.5rem; text-align: center; }
+    .pd__art { max-width: 320px; margin: 0 auto; padding: 1.2rem; }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+// Post-checkout page (set as the Dodo return URL). Download link arrives by email from Dodo;
+// this page confirms it and offers the colouring book as the one-click next step.
+import Base from '../layouts/Base.astro';
+import BuyButton from '../components/BuyButton.astro';
+import { bySlug } from '../data/products';
+
+const book = bySlug('coloring-book')!;
+---
+
+<Base title="Thank you! · The Blu Shop" description="Your Blu download is on its way.">
+  <section class="section section--center thanks">
+    <div class="wrap narrow">
+      <img class="sticker hero" src="/characters/blu.webp" alt="Blu waving" width="180" height="180" />
+      <p class="eyebrow">Thank you!</p>
+      <h1>Your download is on its way</h1>
+      <p class="lead">Check your email for the download link. It can take a minute, and sometimes hides in Promotions or Spam.</p>
+      <p class="muted">Nothing there after 10 minutes? Email <a href="mailto:hello@blubabyshow.com">hello@blubabyshow.com</a> and we’ll send it straight over.</p>
+    </div>
+  </section>
+
+  <section class="section upsell" id="upsell">
+    <div class="wrap narrow card">
+      <img class="sticker" src={book.img} alt={book.imgAlt} width="200" height="200" loading="lazy" />
+      <div>
+        <p class="eyebrow">One more for the fridge?</p>
+        <h2>{book.name}</h2>
+        <p>{book.short}</p>
+        <BuyButton product={book} variant="btn--grass" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks { padding-top: calc(var(--nav-h) + 2.5rem); padding-bottom: 1rem; }
+  .narrow { max-width: 720px; }
+  .hero { margin: 0 auto 1rem; width: 160px; }
+  .lead { font-size: 1.15rem; }
+  .thanks a { color: var(--blu-d); text-decoration: underline; }
+  .card { display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; align-items: center; background: var(--paper); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-soft); border-top: 10px solid var(--grass); }
+  .card h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+  @media (max-width: 640px) {
+    .card { grid-template-columns: 1fr; text-align: center; }
+    .card img { margin: 0 auto; width: 150px; }
+  }
+</style>

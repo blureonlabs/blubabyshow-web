@@ -23,7 +23,7 @@ const hub = [
   { label: 'Watch the newest episode', sub: 'New every week', href: 'https://instagram.com/theblubabyshow', c: 'var(--blu)', icon: 'play' },
   { label: 'Join Blu’s Sunday Club', sub: 'Free emotion cards inside', href: '#newsletter', c: 'var(--sun)', icon: 'mail' },
   { label: 'Blu’s Bedtime music', sub: 'Lullabies on Spotify', href: '#music', c: 'var(--grape)', icon: 'music' },
-  { label: 'The Blu Colouring Book', sub: 'Pre-order · ₹499', href: '#shop', c: 'var(--grass)', icon: 'pencil' },
+  { label: 'The Blu Colouring Book', sub: 'PDF soft copy · ₹149', href: '/shop/coloring-book', c: 'var(--grass)', icon: 'pencil' },
   { label: 'Watch on the big screen', sub: 'Subscribe on YouTube', href: 'https://youtube.com/@blubabyshow', c: 'var(--sky)', icon: 'tv' },
 ];
 
@@ -220,19 +220,18 @@ const family = [
   <section class="section shop" id="shop">
     <div class="wrap shop__grid">
       <div class="shop__cover">
-        <span class="shop__ribbon">Pre-order</span>
+        <span class="shop__ribbon">PDF</span>
         <img loading="lazy" decoding="async" class="sticker" src="/characters/blu_book.webp" alt="Blu holding the Blu Colouring Book" width="300" height="300" />
       </div>
       <div class="shop__copy">
         <p class="eyebrow">The Blu Shop</p>
         <h2>The Blu Colouring Book</h2>
         <p class="muted">
-          32 pages of Blu’s world to colour in — feelings, family and tiny adventures.
-          Ships across India and worldwide.
+          20 pages of Blu’s world to colour in: feelings, family and tiny adventures.
+          A digital download (PDF soft copy) you print at home. Nothing is shipped.
         </p>
-        <p class="shop__price">₹499 <span>· ships this season</span></p>
-        <!-- TODO: wire to Razorpay Payment Button (India) + Gumroad (global) -->
-        <a class="btn btn--primary" href="#newsletter">Get notified when it ships</a>
+        <p class="shop__price">₹149 <span>· instant PDF download</span></p>
+        <a class="btn btn--primary" href="/shop">Visit the Blu Shop</a>
       </div>
     </div>
   </section>
