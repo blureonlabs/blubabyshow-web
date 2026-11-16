@@ -1,0 +1,99 @@
+---
+// /about/ — Our story (was the "About" anchor on the old home page).
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+
+const promise = [
+  { icon: 'heart', t: 'Feelings first', d: 'Every story, page and kit starts with how a child feels, then what they learn.' },
+  { icon: 'shield', t: 'Safe by design', d: 'No ads inside our printables, and every parenting tip in them linked to a trusted health source.' },
+  { icon: 'star', t: 'Picked, not piled', d: 'We make a few things and make them well. If we would not use it at home, we do not sell it.' },
+];
+const make = [
+  { t: 'Originals', d: 'Printable PDFs for big little moments: calm scripts, colouring, first letters.', href: '/shop/' },
+  { t: 'BluBabyShow', d: 'Our short family cartoon about Blu and his family, watched 92M+ times.', href: '/blubabyshow/' },
+  { t: 'Kits', d: 'Help for potty, a new baby, kind hands and bedtime. Coming soon.', href: '/kits/' },
+  { t: 'Small Moments blog', d: 'Plain-words guides for parents of little ones.', href: '/blog/' },
+];
+---
+
+<Base title="Our story · Blululu" description="Blululu makes stories, printables and kits for the big little moments of childhood. It started with BluBabyShow, a short family cartoon watched 92M+ times.">
+  <section class="ahero">
+    <div class="wrap ahero__grid">
+      <div>
+        <p class="eyebrow eyebrow--light">Our story</p>
+        <h1 class="display ahero__h">It started with one little reel.</h1>
+        <p class="ahero__lead">A toddler, his family, and a moment every parent knows. Families all over the world watched, shared and wrote back in Hindi, Portuguese, Spanish, Indonesian and more.</p>
+      </div>
+      <img src="/characters/family_hero_clean.webp" alt="Blu with Mum, Dad, baby Sister and Puppy" width="1024" height="1024" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow">
+      <h2 class="display">So we built <em>Blululu</em></h2>
+      <p class="big">Blululu is a home for the big little moments of childhood: the first meltdown in the shop, the new baby coming home, the first letter written all by themselves.</p>
+      <p>BluBabyShow is still at the heart of it. Blu and his family show the feeling; our printables and kits give parents the words and the next step. Everything is made to work in any home, in any language, on a phone or on paper.</p>
+    </div>
+  </section>
+
+  <section class="section amake">
+    <div class="wrap">
+      <h2 class="display">What we <em>make</em></h2>
+      <div class="amake__grid">
+        {make.map((m, i) => (
+          <a class="amake__card" href={m.href}>
+            <span class="pill">0{i + 1}</span>
+            <h3>{m.t}</h3>
+            <p>{m.d}</p>
+            <span class="amake__go">Take a look <Icon name="arrow" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="display">Our <em>promise</em></h2>
+      <div class="prom">
+        {promise.map((p) => (
+          <div class="prom__item">
+            <span class="prom__ic"><Icon name={p.icon} size={22} /></span>
+            <h3>{p.t}</h3>
+            <p class="muted">{p.d}</p>
+          </div>
+        ))}
+      </div>
+      <p class="contact">Questions, ideas or a story of your own? <a href="/contact/">Get in touch</a>. Brands and partners: <a href="/studio/">work with us</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ahero { background: var(--red); color: #fff; padding-top: 2.4rem; overflow: hidden; }
+  .ahero__grid { display: grid; gap: 1rem; align-items: end; }
+  .ahero__h { color: #fff; font-size: clamp(2.3rem, 9vw, 4.6rem); }
+  .ahero__lead { font-weight: 600; font-size: 1.08rem; max-width: 40ch; }
+  .ahero img { max-width: 460px; width: 100%; margin: 0 auto; }
+  @media (min-width: 860px) { .ahero__grid { grid-template-columns: 1.1fr 1fr; } .ahero__grid > div { padding-bottom: 3.5rem; } }
+  .narrow { max-width: 760px; }
+  .display { font-size: clamp(2rem, 7vw, 3rem); }
+  .big { font-size: 1.2rem; font-weight: 700; }
+  .amake { background: #FAE3E0; }
+  .amake__grid { display: grid; gap: 12px; margin-top: 1.4rem; }
+  @media (min-width: 760px) { .amake__grid { grid-template-columns: repeat(4, 1fr); } }
+  .amake__card { background: #fff; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 0.4rem; transition: transform .2s; }
+  .amake__card:hover { transform: translateY(-3px); }
+  .amake__card .pill { align-self: flex-start; }
+  .amake__card h3 { margin: 0.3rem 0 0; text-transform: uppercase; }
+  .amake__card p { margin: 0; font-size: 0.95rem; color: #3A3330; }
+  .amake__go { margin-top: auto; padding-top: 0.6rem; font-weight: 800; color: var(--red-text); display: inline-flex; align-items: center; gap: 6px; }
+  .prom { display: grid; gap: 14px; margin-top: 1.4rem; }
+  @media (min-width: 760px) { .prom { grid-template-columns: repeat(3, 1fr); } }
+  .prom__item { border: 2px solid var(--red); padding: 20px; }
+  .prom__ic { width: 44px; height: 44px; border-radius: 12px; background: var(--red-soft); color: var(--red); display: grid; place-items: center; margin-bottom: 0.6rem; }
+  .prom__item h3 { text-transform: uppercase; }
+  .prom__item p { margin: 0; }
+  .contact { margin-top: 2rem; font-weight: 700; }
+  .contact a { color: var(--red-text); text-decoration: underline; }
+</style>

@@ -1,203 +1,120 @@
 ---
-// Floating island nav, bluey.tv-style: logo left; UPPERCASE chunky navy links;
-// a divider + circular mail button on the right (hamburger on mobile).
+// Blululu header: red announcement bar + white header (menu · wordmark · icons).
+// One navigation for the whole site: Shop · BluBabyShow · Blog · About.
+// The phone menu is a no-JS checkbox toggle.
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname;
 const links = [
-  { label: 'Watch', href: '/#watch' },
-  { label: 'Kits', href: '/kits/' },
-  { label: 'Shop', href: '/shop/' },
-  { label: 'Blog', href: '/blog/' },
-  { label: 'About', href: '/#story' },
-  { label: 'Newsletter', href: '/#newsletter' },
+  { href: '/shop/', label: 'Shop' },
+  { href: '/blubabyshow/', label: 'BluBabyShow' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/about/', label: 'About' },
 ];
+const on = (href: string) => path === href || path.startsWith(href);
+const notes = ['Blululu Originals now live', 'Free printables every week', 'New kits: join the waitlist'];
 ---
 
-<header class="nav">
-  <div class="wrap nav__inner">
-    <a class="nav__brand" href="/">
-      <img class="nav__mark" src="/brand/blu-mark.webp" alt="" width="42" height="42" aria-hidden="true" />
-      <span class="nav__word">Blu&nbsp;Baby&nbsp;Show</span>
-    </a>
+<div class="ann" role="note">
+  <div class="ann__row">
+    {notes.map((n, i) => (<>{i > 0 && <span class="ann__dot" aria-hidden="true">•</span>}<span class={i > 0 ? 'ann__extra' : ''}>{n}</span></>))}
+  </div>
+</div>
 
-    <input type="checkbox" id="navtoggle" class="nav__toggle" aria-label="Toggle menu" />
-
-    <nav class="nav__menu" aria-label="Primary">
-      <div class="nav__links">
-        {links.map((l) => <a href={l.href}>{l.label}</a>)}
-      </div>
-    </nav>
-
-    <div class="nav__actions">
-      <span class="nav__divider" aria-hidden="true"></span>
-      <a class="nav__circle" href="/#newsletter" aria-label="Get the newsletter">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-        </svg>
-      </a>
-      <label class="nav__circle nav__burger" for="navtoggle" aria-label="Open menu">
-        <span></span><span></span><span></span>
+<header class="hdr">
+  <input type="checkbox" id="navtoggle" class="hdr__toggle" aria-hidden="true" tabindex="-1" />
+  <div class="hdr__bar">
+    <div class="hdr__left">
+      <label for="navtoggle" class="hdr__icon hdr__burger" aria-label="Open menu">
+        <Icon name="menu" size={22} />
       </label>
+      <nav class="hdr__links" aria-label="Main">
+        {links.map((l) => <a href={l.href} aria-current={on(l.href) ? 'page' : undefined}>{l.label}</a>)}
+      </nav>
+    </div>
+    <a class="hdr__logo" href="/" aria-label="Blululu home">
+      <img src="/brand/blululu-red.svg" alt="Blululu" width="120" height="50" />
+    </a>
+    <div class="hdr__right">
+      <a class="hdr__icon" href="/#newsletter" aria-label="Free printables by email"><Icon name="mail" size={20} /></a>
+      <a class="hdr__icon" href="/shop/" aria-label="Shop"><Icon name="bag" size={20} /></a>
+    </div>
+  </div>
+
+  <div class="drawer">
+    <label for="navtoggle" class="drawer__scrim" aria-label="Close menu"></label>
+    <div class="drawer__panel">
+      <div class="drawer__top">
+        <img src="/brand/blululu-red.svg" alt="Blululu" width="110" height="46" />
+        <label for="navtoggle" class="hdr__icon" aria-label="Close menu"><Icon name="close" size={22} /></label>
+      </div>
+      <nav class="drawer__links" aria-label="Menu">
+        {links.map((l) => <a href={l.href} aria-current={on(l.href) ? 'page' : undefined}>{l.label}<Icon name="arrow" size={18} /></a>)}
+      </nav>
+      <div class="drawer__more">
+        <a href="/kits/">Kits (coming soon)</a>
+        <a href="/#newsletter">Free printables</a>
+        <a href="/contact/">Contact</a>
+      </div>
     </div>
   </div>
 </header>
 
-<script is:inline>
-  document.querySelectorAll('.nav__menu a').forEach((a) =>
-    a.addEventListener('click', () => {
-      const t = document.getElementById('navtoggle');
-      if (t) t.checked = false;
-    })
-  );
-</script>
-
 <style>
-  /* Floating "island" nav — a rounded bar detached from the edges */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    padding: 0.8rem 16px 0;
-    background: transparent;
+  .ann { background: var(--red); color: #fff; }
+  .ann__row {
+    max-width: var(--maxw); margin: 0 auto; padding: 0.55rem 16px;
+    display: flex; justify-content: center; align-items: center; gap: 1.1rem;
+    font-family: var(--font-head); font-weight: 800; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.06em; text-align: center;
   }
-  .nav__inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.25rem;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    height: 68px;
-    padding: 0 0.7rem 0 1.15rem;
-    border-radius: 30px;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: saturate(180%) blur(14px);
-    box-shadow: 0 14px 34px -14px rgba(43, 44, 65, 0.32), 0 2px 8px -2px rgba(43, 44, 65, 0.08);
-    border: 1.5px solid rgba(255, 255, 255, 0.7);
+  .ann__dot { opacity: 0.8; }
+  @media (max-width: 760px) { .ann__extra, .ann__dot { display: none; } }
+
+  .hdr { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid var(--line); }
+  .hdr__toggle { position: absolute; opacity: 0; pointer-events: none; }
+  .hdr__bar {
+    max-width: var(--maxw); margin: 0 auto; height: var(--hdr-h); padding: 0 12px;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px;
+  }
+  .hdr__left { display: flex; align-items: center; gap: 1.4rem; }
+  .hdr__right { display: flex; justify-content: flex-end; gap: 8px; }
+  .hdr__logo img { height: 40px; width: auto; }
+  .hdr__icon {
+    width: 44px; height: 44px; border-radius: 12px; background: var(--light); color: var(--ink);
+    display: inline-grid; place-items: center; cursor: pointer; transition: background .15s;
+  }
+  .hdr__icon:hover { background: var(--red-soft); }
+  .hdr__links { display: none; gap: 1.5rem; }
+  .hdr__links a { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; color: var(--ink); padding: 0.4rem 0; border-bottom: 2px solid transparent; }
+  .hdr__links a:hover, .hdr__links a[aria-current] { border-color: var(--red); }
+  @media (min-width: 900px) {
+    .hdr__bar { padding: 0 24px; }
+    .hdr__burger { display: none; }
+    .hdr__links { display: flex; }
+    .hdr__logo img { height: 44px; }
   }
 
-  /* ---- Brand ---- */
-  .nav__brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    min-width: 0;
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--blu-deep);
-    white-space: nowrap;
+  .drawer { position: fixed; inset: 0; z-index: 200; visibility: hidden; }
+  .drawer__scrim { position: absolute; inset: 0; background: rgba(22,18,15,.45); opacity: 0; transition: opacity .2s; cursor: pointer; }
+  .drawer__panel {
+    position: absolute; top: 0; left: 0; bottom: 0; width: min(86vw, 360px); background: #fff;
+    padding: 12px 20px 28px; transform: translateX(-100%); transition: transform .25s ease; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 1rem;
   }
-  .nav__word { overflow: hidden; text-overflow: ellipsis; }
-  .nav__mark {
-    flex: none;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    display: block;
-    filter: drop-shadow(0 4px 8px rgba(43, 44, 65, 0.22));
+  .drawer__top { display: flex; justify-content: space-between; align-items: center; height: 52px; }
+  .drawer__top img { height: 36px; width: auto; }
+  .drawer__links { display: flex; flex-direction: column; }
+  .drawer__links a {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-head); font-weight: 900; font-size: 1.6rem; text-transform: uppercase;
+    padding: 0.9rem 0; border-bottom: 1px solid var(--line);
   }
-
-  /* ---- Links (desktop): UPPERCASE chunky navy ---- */
-  .nav__menu { display: flex; align-items: center; }
-  .nav__links {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-  .nav__links a {
-    font-family: var(--font-head);
-    font-weight: 600;
-    font-size: 0.96rem;
-    text-transform: uppercase;
-    letter-spacing: 0.045em;
-    color: var(--blu-deep);
-    padding: 0.5rem 0.8rem;
-    border-radius: 999px;
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-  .nav__links a:hover { background: var(--cream-2); color: var(--blu-d); }
-
-  /* ---- Right cluster: divider + circular buttons ---- */
-  .nav__actions { display: flex; align-items: center; gap: 0.7rem; }
-  .nav__divider {
-    width: 2px;
-    height: 28px;
-    border-radius: 2px;
-    background: rgba(48, 89, 138, 0.2);
-  }
-  .nav__circle {
-    flex: none;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: var(--blu-deep);
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 6px 14px -6px rgba(43, 44, 65, 0.4);
-    -webkit-tap-highlight-color: transparent;
-    transition: transform 0.15s ease;
-  }
-  .nav__circle:hover { transform: translateY(-2px); }
-  /* toggle: visually hidden but KEYBOARD-focusable (not display:none) */
-  .nav__toggle { position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0; }
-  .nav__toggle:focus-visible ~ .nav__actions .nav__burger { outline: 3px solid var(--blu-d); outline-offset: 3px; }
-  .nav__burger { display: none; align-items: center; justify-content: center; flex-direction: column; gap: 5px; }
-  .nav__burger span {
-    display: block;
-    width: 20px;
-    height: 2.5px;
-    border-radius: 3px;
-    background: #fff;
-    transition: transform 0.22s ease, opacity 0.18s ease;
-  }
-
-  /* ---- Mobile ---- */
-  @media (max-width: 860px) {
-    .nav__divider { display: none; }
-    .nav__burger { display: flex; }
-
-    .nav__menu {
-      position: absolute;
-      top: calc(100% + 10px);
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      align-items: stretch;
-      background: #fff;
-      padding: 0.9rem 1rem 1.1rem;
-      border-radius: 26px;
-      border: 1.5px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 0 24px 44px -18px rgba(43, 44, 65, 0.4);
-      transform: translateY(-14px);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0s 0.22s;
-    }
-    .nav__toggle:checked ~ .nav__menu {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transition: transform 0.22s ease, opacity 0.22s ease, visibility 0s 0s;
-    }
-    .nav__links { flex-direction: column; align-items: stretch; gap: 0.1rem; }
-    .nav__links a { font-size: 1.05rem; padding: 0.7rem 0.9rem; }
-
-    .nav__toggle:checked ~ .nav__actions .nav__burger span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-    .nav__toggle:checked ~ .nav__actions .nav__burger span:nth-child(2) { opacity: 0; }
-    .nav__toggle:checked ~ .nav__actions .nav__burger span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-  }
-
-  @media (max-width: 500px) {
-    .nav { padding: 0.6rem 12px 0; }
-    .nav__inner { height: 62px; gap: 0.5rem; padding: 0 0.5rem 0 0.9rem; }
-    .nav__word { font-size: 1.05rem; }
-    .nav__mark { width: 36px; height: 36px; }
-    .nav__circle { width: 44px; height: 44px; }
-    .nav__actions { gap: 0.45rem; }
-  }
+  .drawer__links a[aria-current] { color: var(--red-text); }
+  .drawer__more { display: flex; flex-direction: column; gap: 0.2rem; }
+  .drawer__more a { padding: 0.6rem 0; font-weight: 700; color: var(--ink-soft); }
+  .hdr__toggle:checked ~ .drawer { visibility: visible; }
+  .hdr__toggle:checked ~ .drawer .drawer__scrim { opacity: 1; }
+  .hdr__toggle:checked ~ .drawer .drawer__panel { transform: none; }
+  @media (min-width: 900px) { .drawer { display: none; } }
 </style>

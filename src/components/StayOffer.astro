@@ -29,15 +29,15 @@ const href = p.checkoutInr || p.checkoutUsd;
   .stay { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 16px; background: rgba(20,34,58,.55); }
   .stay[hidden] { display: none; }
   .stay__card { position: relative; width: min(420px, 100%); background: #fff; border-radius: 24px; padding: 1.6rem 1.4rem 1.2rem; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.25); }
-  .stay__x { position: absolute; top: 10px; right: 12px; border: 0; background: none; font-size: 1.6rem; line-height: 1; color: #6b6c85; cursor: pointer; }
-  .stay__eyebrow { margin: 0; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--orange-d, #db631d); }
-  .stay h2 { margin: .3rem 0 .4rem; font-size: 1.45rem; color: var(--blu-deep, #30598a); }
-  .stay__sub { margin: 0 0 1rem; color: #5c5d7a; }
-  .stay__code { display: flex; align-items: center; justify-content: space-between; gap: .6rem; border: 2px dashed var(--sun, #f6c344); border-radius: 14px; padding: .55rem .6rem .55rem 1rem; margin-bottom: 1rem; }
-  .stay__code span { font-family: var(--font-head); font-weight: 700; font-size: 1.4rem; letter-spacing: .08em; color: var(--blu-deep, #30598a); }
-  .stay__copy { border: 0; border-radius: 999px; background: var(--sun, #f6c344); color: #223a5c; font-weight: 700; padding: .5rem .9rem; cursor: pointer; }
+  .stay__x { position: absolute; top: 10px; right: 12px; border: 0; background: none; font-size: 1.6rem; line-height: 1; color: var(--ink-soft); cursor: pointer; }
+  .stay__eyebrow { margin: 0; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--orange-d, var(--red-deep)); }
+  .stay h2 { margin: .3rem 0 .4rem; font-size: 1.45rem; color: var(--blu-deep, var(--ink)); }
+  .stay__sub { margin: 0 0 1rem; color: var(--ink-soft); }
+  .stay__code { display: flex; align-items: center; justify-content: space-between; gap: .6rem; border: 2px dashed var(--sun, var(--yellow)); border-radius: 14px; padding: .55rem .6rem .55rem 1rem; margin-bottom: 1rem; }
+  .stay__code span { font-family: var(--font-head); font-weight: 700; font-size: 1.4rem; letter-spacing: .08em; color: var(--blu-deep, var(--ink)); }
+  .stay__copy { border: 0; border-radius: 999px; background: var(--sun, var(--yellow)); color: var(--ink); font-weight: 700; padding: .5rem .9rem; cursor: pointer; }
   .stay__go { display: flex; width: 100%; justify-content: center; }
-  .stay__no { margin-top: .6rem; border: 0; background: none; color: #6b6c85; text-decoration: underline; cursor: pointer; font-size: .9rem; }
+  .stay__no { margin-top: .6rem; border: 0; background: none; color: var(--ink-soft); text-decoration: underline; cursor: pointer; font-size: .9rem; }
 </style>
 
 <script>

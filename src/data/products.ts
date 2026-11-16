@@ -17,6 +17,9 @@ export interface Product {
   format: string;
   inside: string[];
   forWho: string;
+  /** Short facts for the product page chips. */
+  ages: string;
+  pages: number;
   previews?: string[];
   checkoutInr?: string;
   checkoutUsd?: string;
@@ -46,6 +49,8 @@ const dodo = (id: string, slug: string) => {
 export const products: Product[] = [
   {
     slug: 'meltdown-scripts',
+    ages: 'Ages 1–4',
+    pages: 17,
     name: 'What to Say When Your Toddler Melts Down',
     short: '20 calm scripts with Blu for the hardest everyday moments: what to say, what to do, and what to avoid.',
     inr: 49,
@@ -71,6 +76,8 @@ export const products: Product[] = [
   },
   {
     slug: 'colouring-pack',
+    ages: 'Ages 2–5',
+    pages: 79,
     name: 'Blu Colouring + Pencil Control Pack (PDF)',
     short: '79 printable pages for little hands: Blu colouring pages plus pencil-control pages that get them ready to write.',
     inr: 149,
@@ -95,6 +102,8 @@ export const products: Product[] = [
   },
   {
     slug: 'abc-book',
+    ages: 'Ages 2–5',
+    pages: 82,
     name: 'Blu ABC Book (PDF)',
     short: 'A to Z with Blu: for every letter, a colour page to read, a page to trace and a page to colour.',
     inr: 129,
@@ -118,6 +127,8 @@ export const products: Product[] = [
   },
   {
     slug: 'colouring-abc-bundle',
+    ages: 'Ages 2–5',
+    pages: 161,
     name: 'Blu Colouring + ABC Bundle (PDF)',
     short: 'Both printable books together: the Colouring + Pencil Control Pack and the ABC Book. 161 pages.',
     inr: 249,

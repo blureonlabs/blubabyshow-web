@@ -10,7 +10,7 @@ const kit = kitBySlug(Astro.params.slug!)!;
 const others = kits.filter((k) => k.slug !== kit.slug);
 ---
 
-<Base title={`${kit.name} · Blu Baby Show`} description={kit.tagline}>
+<Base title={`${kit.name} · Blululu`} description={kit.tagline}>
   <section class="kit" style={`--kit:${kit.accent}`}>
     <div class="kit__wrap">
       <p class="kit__eyebrow">Blu Kits · for parents of little ones</p>
@@ -71,7 +71,7 @@ const others = kits.filter((k) => k.slug !== kit.slug);
         </div>
       </div>
 
-      <p class="kit__foot">Made with love by <a href="/">Blu Baby Show</a> · <a href="/contact">Contact</a></p>
+      <p class="kit__foot">Made with love by <a href="/">Blululu</a> · <a href="/contact">Contact</a></p>
     </div>
   </section>
 </Base>
@@ -131,35 +131,35 @@ const others = kits.filter((k) => k.slug !== kit.slug);
 </script>
 
 <style>
-  .kit { padding: calc(var(--nav-h, 64px) + 1.5rem) 16px 3rem; background: #FBF3E7; }
+  .kit { padding: calc(var(--nav-h, 64px) + 1.5rem) 16px 3rem; background: var(--cream); }
   .kit__wrap { max-width: 560px; margin: 0 auto; }
-  .kit__eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; color: #6b6c85; margin: 0; text-align: center; }
+  .kit__eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; color: var(--ink-soft); margin: 0; text-align: center; }
   .kit h1 { text-align: center; font-size: clamp(1.8rem, 6vw, 2.4rem); margin: .3rem 0; }
-  .kit__tag { text-align: center; color: #4a4b66; font-size: 1.08rem; margin: 0 0 1rem; }
+  .kit__tag { text-align: center; color: #3A3330; font-size: 1.08rem; margin: 0 0 1rem; }
   .kit__hero { background: var(--kit); border-radius: 28px; padding: 1.2rem; text-align: center; }
   .kit__hero img { width: min(260px, 70%); height: auto; }
   .kit__buy { background: #fff; border-radius: 22px; padding: 1.2rem; margin: -1.2rem 1rem 1rem; position: relative; box-shadow: 0 8px 24px rgba(34,58,92,.12); text-align: center; }
-  .kit__price { font-size: 1.9rem; font-weight: 800; margin: 0 0 .6rem; color: #223a5c; }
-  .kit__price small { display: block; font-size: .85rem; font-weight: 500; color: #6b6c85; }
-  .kit__btn, .kit__early button { width: 100%; padding: 1rem; border: 0; border-radius: 999px; background: #30598a; color: #fff; font-weight: 800; font-size: 1.1rem; cursor: pointer; }
+  .kit__price { font-size: 1.9rem; font-weight: 800; margin: 0 0 .6rem; color: var(--ink); }
+  .kit__price small { display: block; font-size: .85rem; font-weight: 500; color: var(--ink-soft); }
+  .kit__btn, .kit__early button { width: 100%; padding: 1rem; border: 0; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 800; font-size: 1.1rem; cursor: pointer; }
   .kit__btn:hover { filter: brightness(1.08); }
-  .kit__fine { font-size: .8rem; color: #6b6c85; margin: .6rem 0 0; }
+  .kit__fine { font-size: .8rem; color: var(--ink-soft); margin: .6rem 0 0; }
   .kit__early { text-align: left; }
-  .kit__early-h { font-size: 1.3rem; font-weight: 800; margin: 0 0 .3rem; color: #30598a; }
+  .kit__early-h { font-size: 1.3rem; font-weight: 800; margin: 0 0 .3rem; color: var(--ink); }
   .kit__early form { display: flex; flex-direction: column; gap: .5rem; margin-top: .7rem; }
-  .kit__early input[type=email] { padding: .85rem 1rem; border-radius: 999px; border: 2px solid #d6e4f0; font-size: 1rem; }
-  .kit__msg { font-weight: 600; color: #30598a; }
+  .kit__early input[type=email] { padding: .85rem 1rem; border-radius: 999px; border: 2px solid var(--line); font-size: 1rem; }
+  .kit__msg { font-weight: 600; color: var(--ink); }
   .kit__msg a { text-decoration: underline; }
   .hp { position: absolute; left: -9999px; }
   .kit__card { background: #fff; border-radius: 20px; padding: 1.1rem 1.2rem; margin-bottom: .9rem; box-shadow: 0 4px 16px rgba(34,58,92,.06); }
   .kit__card h2, .kit__more h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
   .kit__card ul, .kit__card ol { margin: 0; padding-left: 1.2rem; }
   .kit__card li { margin: .35rem 0; }
-  .kit__who { margin: .8rem 0 0; color: #4a4b66; }
+  .kit__who { margin: .8rem 0 0; color: #3A3330; }
   .kit__more { margin-top: 1.4rem; }
   .kit__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .7rem; }
   .kit__mini { display: flex; align-items: center; gap: .6rem; background: #fff; border-radius: 16px; padding: .6rem; color: inherit; text-decoration: none; font-weight: 700; font-size: .92rem; }
-  .kit__mini img { width: 48px; height: 48px; object-fit: contain; border-radius: 12px; background: #eef5fb; flex: none; }
-  .kit__foot { text-align: center; font-size: .85rem; color: #6b6c85; margin-top: 1.6rem; }
+  .kit__mini img { width: 48px; height: 48px; object-fit: contain; border-radius: 12px; background: var(--light); flex: none; }
+  .kit__foot { text-align: center; font-size: .85rem; color: var(--ink-soft); margin-top: 1.6rem; }
   .kit__foot a { color: inherit; }
 </style>

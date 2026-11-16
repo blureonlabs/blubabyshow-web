@@ -18,15 +18,15 @@ interface Props {
 }
 
 const SITE = 'https://www.blubabyshow.com';
-const DEFAULT_TITLE = 'Blu Baby Show · 3D animated stories about big feelings for toddlers';
+const DEFAULT_TITLE = 'Blululu · Stories, printables and kits for big little moments';
 const DEFAULT_DESC =
-  'Blu Baby Show is a 3D animated show about Blu, a 2-year-old boy, and his family. Short, gentle episodes that teach toddlers feelings before facts. Watched 92M+ times on Instagram.';
+  'Blululu makes stories, printables and kits for the big little moments of childhood: feelings, new siblings, bedtime and play. From the makers of BluBabyShow, watched 92M+ times on Instagram.';
 
 const {
   title = DEFAULT_TITLE,
   description = DEFAULT_DESC,
   image = '/og/default.png',
-  imageAlt = 'Blu Baby Show: Blu with Mum, Dad, baby Sister and Puppy',
+  imageAlt = 'Blululu: Blu with Mum, Dad, baby Sister and Puppy',
   type = 'website',
   noindex = false,
   jsonLd = [],
@@ -37,19 +37,20 @@ let path = Astro.url.pathname;
 if (!path.endsWith('/') && !path.split('/').pop()!.includes('.')) path += '/';
 const canonical = new URL(path, SITE).href;
 const ogImage = new URL(image, SITE).href;
-const isHome = path === '/';
+const isShow = path === '/blubabyshow/';
 
 const ORG_ID = `${SITE}/#org`;
 const graph: Record<string, unknown>[] = [
   {
     '@type': 'Organization',
     '@id': ORG_ID,
-    name: 'Blu Baby Show',
+    name: 'Blululu',
+    alternateName: 'Blu Baby Show',
     url: `${SITE}/`,
     logo: { '@type': 'ImageObject', url: `${SITE}/brand/logo-512.jpg` },
     image: `${SITE}/og/default.png`,
     description:
-      'Blu Baby Show makes short 3D animated stories about Blu, a 2-year-old boy, and his family, plus printable PDFs for parents of young children.',
+      'Blululu makes printable PDFs and kits for parents of young children, and the 3D animated show BluBabyShow about Blu, a 2-year-old boy, and his family.',
     email: 'blubabyshow@gmail.com',
     sameAs: ['https://www.instagram.com/theblubabyshow/', 'https://www.youtube.com/@blubabyshow'],
     contactPoint: {
@@ -63,18 +64,19 @@ const graph: Record<string, unknown>[] = [
     '@type': 'WebSite',
     '@id': `${SITE}/#website`,
     url: `${SITE}/`,
-    name: 'Blu Baby Show',
+    name: 'Blululu',
     publisher: { '@id': ORG_ID },
     inLanguage: 'en',
   },
 ];
 
-if (isHome) {
+if (isShow) {
   graph.push({
     '@type': 'CreativeWorkSeries',
-    '@id': `${SITE}/#show`,
-    name: 'Blu Baby Show',
-    url: `${SITE}/`,
+    '@id': `${SITE}/blubabyshow/#show`,
+    name: 'BluBabyShow',
+    alternateName: 'Blu Baby Show',
+    url: `${SITE}/blubabyshow/`,
     description:
       'A 3D animated short-form series about Blu, a 2-year-old boy, and his everyday big feelings with Mum, Dad, baby Sister and Puppy. Episodes run 15 to 30 seconds and are published on Instagram and YouTube.',
     genre: ['Animation', 'Family', 'Children'],
@@ -124,15 +126,15 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188'
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
-    <meta name="theme-color" content="#57b0f0" />
+    <meta name="theme-color" content="#EA0738" />
     {GSC_VERIFICATION && <meta name="google-site-verification" content={GSC_VERIFICATION} />}
     <meta name="facebook-domain-verification" content="o9f82bhu2h91g8vgahngsjqsc0z405" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="alternate" type="application/rss+xml" title="Blu Baby Show blog" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Blululu blog" href="/rss.xml" />
 
     <!-- Open Graph / social -->
     <meta property="og:type" content={type} />
-    <meta property="og:site_name" content="Blu Baby Show" />
+    <meta property="og:site_name" content="Blululu" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
@@ -147,11 +149,11 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188'
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={imageAlt} />
 
-    <!-- Fonts: Fredoka (headings) · Nunito (body) · Newsreader (serif) -->
+    <!-- Fonts: Archivo (headings) · Nunito Sans (body) · Fraunces (soft display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Nunito+Sans:wght@400;600;700;800&family=Fraunces:opsz,wght,SOFT@9..144,900,100&display=swap"
       rel="stylesheet"
     />
 

@@ -1,0 +1,257 @@
+---
+// /blubabyshow/ — the show's world inside Blululu: what it is, the family, most-watched
+// episodes, real comments, the four kinds of episode, products from the show, watch links.
+// Content moved from the old blubabyshow.com home page (real numbers, real comments).
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { products } from '../data/products';
+
+const IG = 'https://www.instagram.com/theblubabyshow/';
+const YT = 'https://www.youtube.com/@blubabyshow';
+
+/* Real numbers (Instagram Graph API, 14 Nov 2026). Update when they move. */
+const proof = [
+  { big: '92M+', small: 'views' },
+  { big: '64K+', small: 'followers' },
+  { big: '1.9M+', small: 'likes' },
+  { big: '6,900+', small: 'comments' },
+];
+
+const family = [
+  { img: '/characters/blu.webp', name: 'Blu', tag: 'Two years old. Big feelings, bigger hugs. Never without his rabbit Nini.', bg: '#DCEEFB' },
+  { img: '/characters/mom.webp', name: 'Mum', tag: 'Keeps the house running. Gives the Look, then melts.', bg: '#FADDE4' },
+  { img: '/characters/dad.webp', name: 'Dad', tag: 'The yes-parent. Strict about one thing only: his yellow car.', bg: '#D6F0DD' },
+  { img: '/characters/sister.webp', name: 'Sister', tag: 'Blu’s baby sister. Smiles first, giggles next, copies everything.', bg: '#E5DDF8' },
+  { img: '/characters/puppy.webp', name: 'Puppy', tag: 'Blu’s partner in crime. Clumsy tail, kind heart.', bg: '#FBEBB5' },
+];
+
+/* Most-watched episodes: real reels, real view counts. */
+const episodes = [
+  { img: '/episodes/big-brother-hospital.webp', title: 'The day he became a big brother', views: '18.2M', href: 'https://www.instagram.com/reel/DZFNhZQy_xV/' },
+  { img: '/episodes/meets-baby-sister.webp', title: 'Blu meets his baby sister', views: '12.2M', href: 'https://www.instagram.com/reel/DY2YIe_ydwo/' },
+  { img: '/episodes/flour-ghosts.webp', title: 'Dad was baking. Blu had one job.', views: '12.0M', href: 'https://www.instagram.com/reel/DYeepWIMZ5R/' },
+  { img: '/episodes/picks-his-outfit.webp', title: 'Blu picks his own outfit', views: '5.9M', href: 'https://www.instagram.com/reel/DZKLj_9SUPx/' },
+  { img: '/episodes/tummy-grumble.webp', title: 'His tummy grumbled…', views: '4.5M', href: 'https://www.instagram.com/reel/DY1w-mYs2Ko/' },
+  { img: '/episodes/toothpaste-mohawk.webp', title: 'Dad turned around for one second', views: '2.0M', href: 'https://www.instagram.com/reel/DYuwBGZyg0S/' },
+];
+
+const kinds = [
+  { t: 'Big feelings', d: 'Little moments about the feelings of growing up, and of raising a tiny human.', img: '/episodes/kisses-sister.webp' },
+  { t: 'Calm & bedtime', d: 'Slow, quiet episodes for winding down.', img: '/episodes/meets-baby-sister.webp' },
+  { t: 'Blu vs the world', d: 'Tiny-chaos comedy. Flour, toothpaste and one very patient Dad.', img: '/episodes/toothpaste-mohawk.webp' },
+  { t: 'Family life', d: 'Warm everyday moments with Mum, Dad, Puppy and baby Sister.', img: '/episodes/belly-hug.webp' },
+];
+
+/* Real comments from our Instagram reels, copied as written (14 Nov 2026). Only the first letter of each handle is shown. */
+const comments = [
+  { text: 'Mera baby bhi same esa hi karta h 😍❤️', tr: 'My baby does exactly the same!', who: 'a•••••', lang: 'Hindi' },
+  { text: "Sometimes it's our little kid who gives us assurance ..that adults can't give...", who: 's•••••', lang: '' },
+  { text: 'Que família linda! Amei demais', tr: 'What a lovely family! Loved it so much', who: 'l•••••', lang: 'Portuguese' },
+  { text: 'that moment we realize we need them more than they need us. 😢', who: 'a•••••', lang: '' },
+  { text: 'Hermosa que lindo le su besito a su hermanita', tr: 'So sweet, his little kiss for his baby sister', who: 'e•••••', lang: 'Spanish' },
+  { text: 'Dunia perbayian sungguh imutt', tr: 'The baby world is so adorable', who: 'i•••••', lang: 'Indonesian' },
+];
+
+const SITE = 'https://www.blubabyshow.com';
+const jsonLd = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'BluBabyShow', item: `${SITE}/blubabyshow/` },
+    ],
+  },
+];
+---
+
+<Base
+  title="BluBabyShow · A 3D family cartoon about big feelings | Blululu"
+  description="BluBabyShow is a short 3D cartoon about Blu, a 2-year-old boy, and his family. Every episode teaches feelings before it teaches facts. Watched 92M+ times on Instagram."
+  jsonLd={jsonLd}
+>
+  <section class="shero">
+    <div class="wrap shero__grid">
+      <div>
+        <p class="eyebrow shero__eye">A Blululu show</p>
+        <h1 class="shero__h">BluBabyShow</h1>
+        <p class="shero__lead">Every episode teaches feelings before it teaches facts.</p>
+        <p>Blu, Mum, Dad, baby Sister, Puppy and his rabbit Nini. Short, mostly wordless episodes about small everyday moments every family knows, so they work in any language.</p>
+        <div class="shero__cta">
+          <a class="btn shero__btn" href={IG} target="_blank" rel="noopener"><Icon name="instagram" size={18} />Watch on Instagram</a>
+          <a class="btn shero__btn shero__btn--ghost" href={YT} target="_blank" rel="noopener"><Icon name="youtube" size={18} />Watch on YouTube</a>
+        </div>
+      </div>
+      <div class="shero__media">
+        <video autoplay muted loop playsinline preload="metadata" poster="/hero/blu-hero-poster.webp" aria-label="A short clip of Blu">
+          <source src="/hero/blu-hero.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <div class="sproof">
+    <ul class="wrap sproof__row">
+      {proof.map((p) => <li><b>{p.big}</b><span>{p.small}</span></li>)}
+    </ul>
+    <p class="wrap sproof__note">Real numbers from Instagram, November 2026.</p>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="display">Meet the <em>family</em></h2>
+      <div class="fam">
+        {family.map((f) => (
+          <div class="fam__card" style={`background:${f.bg}`}>
+            <img src={f.img} alt={f.name} width="800" height="800" loading="lazy" decoding="async" />
+            <h3>{f.name}</h3>
+            <p>{f.tag}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section eps-sec" id="watch">
+    <div class="wrap">
+      <h2 class="display">Most-<em>watched</em></h2>
+      <p class="muted">Real view counts from Instagram. Tap any one to watch it.</p>
+      <div class="eps">
+        {episodes.map((e) => (
+          <a class="ep" href={e.href} target="_blank" rel="noopener">
+            <span class="ep__ph">
+              <img src={e.img} alt={e.title} width="720" height="900" loading="lazy" decoding="async" />
+              <span class="ep__play" aria-hidden="true"><Icon name="play" size={18} /></span>
+              <span class="ep__v">{e.views} views</span>
+            </span>
+            <span class="ep__t">{e.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="display">Four kinds of <em>Blu</em></h2>
+      <div class="kinds">
+        {kinds.map((k, i) => (
+          <div class="kind">
+            <img src={k.img} alt="" width="720" height="900" loading="lazy" decoding="async" />
+            <div><span class="pill">0{i + 1}</span><h3>{k.t}</h3><p class="muted">{k.d}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section cmts-sec">
+    <div class="wrap">
+      <h2 class="display">What parents <em>say</em></h2>
+      <p class="muted">Real comments from our Instagram, in many languages. We hide names to protect people’s privacy.</p>
+      <div class="cmts">
+        {comments.map((c) => (
+          <figure class="cmt">
+            <div class="cmt__top"><span class="cmt__av" aria-hidden="true">{c.who[0].toUpperCase()}</span><span>{c.who}{c.lang && ` · ${c.lang}`}</span></div>
+            <blockquote>{c.text}</blockquote>
+            {c.tr && <figcaption>“{c.tr}”</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section shop-sec">
+    <div class="wrap">
+      <h2 class="display">From the <em>show</em></h2>
+      <p class="muted">Printables starring Blu and his family. Instant PDF download.</p>
+      <div class="sprod">
+        {products.map((p) => (
+          <a class="sprod__card" href={`/shop/${p.slug}/`}>
+            <img src={p.img} alt={p.imgAlt} width="800" height="800" loading="lazy" decoding="async" />
+            <span class="badge badge--show">from BluBabyShow</span>
+            <span class="sprod__name">{p.name.replace(' (PDF)', '')}</span>
+            <span class="sprod__price" data-price-inr={p.inr} data-price-usd={p.usd}>₹{p.inr}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Newsletter id="newsletter" source="website-blubabyshow" />
+</Base>
+
+<script>
+  const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return true; } })();
+  document.querySelectorAll<HTMLElement>('[data-price-inr]').forEach((el) => { el.textContent = inIndia ? `₹${el.dataset.priceInr}` : `$${el.dataset.priceUsd}`; });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('video').forEach((v) => { v.removeAttribute('autoplay'); v.pause(); });
+</script>
+
+<style>
+  .shero { background: var(--sky); color: var(--navy); padding: 2.4rem 0 2.8rem; }
+  .shero__grid { display: grid; gap: 1.8rem; align-items: center; }
+  .shero__eye { color: var(--navy); }
+  .shero__h { color: var(--navy); font-size: clamp(2.6rem, 11vw, 4.6rem); letter-spacing: -0.03em; }
+  .shero__lead { font-weight: 800; font-size: 1.15rem; }
+  .shero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.2rem; }
+  .shero__btn { background: var(--navy); color: #fff; flex: 1 1 100%; }
+  .shero__btn--ghost { background: transparent; color: var(--navy); border-color: var(--navy); }
+  .shero__media video { width: 100%; max-width: 300px; aspect-ratio: 9 / 16; object-fit: cover; margin: 0 auto; display: block; border-radius: 24px; box-shadow: var(--shadow); background: #8FD0F5; }
+  @media (min-width: 860px) {
+    .shero { padding: 4rem 0; }
+    .shero__grid { grid-template-columns: 1.2fr 1fr; }
+    .shero__btn { flex: 0 0 auto; }
+  }
+  .sproof { background: var(--ink); color: #fff; padding: 1.2rem 0 0.8rem; }
+  .sproof__row { list-style: none; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; text-align: center; }
+  .sproof__row b { display: block; font-family: var(--font-head); font-weight: 900; color: #FF4D6D; font-size: clamp(1.15rem, 4.4vw, 1.9rem); }
+  .sproof__row span { font-size: 0.8rem; font-weight: 700; }
+  .sproof__note { font-size: 0.72rem; color: #A39A94; text-align: center; margin: 0.6rem auto 0; }
+
+  .display { font-size: clamp(2rem, 7vw, 3rem); }
+  .fam { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1.4rem; }
+  @media (min-width: 900px) { .fam { grid-template-columns: repeat(5, 1fr); gap: 16px; } }
+  .fam__card { border-radius: 18px; padding: 12px 14px 16px; }
+  .fam__card img { aspect-ratio: 1; object-fit: contain; width: 100%; }
+  .fam__card h3 { margin: 0.4rem 0 0.2rem; font-size: 1.2rem; }
+  .fam__card p { margin: 0; font-size: 0.88rem; line-height: 1.4; color: #3A3330; }
+  .fam__card:first-child { grid-column: span 2; display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 10px; }
+  .fam__card:first-child img { grid-row: span 2; }
+  @media (min-width: 900px) { .fam__card:first-child { grid-column: auto; display: block; } }
+
+  .eps-sec { background: var(--light); }
+  .eps { scroll-padding-inline: 20px; display: grid; grid-auto-flow: column; grid-auto-columns: 62%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 1.2rem -20px 0; padding: 0 20px 8px; scrollbar-width: none; }
+  .eps::-webkit-scrollbar { display: none; }
+  @media (min-width: 900px) { .eps { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); margin: 1.4rem 0 0; padding: 0; overflow: visible; } }
+  .ep { scroll-snap-align: start; display: flex; flex-direction: column; gap: 0.5rem; }
+  .ep__ph { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 5; background: #ddd; }
+  .ep__ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+  .ep:hover .ep__ph img { transform: scale(1.04); }
+  .ep__play { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; background: #fff; color: var(--red); display: grid; place-items: center; }
+  .ep__v { position: absolute; left: 12px; bottom: 12px; background: var(--ink); color: #fff; font-family: var(--font-head); font-weight: 800; font-size: 0.8rem; padding: 0.3rem 0.6rem; border-radius: 999px; }
+  .ep__t { font-family: var(--font-head); font-weight: 800; font-size: 1rem; line-height: 1.25; }
+
+  .kinds { display: grid; gap: 14px; margin-top: 1.4rem; }
+  @media (min-width: 760px) { .kinds { grid-template-columns: 1fr 1fr; } }
+  .kind { display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 10px; }
+  .kind img { border-radius: 12px; aspect-ratio: 4 / 5; object-fit: cover; }
+  .kind h3 { margin: 0.5rem 0 0.2rem; }
+  .kind p { margin: 0; font-size: 0.92rem; }
+
+  .cmts-sec { background: #FFFCF6; }
+  .cmts { display: grid; gap: 12px; margin-top: 1.4rem; }
+  @media (min-width: 760px) { .cmts { grid-template-columns: repeat(3, 1fr); } }
+  .cmt { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+  .cmt__top { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); }
+  .cmt__av { width: 30px; height: 30px; border-radius: 50%; background: var(--red-soft); color: var(--red-deep); display: grid; place-items: center; font-weight: 900; }
+  .cmt blockquote { margin: 0.7rem 0 0.4rem; font-weight: 700; }
+  .cmt figcaption { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; }
+
+  .sprod { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1.4rem; }
+  @media (min-width: 900px) { .sprod { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+  .sprod__card { display: flex; flex-direction: column; gap: 0.45rem; }
+  .sprod__card img { border-radius: 14px; background: var(--light); }
+  .sprod__card .badge { align-self: flex-start; font-size: 0.62rem; }
+  .sprod__name { font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; line-height: 1.25; }
+  .sprod__price { font-family: var(--font-head); font-weight: 900; color: var(--red-text); }
+</style>

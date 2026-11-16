@@ -1,0 +1,88 @@
+---
+// "Join the Blululu family" sign-up. Posts to the existing /api/subscribe (Vercel fn → Supabase
+// `subscribers` + Resend welcome). Same payload as before: { email, source, hp }.
+interface Props { id?: string; source?: string }
+const { id = 'newsletter', source = 'website' } = Astro.props;
+---
+
+<section class="nl" id={id}>
+  <div class="nl__inner">
+    <h2 class="nl__h display">Join the Blululu family!</h2>
+    <p class="nl__lead">Free printables every week, a first look at new kits, and the free Blu Feelings Cards the day you join.</p>
+    <form class="nl__form" data-nl data-source={source} novalidate>
+      <label class="sr" for={`${id}-email`}>Email address</label>
+      <input id={`${id}-email`} class="nl__input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required />
+      <input type="text" name="hp" class="nl__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <button class="btn btn--sun nl__btn" type="submit">Join</button>
+    </form>
+    <p class="nl__msg" role="status" aria-live="polite" data-nl-msg></p>
+    <p class="nl__fine">No spam. One email a week. Leave any time.</p>
+  </div>
+</section>
+
+<style>
+  .nl { background: var(--red); color: #fff; padding: clamp(3rem, 7vw, 5rem) 0; }
+  .nl__inner { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+  @media (min-width: 700px) { .nl__inner { padding: 0 32px; } }
+  .nl__h { color: #fff; font-size: clamp(2.3rem, 7.4vw, 4.6rem); margin-bottom: 0.4em; }
+  .nl__lead { font-weight: 700; font-size: 1.05rem; max-width: 46ch; }
+  .nl__form { display: flex; flex-wrap: wrap; gap: 10px; max-width: 520px; margin-top: 1.2rem; }
+  .nl__input {
+    flex: 1 1 220px; min-height: 52px; padding: 0 1rem; border-radius: 10px; border: 2px solid #fff;
+    font-size: 1rem; color: var(--ink); background: #fff;
+  }
+  .nl__input:focus { outline: 3px solid var(--yellow); outline-offset: 2px; }
+  .nl__btn { min-height: 52px; flex: 0 0 auto; min-width: 110px; }
+  @media (max-width: 420px) { .nl__btn { flex: 1 1 100%; } }
+  .nl__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .nl__msg { min-height: 1.2em; margin: 0.9rem 0 0.3rem; font-weight: 700; }
+  .nl__msg a { color: #fff; text-decoration: underline; }
+  .nl__msg--err { color: #FFE3E9; }
+  .nl__fine { font-size: 0.85rem; opacity: 0.85; margin: 0; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-nl]').forEach((form) => {
+    const msg = form.parentElement?.querySelector<HTMLElement>('[data-nl-msg]');
+    if (!msg) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('input[type=email]');
+      const btn = form.querySelector<HTMLButtonElement>('button');
+      const email = (input?.value || '').trim();
+      const hp = form.querySelector<HTMLInputElement>('input[name=hp]')?.value || '';
+      const source = form.dataset.source || 'website';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msg.textContent = 'Please enter a valid email.';
+        msg.className = 'nl__msg nl__msg--err';
+        return;
+      }
+      const label = btn!.textContent;
+      btn!.disabled = true; btn!.textContent = 'Sending…';
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source, hp }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.style.display = 'none';
+          msg.innerHTML = "You're in! Welcome to the Blululu family. <a href='/free/blu-feelings-cards-A4.pdf' download>Download your free Feelings Cards (PDF)</a>";
+          msg.className = 'nl__msg';
+          const w = window as any;
+          w.posthog?.capture?.('newsletter_signup', { source });
+          if (typeof w.fbq === 'function') w.fbq('track', 'Lead', { content_name: 'newsletter' });
+        } else {
+          msg.textContent = data.error || 'Something went wrong. Please try again.';
+          msg.className = 'nl__msg nl__msg--err';
+          btn!.disabled = false; btn!.textContent = label;
+        }
+      } catch {
+        msg.textContent = 'Network hiccup. Please try again.';
+        msg.className = 'nl__msg nl__msg--err';
+        btn!.disabled = false; btn!.textContent = label;
+      }
+    });
+  });
+</script>

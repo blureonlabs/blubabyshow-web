@@ -24,6 +24,36 @@
       "source": "/shop/coloring-book/",
       "destination": "/shop/colouring-pack/",
       "permanent": true
+    },
+    {
+      "source": "/our-story",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/our-story/",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/show",
+      "destination": "/blubabyshow/",
+      "permanent": true
+    },
+    {
+      "source": "/show/",
+      "destination": "/blubabyshow/",
+      "permanent": true
+    },
+    {
+      "source": "/watch",
+      "destination": "/blubabyshow/",
+      "permanent": true
+    },
+    {
+      "source": "/watch/",
+      "destination": "/blubabyshow/",
+      "permanent": true
     }
   ],
   "headers": [

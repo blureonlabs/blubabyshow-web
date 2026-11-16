@@ -1,103 +1,77 @@
 ---
+// Blululu footer ("10C · loud blocks"): black, three columns, wordmark, legal line.
+// [LEGAL ENTITY NAME] stays a placeholder until the founder gives the registered name.
+import Icon from './Icon.astro';
 const year = new Date().getFullYear();
+const EMAIL = 'blubabyshow@gmail.com';
+// The home page shows the slogan band right under its newsletter instead.
+const band = Astro.url.pathname !== '/';
 ---
 
-<footer class="foot">
-  <div class="wrap foot__inner">
-    <div class="foot__brand">
-      <p class="foot__word"><img class="foot__mark" src="/brand/blu-mark.webp" alt="" width="36" height="36" loading="lazy" />Blu Baby Show</p>
-      <p class="foot__tag">Every episode teaches feelings before it teaches facts.</p>
-      <div class="foot__social">
-        <a href="https://www.instagram.com/theblubabyshow/" target="_blank" rel="noopener">Instagram @theblubabyshow</a>
-        <a href="https://www.youtube.com/@blubabyshow" target="_blank" rel="noopener">YouTube</a>
+<footer class="ft">
+  {band && <div class="ft__band">
+    <div class="ft__inner ft__bandrow">
+      <svg class="ft__spark" viewBox="0 0 60 20" aria-hidden="true"><path d="M2 14 C 20 12, 34 10, 46 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M50 9 l3-6 2 6 6 2-6 2-2 6-3-6-6-2z" fill="currentColor"/></svg>
+      <p class="ft__slogan soft">Feelings first. Always.</p>
+    </div>
+  </div>}
+  <div class="ft__inner ft__grid">
+    <div class="ft__col">
+      <h2 class="ft__h">Get in touch</h2>
+      <p>Support: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+      <p>Brands &amp; partnerships: <a href="/studio/">work with us</a></p>
+      <div class="ft__social">
+        <a href="https://www.instagram.com/theblubabyshow/" target="_blank" rel="noopener" aria-label="BluBabyShow on Instagram"><Icon name="instagram" size={20} /></a>
+        <a href="https://www.youtube.com/@blubabyshow" target="_blank" rel="noopener" aria-label="BluBabyShow on YouTube"><Icon name="youtube" size={20} /></a>
       </div>
     </div>
-
-    <nav class="foot__col" aria-label="Explore">
-      <span class="foot__h">Explore</span>
-      <a href="/#watch">Watch</a>
-      <a href="/kits/">Blu Kits</a>
-      <a href="/shop/">Shop</a>
+    <div class="ft__col">
+      <h2 class="ft__h">About us</h2>
+      <a href="/about/">Our story</a>
+      <a href="/blubabyshow/">BluBabyShow</a>
       <a href="/blog/">Blog</a>
-      <a href="/#newsletter">Newsletter</a>
-    </nav>
-
-    <nav class="foot__col" aria-label="Company">
-      <span class="foot__h">Company</span>
-      <a href="/#story">About Blu</a>
-      <a href="/studio/">Work with us</a>
+      <a href="/studio/">Studio</a>
+    </div>
+    <div class="ft__col">
+      <h2 class="ft__h">Quick links</h2>
+      <a href="/shop/">Shop</a>
+      <a href="/kits/">Kits</a>
+      <a href="/delivery/">Delivery</a>
+      <a href="/refund/">Refunds</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
       <a href="/contact/">Contact</a>
-    </nav>
+    </div>
   </div>
-
-  <div class="wrap foot__base">
-    <span>© {year} Blu Baby Show</span>
-    <span class="foot__legal">
-      <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/refund/">Refunds</a> · <a href="/delivery/">Delivery</a> · <a href="/contact/">Contact</a>
-    </span>
+  <div class="ft__inner ft__base">
+    <img src="/brand/blululu-white.svg" alt="Blululu" width="130" height="54" loading="lazy" />
+    <p>© {year} [LEGAL ENTITY NAME] · Blululu and BluBabyShow</p>
   </div>
 </footer>
 
 <style>
-  .foot {
-    background: #223a5c;
-    color: #d6ecff;
-    padding: 3.5rem 0 2rem;
-    margin-top: 2rem;
-  }
-  .foot__inner {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 2.5rem;
-  }
-  .foot__word {
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 1.2rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .foot__mark { width: 36px; height: 36px; border-radius: 50%; display: block; }
-  .foot__tag {
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: rgba(214, 236, 255, 0.78);
-    max-width: 30ch;
-    margin: 0.8rem 0 1.2rem;
-  }
-  .foot__social { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-weight: 500; }
-  .foot__social a { color: #d6ecff; }
-  .foot__social a:hover { color: #fff; }
-
-  .foot__col { display: flex; flex-direction: column; gap: 0.6rem; }
-  .foot__h {
-    font-family: var(--font-head);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.72rem;
-    color: rgba(214, 236, 255, 0.6);
-    margin-bottom: 0.3rem;
-  }
-  .foot__col a { color: #bcd8f2; padding: 0.35rem 0; }
-  .foot__col a:hover { color: #fff; }
-
-  .foot__base {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    font-size: 0.85rem;
-    color: rgba(214, 236, 255, 0.6);
-  }
-  .foot__legal a { color: rgba(214, 236, 255, 0.6); }
-  .foot__legal a:hover { color: #d6ecff; }
-
-  @media (max-width: 760px) {
-    .foot__inner { grid-template-columns: 1fr 1fr; }
-    .foot__brand { grid-column: 1 / -1; }
-    .foot__base { flex-direction: column; gap: 0.6rem; text-align: center; }
+  .ft { background: #0E0C0B; color: #fff; }
+  .ft__band { background: var(--yellow); color: var(--ink); }
+  .ft__inner { max-width: var(--maxw); margin: 0 auto; padding-inline: 20px; }
+  .ft__bandrow { display: flex; align-items: center; gap: 14px; padding-top: 1.1rem; padding-bottom: 1.1rem; }
+  .ft__spark { width: 54px; flex: none; }
+  .ft__slogan { margin: 0; font-size: clamp(1.4rem, 3.4vw, 2rem); line-height: 1.1; }
+  .ft__grid { display: grid; grid-template-columns: 1fr; gap: 2rem; padding-top: 2.6rem; padding-bottom: 2rem; }
+  .ft__col { display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.95rem; }
+  .ft__col p { margin: 0; color: #D8D2CE; }
+  .ft__col a { color: #fff; }
+  .ft__col > a { text-transform: uppercase; font-family: var(--font-head); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em; padding: 0.15rem 0; }
+  .ft__col a:hover { color: var(--yellow); }
+  .ft__col p a { text-decoration: underline; text-underline-offset: 3px; }
+  .ft__h { font-family: var(--font-head); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #fff; margin: 0 0 0.3rem; }
+  .ft__social { display: flex; gap: 10px; margin-top: 0.5rem; }
+  .ft__social a { width: 44px; height: 44px; border-radius: 12px; background: #24201D; display: grid; place-items: center; }
+  .ft__social a:hover { background: var(--red); color: #fff; }
+  .ft__base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.4rem; padding-bottom: 1.8rem; border-top: 1px solid #2A2522; }
+  .ft__base img { height: 40px; width: auto; }
+  .ft__base p { margin: 0; font-size: 0.78rem; color: #A39A94; text-transform: uppercase; letter-spacing: 0.04em; }
+  @media (min-width: 760px) {
+    .ft__inner { padding-inline: 32px; }
+    .ft__grid { grid-template-columns: 1.3fr 1fr 1fr; }
   }
 </style>
