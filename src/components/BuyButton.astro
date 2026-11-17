@@ -40,11 +40,8 @@ const live = Boolean(p.checkoutInr || p.checkoutUsd);
     a.href = a.dataset[`${cur}Href`] || a.href;
     a.textContent = a.dataset[`${cur}Label`] || a.textContent;
     a.addEventListener('click', () => {
+      // PostHog buy_clicked + checkout_redirect are sent by the shared layer (Analytics.astro).
       const w = window as any;
-      w.posthog?.capture?.('buy_click', {
-        product: a.dataset.slug, currency: inIndia ? 'INR' : 'USD',
-        value: Number(inIndia ? a.dataset.inr : a.dataset.usd),
-      });
       if (typeof w.fbq === 'function') {
         w.fbq('track', 'InitiateCheckout', {
           content_ids: [a.dataset.slug], content_type: 'product',

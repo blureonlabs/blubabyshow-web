@@ -30,7 +30,7 @@ const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd
     </div>
   </section>
 
-  <section class="section upsell" id="upsell">
+  <section class="section upsell" id="upsell" data-offer="upgrade" data-slug={book.slug} data-prices={JSON.stringify(prices)}>
     <div class="wrap narrow card">
       <img class="sticker" src={book.img} alt={book.imgAlt} width="200" height="200" loading="lazy" />
       <div>
@@ -43,30 +43,51 @@ const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd
   </section>
 </Base>
 
-<script define:vars={{ prices }}>
+<script>
   // Purchase conversion: fires once per Dodo payment (return URL carries payment_id / status).
+  // The buyer's email is already stripped from the URL (inline script in Base.astro) before
+  // PostHog / Pixel load; PostHog also drops payment_id from stored URLs. No PII in event props.
+  import { track, inIndia, currency } from '../lib/track';
+  const w = window as any;
+  const up = document.getElementById('upsell') as HTMLElement | null;
+  const prices: Record<string, { inr: number; usd: number }> = JSON.parse(up?.dataset.prices || '{}');
   const q = new URLSearchParams(location.search);
   const pid = q.get('payment_id') || q.get('paymentId');
   const status = q.get('status');
   const ok = !status || status === 'succeeded';
   if (!ok) {
-    document.getElementById('okState').hidden = true;
-    document.getElementById('failState').hidden = false;
-    const up = document.getElementById('upsell'); if (up) up.hidden = true;
+    document.getElementById('okState')!.hidden = true;
+    document.getElementById('failState')!.hidden = false;
+    if (up) up.hidden = true;
   }
   const slug = q.get('p') || '';
-  const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return true; } })();
   const pr = prices[slug];
-  const currency = inIndia ? 'INR' : 'USD';
   const value = pr ? (inIndia ? pr.inr : pr.usd) : 0;
-  if (pid && ok) {
+  if (pid) {
+    // Dedupe: a refresh or back-navigation in the same tab must not count the payment twice.
+    const key = `bbs_paid_${pid}`;
     let seen = false;
-    try { seen = sessionStorage.getItem('bbs_purchase') === pid; sessionStorage.setItem('bbs_purchase', pid); } catch {}
+    try { seen = sessionStorage.getItem(key) === '1'; sessionStorage.setItem(key, '1'); } catch {}
     if (!seen) {
-      const w = window;
-      w.fbq?.('track', 'Purchase', { currency, value, content_name: slug }, { eventID: pid });
-      w.posthog?.capture?.('purchase', { payment_id: pid, product: slug, value, currency });
+      if (ok) {
+        w.fbq?.('track', 'Purchase', { currency, value, content_name: slug }, { eventID: pid });
+        track('purchase_completed', { product: slug, payment_status: status || 'succeeded', value, currency });
+      } else {
+        track('purchase_failed', { product: slug, payment_status: status });
+      }
     }
+  }
+
+  // The upsell on this page is the upgrade offer.
+  if (ok && up && !up.hidden) {
+    const offer = up.dataset.slug;
+    const io = new IntersectionObserver((es) => {
+      if (es.some((x) => x.isIntersecting)) { track('upgrade_offer_shown', { from_product: slug, offer_product: offer }); io.disconnect(); }
+    });
+    io.observe(up);
+    up.addEventListener('click', (e) => {
+      if ((e.target as Element).closest?.('a.buy')) track('upgrade_clicked', { from_product: slug, offer_product: offer });
+    }, true);
   }
 </script>
 

@@ -62,7 +62,7 @@ const jsonLd = [
   imageAlt={`${p.name}, a printable PDF from Blu Baby Show`}
   jsonLd={jsonLd}
 >
-  <section class="section pd" style={`--c:${p.accent}`}>
+  <section class="section pd" style={`--c:${p.accent}`} data-ph-product={p.slug} data-inr={p.inr} data-usd={p.usd}>
     <div class="wrap pd__grid">
       <div class="pd__art">
         <img class="sticker" src={p.img} alt={p.imgAlt} width="420" height="420" />
