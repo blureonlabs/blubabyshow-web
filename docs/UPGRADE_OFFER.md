@@ -25,7 +25,7 @@ One button opens a Dodo checkout for the Colouring + ABC Bundle with the money t
    - it was for that book (and not the bundle);
    - it was paid in **INR or USD**, at **full list price or more**.
 3. It opens a Dodo checkout session for the bundle with the credit code already applied
-   (`UPGRADE-COLOURING` or `UPGRADE-ABC`), the buyer's email filled in, and the code box locked.
+   (`UPGRADE-COLOURING` or `UPGRADE-ABC`) and the code box locked. The email is NOT pre-filled (a payment_id in a URL can leak, so the checkout must not reveal who bought).
    The return URL is `/thanks/?p=colouring-abc-bundle&from=<book>`.
 4. The page shows the offer only if it got a checkout link back. Prices come from the currency
    they actually paid in. Anything else (no key, Dodo error, other currency, cheaper local price,
@@ -91,3 +91,8 @@ If many buyers come from PPP countries later, add more currency rows to the two 
 - `src/pages/thanks.astro`: the offer card (`#creditOffer`) and the fallback card (`#upsell`).
 - Tracking: PostHog `upgrade_offer_shown`, `upgrade_click`; Meta `InitiateCheckout`. The bundle
   Purchase event after an upgrade records the amount actually paid (bundle minus credit).
+
+## Abuse limits (security review, 17 Nov 2026)
+- `/api/upgrade` is POST only and returns only a checkout link + currency. No buyer data.
+- The code itself is the guard: restricted to the bundle, existing customers only, 1 use per customer. Those Dodo settings are **required**, not optional.
+- Residual risk: someone holding a code could use it once on their own account if they bought before. Max loss = ₹149 / $7 per person. Acceptable at this price; if abused, switch to per-payment single-use codes created through the API.

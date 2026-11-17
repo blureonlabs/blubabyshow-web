@@ -60,13 +60,11 @@ function productId(slug, mode) {
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
-  if (req.method !== 'POST' && req.method !== 'GET') return res.status(405).json({ fallback: true });
+  if (req.method !== 'POST') return res.status(405).json({ fallback: true });
 
   let paymentId = '', slug = '';
   try {
-    const b = req.method === 'POST'
-      ? (typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {}))
-      : (req.query || {});
+    const b = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
     paymentId = String(b.payment_id || '').trim();
     slug = String(b.p || '').trim();
   } catch { /* checked below */ }
@@ -104,7 +102,8 @@ export default async function handler(req, res) {
     if (!list) return fallback(res, 'currency has no credit code');
     if (!(Number(pay.total_amount) >= list)) return fallback(res, 'paid less than list price');
 
-    const email = pay.customer && pay.customer.email;
+    // No email prefill: a payment_id can leak (URL, history), so the session must not
+    // reveal who bought. Country only, so the checkout prices in the same currency.
     const country = pay.billing && pay.billing.country;
 
     // 2) Bundle checkout with the credit pre-applied.
@@ -116,7 +115,6 @@ export default async function handler(req, res) {
       metadata: { upgrade_from: slug, upgrade_from_payment: paymentId },
       feature_flags: { allow_discount_code: false },
     };
-    if (email) body.customer = { email };
     if (country) body.billing_address = { country };
 
     const cr = await fetch(`${base}/checkouts`, { method: 'POST', headers, body: JSON.stringify(body) });
