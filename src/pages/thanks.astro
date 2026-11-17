@@ -8,6 +8,19 @@ import { bySlug, products } from '../data/products';
 const book = bySlug('colouring-abc-bundle')!;
 // Prices for the Purchase event value (by ?p=<slug>).
 const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd: x.usd }]));
+// "Credit what you paid": buyers of one of the two books in the bundle get what they paid
+// taken off the bundle (via /api/upgrade). For each book: the other book in the bundle.
+const credit = Object.fromEntries(
+  (['colouring-pack', 'abc-book'] as const).map((slug) => {
+    const paid = bySlug(slug)!;
+    const other = bySlug(slug === 'colouring-pack' ? 'abc-book' : 'colouring-pack')!;
+    return [slug, {
+      paid: { inr: paid.inr, usd: paid.usd },
+      more: { inr: book.inr - paid.inr, usd: book.usd - paid.usd },
+      other: { name: other.name.replace(/^Blu /, '').replace(/ \(PDF\)$/, ''), inr: other.inr, usd: other.usd },
+    }];
+  }),
+);
 ---
 
 <Base title="Thank you! · Blululu" description="Your Blu download is on its way." noindex>
@@ -30,6 +43,20 @@ const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd
     </div>
   </section>
 
+  <section class="section upsell" id="creditOffer" hidden>
+    <div class="wrap narrow card card--credit">
+      <img class="sticker" src={book.img} alt={book.imgAlt} width="200" height="200" loading="lazy" />
+      <div>
+        <p class="eyebrow">Your money counts</p>
+        <h2>You just paid <span data-c="paid"></span>. Get both books for <span class="hl" data-c="more"></span> more.</h2>
+        <p>Add the <span data-c="otherName"></span> and you have the full {book.name.replace(/ \(PDF\)$/, '')}: {book.pages} pages.</p>
+        <p class="save">That's the <span data-c="otherName"></span> for <strong data-c="more2"></strong> instead of <s data-c="otherPrice"></s>.</p>
+        <a class="btn btn--primary credit-btn" id="creditBtn" href="#">Get the bundle</a>
+        <p class="muted small">One-time offer for this order. Same email, sent straight away.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section upsell" id="upsell">
     <div class="wrap narrow card">
       <img class="sticker" src={book.img} alt={book.imgAlt} width="200" height="200" loading="lazy" />
@@ -43,7 +70,7 @@ const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd
   </section>
 </Base>
 
-<script define:vars={{ prices }}>
+<script define:vars={{ prices, credit }}>
   // Purchase conversion: fires once per Dodo payment (return URL carries payment_id / status).
   const q = new URLSearchParams(location.search);
   const pid = q.get('payment_id') || q.get('paymentId');
@@ -58,7 +85,49 @@ const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd
   const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return true; } })();
   const pr = prices[slug];
   const currency = inIndia ? 'INR' : 'USD';
-  const value = pr ? (inIndia ? pr.inr : pr.usd) : 0;
+  // An upgrade buyer paid the bundle minus their credit (?from=<book> on the return URL).
+  const from = credit[q.get('from') || ''];
+  const cur = inIndia ? 'inr' : 'usd';
+  const value = pr ? (slug === 'colouring-abc-bundle' && from ? from.more[cur] : pr[cur]) : 0;
+
+  // Who sees which offer: bundle buyers see none, single-book buyers get the credit offer
+  // (if the server can make it), meltdown-scripts buyers get the plain bundle offer.
+  const upsell = document.getElementById('upsell');
+  const offer = document.getElementById('creditOffer');
+  if (ok && slug === 'colouring-abc-bundle') upsell.hidden = true;
+  if (ok && pid && credit[slug]) {
+    upsell.hidden = true; // wait for the server answer so we never flash two offers
+    const c = credit[slug];
+    const showPlain = () => { upsell.hidden = false; }; // no credit possible → plain bundle offer
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 8000);
+    fetch('/api/upgrade', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ payment_id: pid, p: slug }), signal: ctl.signal,
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        clearTimeout(timer);
+        if (!d || !d.checkout_url) return showPlain();
+        // Show prices in the currency they actually paid in (the server read it from Dodo).
+        const k = d.currency === 'INR' ? 'inr' : 'usd';
+        const fmt = (n) => (k === 'inr' ? '₹' : '$') + n;
+        const set = (name, text) => offer.querySelectorAll(`[data-c="${name}"]`).forEach((el) => { el.textContent = text; });
+        set('paid', fmt(c.paid[k]));
+        set('more', fmt(c.more[k])); set('more2', fmt(c.more[k]));
+        set('otherName', c.other.name); set('otherPrice', fmt(c.other[k]));
+        const btn = document.getElementById('creditBtn');
+        btn.href = d.checkout_url;
+        btn.textContent = `Get the bundle · ${fmt(c.more[k])} more`;
+        btn.addEventListener('click', () => {
+          window.posthog?.capture?.('upgrade_click', { product: slug, currency: d.currency, value: c.more[k] });
+          window.fbq?.('track', 'InitiateCheckout', { content_ids: ['colouring-abc-bundle'], content_type: 'product', value: c.more[k], currency: d.currency });
+        });
+        offer.hidden = false;
+        window.posthog?.capture?.('upgrade_offer_shown', { product: slug, currency: d.currency });
+      })
+      .catch(() => { clearTimeout(timer); showPlain(); });
+  }
   if (pid && ok) {
     let seen = false;
     try { seen = sessionStorage.getItem('bbs_purchase') === pid; sessionStorage.setItem('bbs_purchase', pid); } catch {}
@@ -75,9 +144,15 @@ const prices = Object.fromEntries(products.map((x) => [x.slug, { inr: x.inr, usd
   .narrow { max-width: 720px; }
   .hero { margin: 0 auto 1rem; width: 160px; }
   .lead { font-size: 1.15rem; }
-  .thanks a { color: var(--blu-d); text-decoration: underline; }
+  .thanks a:not(.btn) { color: var(--blu-d); text-decoration: underline; }
   .card { display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; align-items: center; background: var(--paper); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-soft); border-top: 10px solid var(--grass); }
   .card h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .card--credit { border-top-color: var(--red); }
+  .card--credit .hl { color: var(--red-text); }
+  .save { font-weight: 700; }
+  .save s { color: var(--ink-soft); font-weight: 400; }
+  .small { font-size: 0.9rem; margin: 0.8rem 0 0; }
+  .credit-btn { width: 100%; max-width: 360px; }
   @media (max-width: 640px) {
     .card { grid-template-columns: 1fr; text-align: center; }
     .card img { margin: 0 auto; width: 150px; }
