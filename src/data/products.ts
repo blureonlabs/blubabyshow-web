@@ -31,8 +31,8 @@ const env = import.meta.env;
 // PUBLIC_DODO_TEST=true (local only) points the buttons at Dodo test mode instead, so the whole
 // flow can be tried with a test card and no real money.
 // Kill switch: true keeps every buy button on "notify me" even with PUBLIC_DODO_LIVE set.
-// Paused 17 Nov 2026: live static checkout links return Dodo's "This link isn't available".
-const SHOP_PAUSED = true;
+// Paused 17 Nov 2026 (Dodo live review); unpaused 18 Nov 2026 after live links verified.
+const SHOP_PAUSED = false;
 const DODO_LIVE = !SHOP_PAUSED && env.PUBLIC_DODO_LIVE === 'true';
 const DODO_TEST = env.PUBLIC_DODO_TEST === 'true';
 const SITE = DODO_TEST ? (env.PUBLIC_SITE_URL || 'http://localhost:4330') : 'https://www.blubabyshow.com';
