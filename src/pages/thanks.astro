@@ -52,7 +52,7 @@ const credit = Object.fromEntries(
         <p>Add the <span data-c="otherName"></span> and you have the full {book.name.replace(/ \(PDF\)$/, '')}: {book.pages} pages.</p>
         <p class="save">That's the <span data-c="otherName"></span> for <strong data-c="more2"></strong> instead of <s data-c="otherPrice"></s>.</p>
         <a class="btn btn--primary credit-btn" id="creditBtn" href="#">Get the bundle</a>
-        <p class="muted small">One-time offer for this order. Same email, sent straight away.</p>
+        <p class="muted small">Offer open for 24 hours. Use the same email as your first order.</p>
       </div>
     </div>
   </section>
@@ -109,8 +109,9 @@ const credit = Object.fromEntries(
       .then((d) => {
         clearTimeout(timer);
         if (!d || !d.checkout_url) return showPlain();
-        // Show prices in the currency they actually paid in (the server read it from Dodo).
-        const k = d.currency === 'INR' ? 'inr' : 'usd';
+        // The server sends back only the link (no buyer data), so pick ₹/$ like the buy buttons do.
+        // The server itself only offers credit for INR or USD payments at full price.
+        const k = cur;
         const fmt = (n) => (k === 'inr' ? '₹' : '$') + n;
         const set = (name, text) => offer.querySelectorAll(`[data-c="${name}"]`).forEach((el) => { el.textContent = text; });
         set('paid', fmt(c.paid[k]));
@@ -120,11 +121,11 @@ const credit = Object.fromEntries(
         btn.href = d.checkout_url;
         btn.textContent = `Get the bundle · ${fmt(c.more[k])} more`;
         btn.addEventListener('click', () => {
-          window.posthog?.capture?.('upgrade_click', { product: slug, currency: d.currency, value: c.more[k] });
-          window.fbq?.('track', 'InitiateCheckout', { content_ids: ['colouring-abc-bundle'], content_type: 'product', value: c.more[k], currency: d.currency });
+          window.posthog?.capture?.('upgrade_click', { product: slug, currency, value: c.more[k] });
+          window.fbq?.('track', 'InitiateCheckout', { content_ids: ['colouring-abc-bundle'], content_type: 'product', value: c.more[k], currency });
         });
         offer.hidden = false;
-        window.posthog?.capture?.('upgrade_offer_shown', { product: slug, currency: d.currency });
+        window.posthog?.capture?.('upgrade_offer_shown', { product: slug, currency });
       })
       .catch(() => { clearTimeout(timer); showPlain(); });
   }

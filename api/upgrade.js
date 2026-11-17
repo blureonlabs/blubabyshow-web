@@ -5,7 +5,8 @@
 //   1) fetch the payment from Dodo and check it really succeeded, is recent, and was for that book;
 //   2) open a Dodo checkout session for the bundle with the matching credit code pre-applied
 //      (static payment links can't pre-apply a code; checkout sessions can);
-//   3) reply { checkout_url, currency } ('INR' or 'USD').
+//   3) reply { checkout_url } only. Nothing about the buyer (email, country, currency) is sent back
+//      or pre-filled: payment_ids sit in URLs and can leak, so the caller is treated as a stranger.
 // Anything missing or odd → { fallback: true } and the page shows the plain bundle button instead.
 //
 // Env (Vercel Project Settings -> Environment Variables):
@@ -19,8 +20,9 @@
 // Price rule: we never trust prices from the browser. The credit only applies when the buyer
 // paid in INR or USD and paid at least the full list price (PPP / lower local prices → fallback),
 // because the credit codes are set up in INR and USD only.
-// Real one-use guard = the Dodo code itself (1 use per customer). The in-memory set below just
-// stops one warm instance from making many sessions for the same payment.
+// Real one-use guard = the Dodo code settings (REQUIRED, see docs/UPGRADE_OFFER.md): restricted to
+// the bundle product, customer_eligibility 'existing', 1 redemption per customer. The in-memory map
+// below only stops one warm instance from making many sessions for the same payment.
 
 // Same product IDs as src/data/products.ts (live mode).
 const LIVE_IDS = {
@@ -44,8 +46,8 @@ const CODE_FOR = {
   'abc-book': () => process.env.UPGRADE_CODE_ABC || 'UPGRADE-ABC',
 };
 
-const WINDOW_MS = 7 * 24 * 3600 * 1000; // offer stays open for 7 days after the first purchase
-const seen = new Map(); // payment_id -> { checkout_url, currency } (per warm instance)
+const WINDOW_MS = 24 * 3600 * 1000; // offer stays open for 24 hours after the first purchase
+const seen = new Map(); // payment_id -> checkout_url (per warm instance; NOT a real guard)
 
 const fallback = (res, why) => {
   console.warn('upgrade fallback:', why); // reason only, never keys or emails
@@ -80,7 +82,7 @@ export default async function handler(req, res) {
   const bundleId = productId('colouring-abc-bundle', mode);
   if (!bookId || !bundleId) return fallback(res, 'product id missing for ' + mode);
 
-  if (seen.has(paymentId)) return res.status(200).json(seen.get(paymentId));
+  if (seen.has(paymentId)) return res.status(200).json({ checkout_url: seen.get(paymentId) });
 
   const headers = { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' };
   try {
@@ -91,7 +93,7 @@ export default async function handler(req, res) {
 
     if (pay.status !== 'succeeded') return fallback(res, 'payment not succeeded');
     const created = Date.parse(pay.created_at || '');
-    if (created && Date.now() - created > WINDOW_MS) return fallback(res, 'offer window over');
+    if (!created || Date.now() - created > WINDOW_MS) return fallback(res, 'offer window over');
     const cart = Array.isArray(pay.product_cart) ? pay.product_cart : [];
     const ids = cart.map((x) => x && x.product_id);
     if (!ids.includes(bookId)) return fallback(res, 'payment not for this product');
@@ -102,9 +104,8 @@ export default async function handler(req, res) {
     if (!list) return fallback(res, 'currency has no credit code');
     if (!(Number(pay.total_amount) >= list)) return fallback(res, 'paid less than list price');
 
-    // No email prefill: a payment_id can leak (URL, history), so the session must not
-    // reveal who bought. Country only, so the checkout prices in the same currency.
-    const country = pay.billing && pay.billing.country;
+    // No buyer prefill (email, country): a payment_id can leak (URL, history), so the session
+    // must not reveal who bought. The buyer types their own details at checkout.
 
     // 2) Bundle checkout with the credit pre-applied.
     const site = process.env.PUBLIC_SITE_URL || `https://${req.headers.host}`;
@@ -115,18 +116,15 @@ export default async function handler(req, res) {
       metadata: { upgrade_from: slug, upgrade_from_payment: paymentId },
       feature_flags: { allow_discount_code: false },
     };
-    if (country) body.billing_address = { country };
 
     const cr = await fetch(`${base}/checkouts`, { method: 'POST', headers, body: JSON.stringify(body) });
     if (!cr.ok) return fallback(res, 'checkout create ' + cr.status);
     const out = await cr.json();
     if (!out.checkout_url) return fallback(res, 'no checkout_url');
 
-    // currency tells the page which prices to show (what they really paid, not a guess).
-    const reply = { checkout_url: out.checkout_url, currency };
-    seen.set(paymentId, reply);
+    seen.set(paymentId, out.checkout_url);
     if (seen.size > 500) seen.delete(seen.keys().next().value);
-    return res.status(200).json(reply);
+    return res.status(200).json({ checkout_url: out.checkout_url });
   } catch (e) {
     return fallback(res, 'error ' + (e && e.name));
   }

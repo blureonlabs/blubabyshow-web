@@ -9,7 +9,7 @@ Someone buys one book. On the thank-you page they see:
 
 One button opens a Dodo checkout for the Colouring + ABC Bundle with the money they just paid already taken off.
 
-| They bought | India (INR) | Other INR/USD buyers (USD) |
+| They bought | Visitors in India (₹ shown) | Everyone else ($ shown) |
 |---|---|---|
 | Colouring Pack (₹149 / $7) | bundle for **₹100 more** | bundle for **$3 more** |
 | ABC Book (₹129 / $5) | bundle for **₹120 more** | bundle for **$5 more** |
@@ -21,21 +21,26 @@ One button opens a Dodo checkout for the Colouring + ABC Bundle with the money t
 
 1. `/thanks/?p=<book>&payment_id=…&status=succeeded` (Dodo's return URL) calls `POST /api/upgrade`.
 2. `api/upgrade.js` asks Dodo for that payment with the secret key. It checks that:
-   - the payment succeeded, in the last 7 days;
+   - the payment succeeded, less than 24 hours ago;
    - it was for that book (and not the bundle);
    - it was paid in **INR or USD**, at **full list price or more**.
 3. It opens a Dodo checkout session for the bundle with the credit code already applied
-   (`UPGRADE-COLOURING` or `UPGRADE-ABC`) and the code box locked. The email is NOT pre-filled (a payment_id in a URL can leak, so the checkout must not reveal who bought).
-   The return URL is `/thanks/?p=colouring-abc-bundle&from=<book>`.
-4. The page shows the offer only if it got a checkout link back. Prices come from the currency
-   they actually paid in. Anything else (no key, Dodo error, other currency, cheaper local price,
-   8 s timeout) → the page quietly shows the normal bundle offer at full price.
+   (`UPGRADE-COLOURING` or `UPGRADE-ABC`) and the code box locked. The return URL is
+   `/thanks/?p=colouring-abc-bundle&from=<book>`.
+4. It replies with **only** `{ checkout_url }`. It accepts POST only. Nothing about the buyer
+   (email, country, currency) is sent back or pre-filled, because a `payment_id` sits in a URL and
+   can leak (browser history, screenshots, shared links). The buyer types their own email at
+   checkout, and must use the same email as the first order (the codes are for existing customers).
+5. The page shows the offer only if it got a checkout link back, with ₹ for visitors in India and
+   $ elsewhere (same rule as the buy buttons). Anything else (no key, Dodo error, other currency,
+   cheaper local price, older than 24 h, 8 s timeout) → the normal bundle offer at full price.
 
-Prices are never taken from the browser. Each code is 1 use per customer inside Dodo, which is the real guard.
+Prices are never taken from the browser. The real one-use guard is the Dodo code settings below
+(the server's in-memory memo does not survive restarts, so it is not a guard).
 
 ## Turn it on (founder steps)
 
-### 1. Create 2 discount codes in Dodo
+### 1. Create 2 discount codes in Dodo (these settings are REQUIRED, not optional)
 Do this in **test mode first**, then again in **live mode** (the modes are separate).
 Dodo dashboard → **Sales → Discounts → Create**:
 
@@ -50,7 +55,8 @@ Dodo dashboard → **Sales → Discounts → Create**:
 | Uses per customer | **1** | **1** |
 | Total usage limit / expiry | leave empty | leave empty |
 
-Keep the codes private (do not post them). They only work on the bundle, only for people who already bought.
+Keep the codes private (do not post them). The three settings that make this safe, and must never be
+loosened: **restricted to the bundle**, **existing customers only**, **1 use per customer**.
 
 ### 2. Add env vars in Vercel
 Vercel → blubabyshow-web → Settings → Environment Variables:
@@ -74,6 +80,20 @@ Redeploy after adding env vars.
 2. The thank-you page should show "You just paid ₹149 … ₹100 more".
 3. Click it: the Dodo checkout should show the bundle with ₹149 off.
 4. Pay, and check you land on the thank-you page with no second offer.
+
+## Leftover risks (accepted)
+
+- **Leaked payment_id, within 24 h:** whoever has it can open a discounted bundle checkout. They
+  learn nothing about the buyer. The code still only works for someone who already bought from us,
+  once per customer, on the bundle. Worst case: another past customer gets the credit once.
+- **Code reuse across customers:** any existing customer who learns the code name can type it at a
+  normal bundle checkout. Our sessions lock the code box, but static links may not. Max loss = one
+  credit per existing customer.
+- **Currency display:** ₹/$ on the offer is picked by time zone. A rare buyer in India who paid in
+  USD sees ₹ text; Dodo checkout shows the real amount before they pay.
+- **No database:** the per-payment memo lives in memory only. Repeat requests can create more
+  checkout sessions for the same payment; they are harmless (unpaid sessions expire), and the code's
+  1-use-per-customer limit stops more than one redemption.
 
 ## Local prices (PPP) caveat
 
