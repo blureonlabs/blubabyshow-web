@@ -30,7 +30,10 @@ const env = import.meta.env;
 // Stays off until the Dodo account is approved: set PUBLIC_DODO_LIVE=true in Vercel to switch on.
 // PUBLIC_DODO_TEST=true (local only) points the buttons at Dodo test mode instead, so the whole
 // flow can be tried with a test card and no real money.
-const DODO_LIVE = env.PUBLIC_DODO_LIVE === 'true';
+// Kill switch: true keeps every buy button on "notify me" even with PUBLIC_DODO_LIVE set.
+// Paused 17 Nov 2026: live static checkout links return Dodo's "This link isn't available".
+const SHOP_PAUSED = true;
+const DODO_LIVE = !SHOP_PAUSED && env.PUBLIC_DODO_LIVE === 'true';
 const DODO_TEST = env.PUBLIC_DODO_TEST === 'true';
 const SITE = DODO_TEST ? (env.PUBLIC_SITE_URL || 'http://localhost:4330') : 'https://www.blubabyshow.com';
 // Test-mode copies of the live products (Dodo keeps the two modes separate).
