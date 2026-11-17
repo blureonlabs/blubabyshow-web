@@ -3,6 +3,7 @@
 import Base from '../layouts/Base.astro';
 import { bySlug } from '../data/products';
 const guide = bySlug('meltdown-scripts')!;
+const bundle = bySlug('colouring-abc-bundle')!;
 ---
 
 <Base title="Start here · Blu Baby Show" description="Free Blu Feelings Cards, calm scripts for toddler meltdowns, and personalised Blu videos." noindex>
@@ -25,6 +26,11 @@ const guide = bySlug('meltdown-scripts')!;
         <p id="startMsg" class="tile__msg" role="status" aria-live="polite"></p>
         <p class="tile__fine">Plus one warm email on Sundays. Unsubscribe anytime.</p>
       </div>
+
+      <a class="tile tile--link" href="/shop/?utm_source=instagram&utm_medium=bio" data-track="shop">
+        <img src={bundle.img} alt="" width="88" height="88" />
+        <span><strong>New: Blu's printable books</strong><br /><small>Colouring Pack · ABC Book · Bundle · instant PDF</small></span>
+      </a>
 
       <a class="tile tile--link" href="/kits/potty/?utm_source=instagram&utm_medium=bio" data-track="kit-potty">
         <img src="/characters/blu.webp" alt="" width="88" height="88" />
