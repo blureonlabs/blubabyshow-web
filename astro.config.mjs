@@ -9,9 +9,9 @@ export default defineConfig({
   // Later: swap static content for Supabase reads (published-only) once the studio ships.
   output: 'static',
   integrations: [
-    // Auto-generates /sitemap-index.xml at build. /thanks is post-checkout only (also noindex).
+    // Auto-generates /sitemap-index.xml at build. /thanks is post-checkout only and /checkout/* is a payment step (both noindex).
     sitemap({
-      filter: (page) => !page.includes('/thanks'),
+      filter: (page) => !page.includes('/thanks') && !page.includes('/checkout/'),
     }),
   ],
   markdown: {

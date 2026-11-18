@@ -28,6 +28,7 @@ Settings kept from before: `person_profiles: 'identified_only'`, `autocapture: t
 | `blog_post` | `/blog/<slug>/` |
 | `start` | `/start/` (Instagram link in bio) |
 | `thanks` | `/thanks/` (after checkout) |
+| `checkout` | `/checkout/<slug>/` (custom inline checkout, behind `CUSTOM_CHECKOUT`) |
 | `info` | contact, privacy, terms, refund, delivery, studio |
 
 Free downloads are PDFs, not pages: they show up as `free_download_clicked`.
@@ -52,7 +53,7 @@ Free downloads are PDFs, not pages: they show up as `free_download_clicked`.
 |---|---|---|
 | `product_viewed` | `product`, `price_shown`, `currency_shown` (INR/USD), `country_guess` (IN / non-IN, from time zone) | Product page load |
 | `buy_clicked` | `product`, `price`, `currency` | Any buy button (`a.buy`): product page, `/shop/`, `/thanks` upsell |
-| `checkout_redirect` | `product`, `via` (`buy_button` / `upgrade` / `leave`), `currency` | Any click that goes to `*.dodopayments.com`, sent with sendBeacon just before leaving |
+| `checkout_redirect` | `product`, `via` (`buy_button` / `upgrade` / `leave` / `checkout_page_link`), `currency` | Any click that goes to `*.dodopayments.com`, sent with sendBeacon just before leaving |
 | `purchase_completed` | `product`, `payment_status`, `value`, `currency` | `/thanks` with `payment_id` and `status=succeeded`. Once per payment: a refresh does not count again (sessionStorage key per `payment_id`). No email, no payment id. |
 | `purchase_failed` | `product`, `payment_status` | `/thanks` with a status other than `succeeded`, once per payment |
 | `upgrade_offer_shown` | `from_product`, `offer_product` | `/thanks` upsell card scrolls into view |
@@ -60,6 +61,10 @@ Free downloads are PDFs, not pages: they show up as `free_download_clicked`.
 | `leave_offer_shown` | `product`, `how` (`exit-top` / `fast-scroll-up`), `code` (STAY15) | "Before you go" popup on product pages |
 | `leave_offer_clicked` | `product`, `action` (`copy_code` / `checkout`), `code` | Copy code or continue to checkout in that popup |
 | `leave_offer_dismissed` | `product` | Popup closed |
+| `checkout_page_viewed` | `product`, `price_shown`, `currency` | `/checkout/<slug>/` load (custom checkout, docs/CUSTOM_CHECKOUT.md) |
+| `checkout_loaded` | `product`, `mode` (live/test), `ms` | Dodo inline frame opened / form ready |
+| `checkout_failed_fallback` | `product`, `reason`, `currency` | Custom checkout could not load; buyer sent to the static `/buy/` link (sendBeacon) |
+| `checkout_pay_clicked` | `product` | Pay button clicked inside the inline frame |
 
 Kit pages (fake-door test, no real checkout yet) keep their own events: `kit_view`, `kit_buy_click`, `kit_waitlist`, `kit_cross_click` (props: `kit`, `price`, `currency`, `utm_*`).
 

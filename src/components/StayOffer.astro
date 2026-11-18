@@ -2,10 +2,10 @@
 // "Before you go" offer: shown once per visitor when they head for the exit.
 // Desktop: pointer leaves through the top of the window. Phone: a fast scroll back up after 15 s.
 // The code STAY15 (15% off, once per customer) lives in Dodo; the buyer pastes it at checkout.
-import type { Product } from '../data/products';
+import { buyHref, type Product } from '../data/products';
 interface Props { product: Product }
 const { product: p } = Astro.props;
-const href = p.checkoutInr || p.checkoutUsd;
+const href = buyHref(p, p.checkoutInr || p.checkoutUsd); // custom checkout page when the flag is on
 ---
 
 {href && (

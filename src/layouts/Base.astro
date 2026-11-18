@@ -51,6 +51,7 @@ const PAGE_TYPE =
   : path.startsWith('/blog/') ? 'blog_post'
   : path === '/start/' ? 'start'
   : path === '/thanks/' ? 'thanks'
+  : path.startsWith('/checkout/') ? 'checkout'
   : 'info';
 
 const ORG_ID = `${SITE}/#org`;
