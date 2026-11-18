@@ -73,6 +73,13 @@ const pages = p.format.match(/(\d+) pages/)?.[1];
           Trouble with the form? <a href={staticHref} data-alt data-slug={p.slug}>Pay on the Dodo checkout page instead</a>.
         </p>
         <noscript><p class="pay__alt"><a href={staticHref}>Continue to secure checkout</a></p></noscript>
+        <!-- Phone only: the notes move under the form so the form starts on the first screen. -->
+        <ul class="trust trust--m">
+          <li>⚡ Instant PDF download: the link comes by email right after you pay.</li>
+          <li>🔒 Secure payment by Dodo Payments; tax handled at checkout.</li>
+          <li>Digital download: the order is final once the file is delivered. <a href="/terms/">Terms</a></li>
+          <li>📄 Download problems? Email us and we will send the file again.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -272,12 +279,18 @@ const pages = p.format.match(/(\d+) pages/)?.[1];
   @keyframes spin { to { transform: rotate(360deg); } }
   .pay__alt { text-align: center; font-size: 0.88rem; margin: 0.8rem 0 0; }
   .pay__alt a { color: var(--blu-d); }
+  .trust--m { display: none; }
   @media (max-width: 860px) {
     .co { padding-top: calc(var(--nav-h) + 0.8rem); }
+    .sum .eyebrow, .sum__inside, .sum__note, .sum .pill, .sum .trust, .row[data-row="sub"], .row[data-row="tax"] { display: none; }
+    .sum__rows { margin-top: 0.6rem; padding-top: 0.3rem; }
+    .row--total { border-top: 0; margin: 0; padding-top: 0.2rem; font-size: 1.15rem; }
+    .trust--m { display: block; padding: 0 0.3rem; }
+    .pay__box { min-height: 480px; }
     .co__grid { grid-template-columns: 1fr; gap: 1rem; }
     .wrap.co__grid { padding: 0 16px; }
     .sum { position: static; padding: 1.1rem; border-radius: var(--radius-sm); }
-    .sum__art { width: 72px; height: 72px; }
+    .sum__art { width: 56px; height: 56px; }
     .sum__name { font-size: 1.08rem; }
     .pay__box { border-radius: var(--radius-sm); padding: 0.25rem; }
   }
