@@ -15,7 +15,7 @@ export function getStaticPaths() {
 const isTest = Astro.params.slug === 'test-20';
 const base = bySlug(isTest ? 'colouring-pack' : Astro.params.slug!)!;
 const p = isTest
-  ? { ...base, slug: 'test-20', name: 'TEST payment ₹20 (Colouring Pack PDF)', inr: 20, usd: 0.25, checkoutInr: 'https://checkout.dodopayments.com/buy/pdt_0NsBp2SYkI75fBvYddfr1?quantity=1', checkoutUsd: undefined }
+  ? { ...base, slug: 'test-20', name: 'TEST payment ₹50 (Colouring Pack PDF)', inr: 50, usd: 0.6, checkoutInr: 'https://checkout.dodopayments.com/buy/pdt_0NsBp2SYkI75fBvYddfr1?quantity=1', checkoutUsd: undefined }
   : base;
 // Fallback = the same static Dodo link the buy buttons use today (product page if the shop is off).
 const staticHref = p.checkoutInr || p.checkoutUsd || `/shop/${p.slug}/`;
