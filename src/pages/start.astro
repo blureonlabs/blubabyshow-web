@@ -68,14 +68,14 @@ const bundle = bySlug('colouring-abc-bundle')!;
 </Base>
 
 <script>
+  import { signup } from '../lib/track';
   const w = window as any;
   // Prices by visitor region (same rule as the shop).
   const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return true; } })();
   document.querySelectorAll<HTMLElement>('[data-price-inr]').forEach((el) => {
     el.textContent = inIndia ? `₹${el.dataset.priceInr}` : `$${el.dataset.priceUsd}`;
   });
-  document.querySelectorAll<HTMLAnchorElement>('[data-track]').forEach((a) =>
-    a.addEventListener('click', () => w.posthog?.capture?.('start_click', { target: a.dataset.track })));
+  // Tile clicks: tile_clicked + cta_clicked come from the shared layer (Analytics.astro) via data-track.
 
   const form = document.getElementById('startForm') as HTMLFormElement | null;
   const msg = document.getElementById('startMsg');
@@ -84,7 +84,8 @@ const bundle = bySlug('colouring-abc-bundle')!;
     const email = (form.querySelector('input[type=email]') as HTMLInputElement).value.trim();
     const hp = (form.querySelector('input[name=hp]') as HTMLInputElement).value;
     const btn = form.querySelector('button') as HTMLButtonElement;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg!.textContent = 'Please enter a valid email 💛'; return; }
+    signup.submitted('link-in-bio');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg!.textContent = 'Please enter a valid email 💛'; signup.error('link-in-bio', 'invalid_email'); return; }
     btn.disabled = true; btn.textContent = 'Sending…';
     try {
       const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'link-in-bio', hp }) });
@@ -92,13 +93,15 @@ const bundle = bySlug('colouring-abc-bundle')!;
       if (res.ok && data.ok) {
         form.style.display = 'none';
         msg!.innerHTML = "You're in! 💛 <a href='/free/blu-feelings-cards-A4.pdf' download>Download your cards (PDF)</a>. We've emailed them too.";
-        w.posthog?.capture?.('newsletter_signup', { source: 'link-in-bio' });
+        signup.success('link-in-bio');
         w.fbq?.('track', 'Lead', { content_name: 'feelings-cards' });
       } else {
+        signup.error('link-in-bio', 'server');
         msg!.textContent = data.error || 'Something went wrong, please try again.';
         btn.disabled = false; btn.textContent = 'Send me the cards';
       }
     } catch {
+      signup.error('link-in-bio', 'network');
       msg!.textContent = 'Network hiccup, please try again.';
       btn.disabled = false; btn.textContent = 'Send me the cards';
     }

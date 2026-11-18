@@ -386,6 +386,7 @@ const wall: Tile[][] = [
 </Base>
 
 <script>
+  import { signup } from '../lib/track';
   // Respect reduced motion: hold the hero video on its poster.
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { document.querySelectorAll<HTMLVideoElement>('.vhero video').forEach((v) => { v.removeAttribute('autoplay'); v.pause(); }); }
   // Local currency for static prices (same rule as the shop: India time zone = ₹, else $).
@@ -403,7 +404,9 @@ const wall: Tile[][] = [
       const btn = form.querySelector('button');
       const email = (input?.value || '').trim();
       const hp = form.querySelector('input[name=hp]')?.value || '';
+      signup.submitted('home-newsletter');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        signup.error('home-newsletter', 'invalid_email');
         msg.textContent = 'Please enter a valid email 💛';
         msg.className = 'news__msg news__msg--err';
         return;
@@ -422,14 +425,16 @@ const wall: Tile[][] = [
           msg.innerHTML = "You're in! 💛 Welcome to Blu's Sunday Club. <a href='/free/blu-feelings-cards-A4.pdf' download>Download your free Feelings Cards (PDF)</a>";
           msg.className = 'news__msg news__msg--ok';
           // Conversion event (PostHog) — only fires on a real success. No-op if PH is off.
-          window.posthog?.capture?.('newsletter_signup', { source: 'website' });
+          signup.success('home-newsletter');
           if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: 'newsletter' });
         } else {
+          signup.error('home-newsletter', 'server');
           msg.textContent = data.error || 'Something went wrong — please try again.';
           msg.className = 'news__msg news__msg--err';
           btn.disabled = false; btn.textContent = label;
         }
       } catch {
+        signup.error('home-newsletter', 'network');
         msg.textContent = 'Network hiccup — please try again.';
         msg.className = 'news__msg news__msg--err';
         btn.disabled = false; btn.textContent = label;

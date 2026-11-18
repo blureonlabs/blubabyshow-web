@@ -15,6 +15,7 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^4.16.18",
+    "dodopayments-checkout": "2.1.0",
     "gray-matter": "^4.0.3",
     "unist-util-visit": "^5.2.0"
   },

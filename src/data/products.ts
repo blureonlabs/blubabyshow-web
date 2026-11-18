@@ -35,6 +35,13 @@ const env = import.meta.env;
 const SHOP_PAUSED = false;
 const DODO_LIVE = !SHOP_PAUSED && env.PUBLIC_DODO_LIVE === 'true';
 const DODO_TEST = env.PUBLIC_DODO_TEST === 'true';
+// Custom checkout (docs/CUSTOM_CHECKOUT.md): true = buy buttons open our own /checkout/<slug>/ page
+// with the Dodo inline checkout frame, instead of jumping straight to the Dodo hosted /buy/ link.
+// The /buy/ link stays as the fallback on that page. Needs DODO_PAYMENTS_API_KEY +
+// DODO_PAYMENTS_ENVIRONMENT=live_mode in Vercel before flipping. false = nothing changes.
+export const CUSTOM_CHECKOUT = false;
+/** Where a buy button points: the custom checkout page (flag on) or the static Dodo link. */
+export const buyHref = (p: Product, link?: string) => (link && CUSTOM_CHECKOUT ? `/checkout/${p.slug}/` : link);
 const SITE = DODO_TEST ? (env.PUBLIC_SITE_URL || 'http://localhost:4330') : 'https://www.blubabyshow.com';
 // Test-mode copies of the live products (Dodo keeps the two modes separate).
 const TEST_IDS: Record<string, string> = {

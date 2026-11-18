@@ -1,0 +1,96 @@
+---
+// Site-wide event layer (loaded once from Base.astro, bundled + deferred, never blocks render).
+// $pageview itself is sent from the inline PostHog snippet in Base.astro (with page_type).
+// Here: product_viewed, scroll depth, buy/checkout clicks, outbound + free-download clicks,
+// and cta_clicked for any element with data-track. Event list: docs/POSTHOG_EVENTS.md.
+---
+
+<script>
+  import { track, pageType, currency, countryGuess, inIndia } from '../lib/track';
+  const w = window as any;
+
+  // ---- Product page: product_viewed (price as the visitor sees it) ----
+  const prod = document.querySelector<HTMLElement>('[data-ph-product]');
+  if (pageType === 'product' && prod) {
+    track('product_viewed', {
+      product: prod.dataset.phProduct,
+      price_shown: Number(inIndia ? prod.dataset.inr : prod.dataset.usd),
+      currency_shown: currency,
+      country_guess: countryGuess,
+    });
+  }
+
+  // ---- Scroll depth 50 / 90 on product + blog pages ----
+  if (pageType === 'product' || pageType === 'blog_post') {
+    const left = [50, 90];
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - innerHeight;
+      const pct = h <= 0 ? 100 : (scrollY / h) * 100;
+      while (left.length && pct >= left[0]) track('scroll_depth', { depth: left.shift(), product: prod?.dataset.phProduct });
+      if (!left.length) removeEventListener('scroll', onScroll);
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ---- Checkout links: tag with the PostHog ids so a Dodo webhook can join purchase -> session ----
+  const isCheckout = (u: URL) => /(^|\.)dodopayments\.com$/.test(u.hostname);
+  const tagCheckout = (a: HTMLAnchorElement) => {
+    try {
+      const id = w.posthog?.get_distinct_id?.();
+      if (typeof id !== 'string' || !id) return;
+      const u = new URL(a.href);
+      u.searchParams.set('metadata_ph_id', id);
+      const sid = w.posthog?.get_session_id?.();
+      if (typeof sid === 'string' && sid) u.searchParams.set('metadata_ph_session', sid);
+      a.href = u.href; // redirect_url and the other params are kept as they are
+    } catch {}
+  };
+
+  // ---- One delegated click listener (capture phase: runs before the browser navigates) ----
+  const onClick = (e: MouseEvent) => {
+    const t = e.target as Element | null;
+    if (!t?.closest) return;
+
+    const tracked = t.closest<HTMLElement>('[data-track]');
+    if (tracked) {
+      const name = tracked.dataset.track;
+      track('cta_clicked', { name });
+      if (pageType === 'start') track('tile_clicked', { tile: name });
+    }
+
+    const a = t.closest<HTMLAnchorElement>('a[href]');
+    if (!a) return;
+    let u: URL;
+    try { u = new URL(a.href, location.href); } catch { return; }
+
+    if (a.classList.contains('buy')) {
+      track('buy_clicked', {
+        product: a.dataset.slug,
+        price: Number(inIndia ? a.dataset.inr : a.dataset.usd),
+        currency,
+      });
+    }
+
+    if (isCheckout(u)) {
+      tagCheckout(a);
+      const offer = a.closest<HTMLElement>('[data-offer]')?.dataset.offer; // 'upgrade' | 'leave'
+      track('checkout_redirect', {
+        product: a.dataset.slug || a.closest<HTMLElement>('[data-slug]')?.dataset.slug,
+        via: offer || 'buy_button',
+        currency,
+      }, true);
+      return;
+    }
+
+    if (u.origin === location.origin && u.pathname.startsWith('/free/')) {
+      track('free_download_clicked', { file: u.pathname.split('/').pop() });
+      return;
+    }
+
+    if (/^https?:$/.test(u.protocol) && u.hostname !== location.hostname) {
+      track('outbound_link_clicked', { host: u.hostname, url: u.origin + u.pathname }, true);
+    }
+  };
+  document.addEventListener('click', onClick, true);
+  document.addEventListener('auxclick', onClick, true); // middle-click / open in new tab
+</script>

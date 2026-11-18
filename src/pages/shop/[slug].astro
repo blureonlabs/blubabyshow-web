@@ -62,7 +62,7 @@ const jsonLd = [
   imageAlt={`${p.name}, a printable PDF from Blu Baby Show`}
   jsonLd={jsonLd}
 >
-  <section class="section pd" style={`--c:${p.accent}`}>
+  <section class="section pd" style={`--c:${p.accent}`} data-ph-product={p.slug} data-inr={p.inr} data-usd={p.usd}>
     <div class="wrap pd__grid">
       <div class="pd__art">
         <img class="sticker" src={p.img} alt={p.imgAlt} width="420" height="420" />
@@ -74,7 +74,7 @@ const jsonLd = [
         <p class="price"><span data-price-inr={p.inr} data-price-usd={p.usd}>₹{p.inr}</span> <small>· one-time · PDF soft copy</small></p>
         <p class="digital">📄 Digital download only (PDF soft copy). Nothing is shipped; you print it at home.</p>
         <BuyButton product={p} full />
-        <p class="trust muted">UPI · RuPay · cards &nbsp;·&nbsp; 7-day refund &nbsp;·&nbsp; secure checkout by Dodo Payments</p>
+        <p class="trust muted">UPI · RuPay · cards &nbsp;·&nbsp; instant PDF &nbsp;·&nbsp; secure checkout by Dodo Payments</p>
       </div>
     </div>
   </section>

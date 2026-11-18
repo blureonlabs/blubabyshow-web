@@ -77,6 +77,7 @@ const others = kits.filter((k) => k.slug !== kit.slug);
 </Base>
 
 <script>
+  import { track, signup } from '../../lib/track';
   const w = window as any;
   const inIndia = (() => { try { return /Asia\/(Kolkata|Calcutta)/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch { return false; } })();
   document.querySelectorAll<HTMLElement>('[data-price-inr]').forEach((el) => {
@@ -90,9 +91,9 @@ const others = kits.filter((k) => k.slug !== kit.slug);
   const params = new URLSearchParams(location.search);
   const props = { kit: slug, price, currency, utm_source: params.get('utm_source'), utm_campaign: params.get('utm_campaign'), utm_content: params.get('utm_content') };
 
-  w.posthog?.capture?.('kit_view', props);
+  track('kit_view', props);
   btn.addEventListener('click', () => {
-    w.posthog?.capture?.('kit_buy_click', props);
+    track('kit_buy_click', props);
     w.fbq?.('track', 'InitiateCheckout', { content_name: slug, value: price, currency });
     btn.hidden = true;
     const early = document.getElementById('early')!;
@@ -107,7 +108,8 @@ const others = kits.filter((k) => k.slug !== kit.slug);
     const email = (form.querySelector('input[type=email]') as HTMLInputElement).value.trim();
     const hp = (form.querySelector('input[name=hp]') as HTMLInputElement).value;
     const b = form.querySelector('button') as HTMLButtonElement;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Please enter a valid email 💛'; return; }
+    signup.submitted(`kit-waitlist:${slug}`);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Please enter a valid email 💛'; signup.error(`kit-waitlist:${slug}`, 'invalid_email'); return; }
     b.disabled = true; b.textContent = 'Sending…';
     try {
       const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: `kit-waitlist:${slug}`, hp }) });
@@ -115,19 +117,22 @@ const others = kits.filter((k) => k.slug !== kit.slug);
       if (res.ok && data.ok) {
         form.style.display = 'none';
         msg.innerHTML = "You're on the list! 💛 We've emailed you. Here's a free page to start: <a href='/free/blu-feelings-cards-A4.pdf' download>Blu's Feelings Cards (PDF)</a>.";
-        w.posthog?.capture?.('kit_waitlist', props);
+        track('kit_waitlist', props);
+        signup.success(`kit-waitlist:${slug}`);
         w.fbq?.('track', 'Lead', { content_name: `kit-${slug}` });
       } else {
+        signup.error(`kit-waitlist:${slug}`, 'server');
         msg.textContent = data.error || 'Something went wrong, please try again.';
         b.disabled = false; b.textContent = 'Notify me + send the free page';
       }
     } catch {
+      signup.error(`kit-waitlist:${slug}`, 'network');
       msg.textContent = 'Network hiccup, please try again.';
       b.disabled = false; b.textContent = 'Notify me + send the free page';
     }
   });
   document.querySelectorAll<HTMLAnchorElement>('[data-kit-link]').forEach((a) =>
-    a.addEventListener('click', () => w.posthog?.capture?.('kit_cross_click', { from: slug, to: a.dataset.kitLink })));
+    a.addEventListener('click', () => track('kit_cross_click', { from: slug, to: a.dataset.kitLink })));
 </script>
 
 <style>

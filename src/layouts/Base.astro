@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
 
 interface Props {
   title?: string;
@@ -38,6 +39,20 @@ if (!path.endsWith('/') && !path.split('/').pop()!.includes('.')) path += '/';
 const canonical = new URL(path, SITE).href;
 const ogImage = new URL(image, SITE).href;
 const isHome = path === '/';
+
+// Page type for analytics (sent on every PostHog event as page_type). See docs/POSTHOG_EVENTS.md.
+const PAGE_TYPE =
+  isHome ? 'home'
+  : path === '/shop/' ? 'shop_index'
+  : path.startsWith('/shop/') ? 'product'
+  : path === '/kits/' ? 'kit_index'
+  : path.startsWith('/kits/') ? 'kit'
+  : path === '/blog/' ? 'blog_index'
+  : path.startsWith('/blog/') ? 'blog_post'
+  : path === '/start/' ? 'start'
+  : path === '/thanks/' ? 'thanks'
+  : path.startsWith('/checkout/') ? 'checkout'
+  : 'info';
 
 const ORG_ID = `${SITE}/#org`;
 const graph: Record<string, unknown>[] = [
@@ -112,7 +127,7 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188'
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page-type={PAGE_TYPE}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -157,14 +172,41 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188'
 
     <!-- Privacy: strip buyer PII (Dodo appends it to the /thanks return URL) before analytics loads -->
     <script is:inline>
-      (function(){try{var u=new URL(location.href),d=false;['email','customer_email','name','phone'].forEach(function(k){if(u.searchParams.has(k)){u.searchParams.delete(k);d=true}});if(d)history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}})();
+      (function(){try{var u=new URL(location.href),d=false;['email','customer_email','name','first_name','last_name','phone'].forEach(function(k){if(u.searchParams.has(k)){u.searchParams.delete(k);d=true}});if(d)history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch(e){}})();
     </script>
 
     <!-- Analytics: PostHog (pageviews + autocaptured clicks + bounce for funnels/drop-off) -->
     {POSTHOG_KEY && (
-      <script is:inline define:vars={{ POSTHOG_KEY, POSTHOG_HOST }}>
+      <script is:inline define:vars={{ POSTHOG_KEY, POSTHOG_HOST, PAGE_TYPE }}>
         !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-        posthog.init(POSTHOG_KEY,{api_host:POSTHOG_HOST,person_profiles:'identified_only',capture_pageview:true,capture_pageleave:true,autocapture:true});
+        (function(){
+          // Safety net: drop buyer details from any URL PostHog would store ($current_url, $referrer, ...).
+          var BAD=/^(email|customer_email|name|first_name|last_name|phone|payment_id|paymentid|license_key)$/i;
+          function cleanUrl(v){try{var u=new URL(v),c=false;Array.from(u.searchParams.keys()).forEach(function(k){if(BAD.test(k)){u.searchParams.delete(k);c=true}});return c?u.href:v}catch(e){return v}}
+          function clean(o){if(!o||typeof o!=='object')return o;for(var k in o){if(/email/i.test(k)&&k.charAt(0)!=='$'){delete o[k];continue}var v=o[k];if(typeof v==='string'&&/^https?:\/\/.*\?/.test(v))o[k]=cleanUrl(v)}return o}
+          var dbg=false;try{dbg=/[?&]bbs_debug=1/.test(location.search)||sessionStorage.getItem('bbs_debug')==='1'}catch(e){}
+          posthog.init(POSTHOG_KEY,{
+            api_host:POSTHOG_HOST, person_profiles:'identified_only',
+            capture_pageview:false, capture_pageleave:true, autocapture:true,
+            sanitize_properties:function(p){return clean(p)},
+            before_send:function(ev){if(ev){clean(ev.properties);clean(ev.$set);clean(ev.$set_once)}if(dbg&&ev){var pp=ev.properties||{};console.info('[bbs-posthog] sent',ev.event,JSON.stringify({page_type:pp.page_type,url:pp.$current_url,first_utm_source:pp.first_utm_source,set_once:ev.$set_once&&ev.$set_once.first_utm_source}))}return ev}
+          });
+          // Every event carries page_type; then the pageview (manual so page_type is on it).
+          posthog.register({page_type:PAGE_TYPE});
+          // First touch: UTM + Instagram referrer, kept on the visitor (cookie) and as person properties.
+          try{
+            var q=new URLSearchParams(location.search),ft={},ref=document.referrer||'',ig=/(^|\.)instagram\.com$/i.test(ref?new URL(ref).hostname:'')||/Instagram/.test(navigator.userAgent);
+            ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){var v=q.get(k);if(v)ft['first_'+k]=v.slice(0,100)});
+            if(ig)ft.first_from_instagram=true;
+            if(Object.keys(ft).length){
+              ft.first_landing_path=location.pathname;
+              if(ref)try{ft.first_referrer_host=new URL(ref).hostname}catch(e){}
+              posthog.register_once(ft);
+              posthog.setPersonProperties({},ft);
+            }
+          }catch(e){}
+          posthog.capture('$pageview');
+        })();
       </script>
     )}
 
@@ -185,5 +227,6 @@ const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '1119556160690188'
       <slot />
     </main>
     <Footer />
+    <Analytics />
   </body>
 </html>
