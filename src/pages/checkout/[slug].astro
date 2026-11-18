@@ -8,10 +8,15 @@ import Base from '../../layouts/Base.astro';
 import { products, bySlug } from '../../data/products';
 
 export function getStaticPaths() {
-  return products.map((p) => ({ params: { slug: p.slug } }));
+  // 'test-20': hidden ₹20 live test product (founder's own test payment). Not linked anywhere.
+  return [...products.map((p) => ({ params: { slug: p.slug } })), { params: { slug: 'test-20' } }];
 }
 
-const p = bySlug(Astro.params.slug!)!;
+const isTest = Astro.params.slug === 'test-20';
+const base = bySlug(isTest ? 'colouring-pack' : Astro.params.slug!)!;
+const p = isTest
+  ? { ...base, slug: 'test-20', name: 'TEST payment ₹20 (Colouring Pack PDF)', inr: 20, usd: 0.25, checkoutInr: 'https://checkout.dodopayments.com/buy/pdt_0NsBp2SYkI75fBvYddfr1?quantity=1', checkoutUsd: undefined }
+  : base;
 // Fallback = the same static Dodo link the buy buttons use today (product page if the shop is off).
 const staticHref = p.checkoutInr || p.checkoutUsd || `/shop/${p.slug}/`;
 const pages = p.format.match(/(\d+) pages/)?.[1];

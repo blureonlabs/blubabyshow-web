@@ -22,6 +22,7 @@ const LIVE_IDS = {
   'colouring-pack': 'pdt_0Nrvjcuq0CSzAEC8cdMWN',
   'abc-book': 'pdt_0Nrvjd0XaxrHfhj6utpFs',
   'colouring-abc-bundle': 'pdt_0Nrvjd4cfdVZSWvMt4cUF',
+  'test-20': 'pdt_0NsBp2SYkI75fBvYddfr1', // hidden ₹20 test product (founder test only)
 };
 // Test-mode copies (Dodo keeps modes separate). Same list as TEST_IDS in products.ts.
 const TEST_IDS = {
