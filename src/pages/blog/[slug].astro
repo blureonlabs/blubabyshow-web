@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
+import BuyButton from '../../components/BuyButton.astro';
+import ShopStrip from '../../components/ShopStrip.astro';
 import { getPublishedPosts, readingTime, formatDate, CLUSTER_LABELS, SITE, type Post } from '../../lib/posts';
 import { bySlug } from '../../data/products';
 
@@ -26,7 +28,7 @@ const imageAbs = new URL(d.heroImage, SITE).href;
 const modified = d.updatedDate ?? d.pubDate;
 
 // CTA box: products come from the catalogue (never hardcode prices).
-let cta: { eyebrow: string; title: string; text: string; href: string; label: string; img?: string; imgAlt?: string };
+let cta: { eyebrow: string; title: string; text: string; href: string; label: string; img?: string; imgAlt?: string; product?: ReturnType<typeof bySlug> };
 if (d.cta === 'newsletter') {
   cta = {
     eyebrow: 'Free, every Sunday',
@@ -45,6 +47,7 @@ if (d.cta === 'newsletter') {
     label: 'Take a look',
     img: p.img,
     imgAlt: p.imgAlt,
+    product: p,
   };
 }
 
@@ -154,9 +157,13 @@ if (d.faq.length > 0) {
           <p class="eyebrow">{cta.eyebrow}</p>
           <h2 class="cta__title">{cta.title}</h2>
           <p class="muted">{cta.text}</p>
-          <a class="btn btn--primary" href={cta.href}>{cta.label}</a>
+          {cta.product
+            ? <div class="cta__btns"><BuyButton product={cta.product} place="blog_post" /> <a class="btn btn--ghost" href={cta.href}>{cta.label}</a></div>
+            : <a class="btn btn--primary" href={cta.href}>{cta.label}</a>}
         </div>
       </aside>
+
+      {!cta.product && <ShopStrip place="blog_post" />}
 
       <p class="disclaimer muted">A friendly guide, not medical advice. For anything that worries you, talk to your paediatrician.</p>
     </div>

@@ -1,0 +1,46 @@
+---
+// One product + a real Buy button, for any page (blog, kits, start, home).
+// `place` names the spot, so PostHog buy_clicked shows which placement sells.
+import BuyButton from './BuyButton.astro';
+import { bySlug } from '../data/products';
+
+interface Props { slug?: string; place: string; title?: string }
+const { slug = 'colouring-abc-bundle', place, title } = Astro.props;
+const p = bySlug(slug)!;
+---
+
+<aside class="sstrip" style={`--c:${p.accent}`} data-place={place}>
+  <a class="sstrip__art" href={`/shop/${p.slug}/`} tabindex="-1" aria-hidden="true">
+    <img src={p.img} alt="" width="120" height="120" loading="lazy" />
+  </a>
+  <div class="sstrip__body">
+    <p class="sstrip__eye">{title ?? `From the Blu Shop · ${p.badge}`}</p>
+    <h3 class="sstrip__name"><a href={`/shop/${p.slug}/`}>{p.name.replace(' (PDF)', '')}</a></h3>
+    <p class="sstrip__short">{p.short}</p>
+    <div class="sstrip__cta">
+      <BuyButton product={p} place={place} />
+      <a class="sstrip__more" href="/shop/">All printables →</a>
+    </div>
+    <p class="sstrip__fine">PDF · instant download · UPI or card</p>
+  </div>
+</aside>
+
+<style>
+  .sstrip { display: grid; grid-template-columns: 120px 1fr; gap: 1.2rem; align-items: center; background: var(--paper);
+    border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow-soft); border: 2px solid color-mix(in srgb, var(--c) 30%, transparent);
+    max-width: 760px; margin: 2rem auto; text-align: left; }
+  .sstrip__art { display: grid; place-items: center; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--c) 18%, var(--paper)); padding: 0.5rem; }
+  .sstrip__art img { width: 100%; height: auto; }
+  .sstrip__eye { margin: 0; font-size: 0.78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+  .sstrip__name { margin: 0.2rem 0 0.3rem; font-size: 1.2rem; line-height: 1.2; }
+  .sstrip__name a { color: var(--blu-deep); text-decoration: none; }
+  .sstrip__short { margin: 0 0 0.8rem; font-size: 0.95rem; color: var(--ink-soft); }
+  .sstrip__cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .sstrip__more { font-weight: 700; color: var(--blu-d); }
+  .sstrip__fine { margin: 0.6rem 0 0; font-size: 0.8rem; color: var(--ink-soft); }
+  @media (max-width: 560px) {
+    .sstrip { grid-template-columns: 84px 1fr; gap: 0.8rem; padding: 0.9rem; margin: 1.5rem 16px; }
+    .sstrip__short { display: none; }
+    .sstrip__cta :global(.btn) { width: 100%; justify-content: center; }
+  }
+</style>

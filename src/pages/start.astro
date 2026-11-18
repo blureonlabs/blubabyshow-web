@@ -2,6 +2,7 @@
 // Link-in-bio page for @theblubabyshow. One job: turn an Instagram tap into an email or a sale.
 import Base from '../layouts/Base.astro';
 import { bySlug } from '../data/products';
+import BuyButton from '../components/BuyButton.astro';
 const guide = bySlug('meltdown-scripts')!;
 const bundle = bySlug('colouring-abc-bundle')!;
 ---
@@ -31,6 +32,7 @@ const bundle = bySlug('colouring-abc-bundle')!;
         <img src={bundle.img} alt="" width="88" height="88" />
         <span><strong>New: Blu's printable books</strong><br /><small>Colouring Pack · ABC Book · Bundle · instant PDF</small></span>
       </a>
+      <div class="start__buy"><BuyButton product={bundle} full place="start_page" /></div>
 
       <a class="tile tile--link" href="/kits/potty/?utm_source=instagram&utm_medium=bio" data-track="kit-potty">
         <img src="/characters/blu.webp" alt="" width="88" height="88" />
@@ -109,6 +111,7 @@ const bundle = bySlug('colouring-abc-bundle')!;
 </script>
 
 <style>
+  .start__buy { margin: -0.3rem 0 0.4rem; }
   .start { padding: calc(var(--nav-h) + 1.5rem) 16px 3rem; background: #FBF3E7; }
   .start__wrap { max-width: 480px; margin: 0 auto; text-align: center; }
   .start__blu { width: 112px; height: 112px; border-radius: 50%; object-fit: contain; background: #dceeff; border: 4px solid #fff; box-shadow: 0 6px 18px rgba(34,58,92,.15); }

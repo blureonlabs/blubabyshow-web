@@ -4,8 +4,8 @@
 // becomes a "notify me" button pointing at the newsletter, so nothing breaks before launch.
 import { buyHref, type Product } from '../data/products';
 
-interface Props { product: Product; variant?: string; full?: boolean }
-const { product: p, variant = 'btn--primary', full = false } = Astro.props;
+interface Props { product: Product; variant?: string; full?: boolean; place?: string }
+const { product: p, variant = 'btn--primary', full = false, place } = Astro.props;
 const live = Boolean(p.checkoutInr || p.checkoutUsd);
 // CUSTOM_CHECKOUT on (products.ts) = both currencies go to /checkout/<slug>/; the page picks the price.
 const inrHref = buyHref(p, p.checkoutInr || p.checkoutUsd);
@@ -21,6 +21,7 @@ const usdHref = buyHref(p, p.checkoutUsd || p.checkoutInr);
     data-inr-label={`Buy now · ₹${p.inr}`}
     data-usd-label={`Buy now · $${p.usd}`}
     data-slug={p.slug}
+    data-place={place}
     data-inr={p.inr}
     data-usd={p.usd}
   >Buy now · ₹{p.inr}</a>

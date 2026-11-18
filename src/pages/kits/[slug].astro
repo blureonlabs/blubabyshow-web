@@ -8,6 +8,7 @@ export function getStaticPaths() {
 }
 const kit = kitBySlug(Astro.params.slug!)!;
 const others = kits.filter((k) => k.slug !== kit.slug);
+import ShopStrip from '../../components/ShopStrip.astro';
 ---
 
 <Base title={`${kit.name} · Blu Baby Show`} description={kit.tagline}>
@@ -58,6 +59,8 @@ const others = kits.filter((k) => k.slug !== kit.slug);
           <li>Tap a star each day you try. Small steps add up.</li>
         </ol>
       </div>
+
+      <ShopStrip place="kit_page" slug="meltdown-scripts" title="Ready today: instant PDF" />
 
       <div class="kit__more">
         <h2>More Blu Kits</h2>

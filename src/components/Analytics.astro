@@ -68,6 +68,7 @@
         product: a.dataset.slug,
         price: Number(inIndia ? a.dataset.inr : a.dataset.usd),
         currency,
+        place: a.dataset.place || a.closest<HTMLElement>('[data-place]')?.dataset.place || 'product_page',
       });
     }
 

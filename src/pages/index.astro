@@ -3,6 +3,10 @@ import Base from '../layouts/Base.astro';
 import Doodles from '../components/Doodles.astro';
 import Icon from '../components/Icon.astro';
 import PostCard from '../components/PostCard.astro';
+import BuyButton from '../components/BuyButton.astro';
+import ShopStrip from '../components/ShopStrip.astro';
+import { bySlug } from '../data/products';
+const heroProduct = bySlug('colouring-abc-bundle')!;
 import { getPublishedPosts } from '../lib/posts';
 
 const latestPosts = (await getPublishedPosts()).slice(0, 3);
@@ -101,9 +105,10 @@ const wall: Tile[][] = [
         <h1>Little stories about big feelings</h1>
         <p class="vhero__sub">A wordless family cartoon, watched {proof.views.replace('M+', ' million+')} times by families around the world.</p>
         <div class="vhero__cta">
-          <a class="btn btn--sun" href="/kits/?utm_source=site&utm_medium=hero">See the Blu Kits</a>
-          <a class="btn btn--ghost-light" href="#newsletter">Free Feelings Cards</a>
+          <BuyButton product={heroProduct} variant="btn--sun" place="home_hero" />
+          <a class="btn btn--ghost-light" href="/shop/?utm_source=site&utm_medium=hero">See all printables</a>
         </div>
+        <p class="vhero__mini">161 printable pages · Blu colouring + A to Z · <a href="#newsletter">or get free Feelings Cards</a></p>
       </div>
     </div>
   </section>
@@ -351,7 +356,8 @@ const wall: Tile[][] = [
 
   <!-- ============ FROM THE BLOG (renders nothing if no published posts) ============ -->
   {latestPosts.length > 0 && (
-    <section class="section blogteaser">
+    <ShopStrip place="home_mid" slug="meltdown-scripts" title="For the hard moments" />
+  <section class="section blogteaser">
       <div class="wrap">
         <div class="blogteaser__head">
           <p class="eyebrow">Small Moments</p>
@@ -827,6 +833,8 @@ const wall: Tile[][] = [
   .vhero__bg { display: none; }
   .vhero__vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
   .vhero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,34,58,.15) 0%, rgba(20,34,58,0) 35%, rgba(20,34,58,.55) 100%); }
+  .vhero__mini { margin: 0.7rem 0 0; font-size: 0.88rem; opacity: .92; }
+  .vhero__mini a { color: #fff; text-decoration: underline; }
   .vhero__copy { position: absolute; left: 0; right: 0; bottom: clamp(56px, 10vh, 110px); text-align: center; color: #fff; padding: 0 16px; }
   @media (min-width: 761px) {
     .vhero__bg { display: block; position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; filter: blur(28px) saturate(1.2) brightness(.8); }

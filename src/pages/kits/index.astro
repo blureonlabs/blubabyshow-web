@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { kits } from '../../data/kits';
+import ShopStrip from '../../components/ShopStrip.astro';
 ---
 
 <Base title="Blu Kits · Blu Baby Show" description="Small, phone-friendly kits for the big toddler moments: potty, new baby, hitting and bedtime, with Blu.">
@@ -18,6 +19,7 @@ import { kits } from '../../data/kits';
           </a>
         ))}
       </div>
+      <ShopStrip place="kits_index" title="Ready today: instant PDF" />
     </div>
   </section>
 </Base>
