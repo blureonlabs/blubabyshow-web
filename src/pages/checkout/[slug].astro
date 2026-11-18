@@ -179,7 +179,16 @@ const pages = p.format.match(/(\d+) pages/)?.[1];
     catch { return fallback('sdk_load'); }
 
     let opened = false;
-    const openTimer = setTimeout(() => { if (!opened) fallback('frame_timeout'); }, 15000);
+    // No frame at all after 15 s -> hosted page. Frame there but slow -> keep waiting (never yank a
+    // buyer away mid-form); the "Pay on the Dodo checkout page instead" link stays visible.
+    const openTimer = setTimeout(() => {
+      if (opened) return;
+      if (document.querySelector('#dodo-inline-checkout iframe')) {
+        const msg = wait.querySelector('p');
+        if (msg) msg.textContent = 'Still loading… You can also use the Dodo checkout link below.';
+        track('checkout_slow', { product: slug });
+      } else fallback('frame_timeout');
+    }, 15000);
     const ready = () => {
       if (opened) return;
       opened = true;
@@ -216,6 +225,14 @@ const pages = p.format.match(/(\d+) pages/)?.[1];
         },
       });
       sdk.Checkout.open({ checkoutUrl: data.checkout_url, elementId: 'dodo-inline-checkout' });
+      // Backup ready signal: the frame's own load event (some browsers/extensions drop SDK messages).
+      const hook = setInterval(() => {
+        const f = document.querySelector<HTMLIFrameElement>('#dodo-inline-checkout iframe');
+        if (!f) return;
+        clearInterval(hook);
+        f.addEventListener('load', () => setTimeout(ready, 1500), { once: true });
+      }, 100);
+      setTimeout(() => clearInterval(hook), 20000);
     } catch { clearTimeout(openTimer); return fallback('sdk_error'); }
   };
   run();
