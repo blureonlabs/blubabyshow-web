@@ -101,6 +101,7 @@ export default async function handler(req, res) {
   const body = {
     product_cart: [{ product_id: pid, quantity: 1 }],
     return_url: `${site}/thanks/?p=${slug}`,
+    customization: { theme: "light" },
     ...(Object.keys(metadata).length ? { metadata } : {}),
   };
 
